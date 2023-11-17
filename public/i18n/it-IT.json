@@ -1,0 +1,24 @@
+{
+  "contactCard": {
+    "title": "Contatti",
+    "subtitle": "Contattami, puoi mandarmi una mail",
+    "alertEmailCopied": "Email copiata!"
+  },
+  "projectSection": {
+    "title": "Progetti",
+    "sentence": "Un elenco di alcuni progetti"
+  },
+  "footer": {
+    "credit": "Fatto da Me | © "
+  },
+  "hero": {
+    "contactButton": "Contatti",
+    "readMoreButton": "Leggi di più"
+  },
+  "readCv": "Scopri di più",
+  "navigationMenu": {
+    "home": "Home",
+    "aboutMe": "Chi sono",
+    "contacts": "Contatti"
+  }
+}

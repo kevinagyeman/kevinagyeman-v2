@@ -9,6 +9,7 @@ import { Button } from '../ui/button';
 import Divider from '../ui/divider';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
 
 const InformationElement = () => {
   const [information, setInformation] =
@@ -17,7 +18,7 @@ const InformationElement = () => {
 
   useEffect(() => {
     getInformation(setInformation);
-  }, []);
+  });
 
   return (
     <>
@@ -28,10 +29,13 @@ const InformationElement = () => {
       <div className='flex flex-col space-y-4'>
         <p className='text-sm text-muted-foreground'>{information?.email}</p>
         <div>
-          <img
-            src={information?.profileImageLink}
-            className='h-32 rounded-full'
-          />
+          {information.profileImageLink && (
+            <Image
+              src={information.profileImageLink}
+              className='h-32 rounded-full'
+              alt='profile image'
+            />
+          )}
         </div>
         <h4 className='text-xl font-semibold'>
           {information?.name} {information?.surname}

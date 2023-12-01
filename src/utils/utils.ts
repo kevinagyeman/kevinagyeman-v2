@@ -74,3 +74,18 @@ export const getInformation = async (
     console.log(e);
   }
 };
+
+export const getInformationServer = async () => {
+  try {
+    const data = await informationService.getById();
+    if (data) {
+      const currentInformation: InformationSchema = {
+        ...data,
+        id: data.id,
+      };
+      return currentInformation;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};

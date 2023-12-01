@@ -10,15 +10,23 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { InformationSchema } from '@/types/information-schema';
+import { informationDataState } from '@/store/information-store';
+import { getInformation } from '@/utils/utils';
+import { useEffect } from 'react';
 
 export default function IconAdmin() {
   const router = useRouter();
   const [isAdminLoggedData, setIsAdminLoggedData] = useRecoilState<boolean>(
     isAdminLoggedDataState
   );
+  const [information, setInformation] =
+    useRecoilState<InformationSchema>(informationDataState);
 
-  const profileImage =
-    'https://media.licdn.com/dms/image/C4D03AQEavaj22cXyTg/profile-displayphoto-shrink_800_800/0/1537222123446?e=1701907200&v=beta&t=ob0K8RV-VoP54eBQ2px4EQdFruhSNLHNTB6Phbh0qdU';
+  useEffect(() => {
+    getInformation(setInformation);
+  });
 
   const signOut = async () => {
     try {
@@ -34,11 +42,15 @@ export default function IconAdmin() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <img
-          className='h-8 w-8 rounded-full'
-          src={profileImage}
-          alt='profile'
-        />
+        {information.profileImageLink && (
+          <Image
+            className='h-8 w-8 rounded-full'
+            src={information.profileImageLink}
+            alt='profile'
+            width={300}
+            height={300}
+          />
+        )}
       </DropdownMenuTrigger>
       {isAdminLoggedData && (
         <DropdownMenuContent className='w-56'>

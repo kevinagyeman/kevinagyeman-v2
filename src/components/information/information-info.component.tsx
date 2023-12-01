@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 import SkillsList from '../skills-list.component';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const InformationInfo = () => {
   const [information, setInformation] =
@@ -16,16 +17,19 @@ const InformationInfo = () => {
 
   useEffect(() => {
     getInformation(setInformation);
-  }, []);
+  });
 
   return (
     <>
       <div className='flex flex-col space-y-6'>
         <div>
-          <img
-            src={information?.profileImageLink}
-            className='h-44 rounded-full'
-          />
+          {information.profileImageLink && (
+            <Image
+              src={information.profileImageLink}
+              className='h-44 rounded-full'
+              alt='profile image'
+            />
+          )}
         </div>
         <h2 className='text-3xl font-semibold'>
           {information.name} {information.surname}

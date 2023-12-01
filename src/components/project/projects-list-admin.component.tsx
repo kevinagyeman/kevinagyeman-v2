@@ -45,7 +45,7 @@ const ProjectsListAdmin = () => {
       fieldPath: 'createdAt',
       directionStr: 'desc',
     });
-  }, []);
+  });
 
   return (
     <>

@@ -10,7 +10,7 @@ export default function AuthHandler(Component: any) {
       if (!isAdminLoggedData) {
         router.push('/');
       }
-    }, []);
+    });
 
     if (!isAdminLoggedData) {
       return null;

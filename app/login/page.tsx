@@ -8,11 +8,11 @@ import { AdminData } from '@/types/admin-schema';
 import { FormFieldSchema } from '@/types/form-field-schema';
 import { UserCredential, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { RecoilRoot, useSetRecoilState } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 export default function Login() {
-  const setIsAdminLoggedData = useSetRecoilState<boolean>(
+  const [isAdminLoggedData, setIsAdminLoggedData] = useRecoilState<boolean>(
     isAdminLoggedDataState
   );
   const [admin, setUser] = useState<AdminData>({
@@ -57,6 +57,12 @@ export default function Login() {
       console.error(e);
     }
   };
+
+  useEffect(() => {
+    if (isAdminLoggedData) {
+      router.push('/');
+    }
+  });
 
   return (
     <>

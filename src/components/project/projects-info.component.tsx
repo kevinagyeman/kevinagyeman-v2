@@ -10,6 +10,7 @@ import SkeletonLoader from '../skeleton.component';
 import SkillsList from '../skills-list.component';
 import ProjectNotFound from './project-not-found.component';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type ProjectInfoProps = {
   projectId: string;
@@ -31,7 +32,7 @@ export default function ProjectsInfo({ projectId }: ProjectInfoProps) {
   useEffect(() => {
     projectDelayFetch();
     getSingleProject(projectId, setProject);
-  }, []);
+  });
 
   return (
     <>
@@ -47,7 +48,11 @@ export default function ProjectsInfo({ projectId }: ProjectInfoProps) {
               {splitByLanguage(`${project.shortDescription}`)}
             </p>
             {project.imageLink && (
-              <img src={project.imageLink} className='w-full' />
+              <Image
+                src={project.imageLink}
+                className='w-full'
+                alt='project image'
+              />
             )}
             {project.description && (
               <p className='text-xl'>

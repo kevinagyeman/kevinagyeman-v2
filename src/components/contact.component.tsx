@@ -29,7 +29,7 @@ export default function Contact() {
 
   useEffect(() => {
     getInformation(setInformation);
-  });
+  }, []);
 
   return (
     <>

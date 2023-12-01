@@ -32,7 +32,7 @@ export default function ProjectsInfo({ projectId }: ProjectInfoProps) {
   useEffect(() => {
     projectDelayFetch();
     getSingleProject(projectId, setProject);
-  });
+  }, []);
 
   return (
     <>

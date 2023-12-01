@@ -18,7 +18,7 @@ const InformationElement = () => {
 
   useEffect(() => {
     getInformation(setInformation);
-  });
+  }, []);
 
   return (
     <>

@@ -62,7 +62,7 @@ export default function Login() {
     if (isAdminLoggedData) {
       router.push('/');
     }
-  });
+  }, []);
 
   return (
     <>

@@ -26,7 +26,7 @@ export default function IconAdmin() {
 
   useEffect(() => {
     getInformation(setInformation);
-  });
+  }, []);
 
   const signOut = async () => {
     try {

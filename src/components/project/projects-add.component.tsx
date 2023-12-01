@@ -28,7 +28,7 @@ export default function ProjectsAdd() {
     return () => {
       setProject(initProjectData);
     };
-  });
+  }, []);
 
   return (
     <>

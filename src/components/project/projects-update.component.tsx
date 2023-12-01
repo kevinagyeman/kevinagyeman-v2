@@ -56,7 +56,7 @@ export default function ProjectsUpdate({ projectId }: ProjectId) {
     return () => {
       setProject(initProjectData);
     };
-  });
+  }, []);
 
   return (
     <>

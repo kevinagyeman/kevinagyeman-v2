@@ -30,4 +30,4 @@ const Dashboard = () => {
     </>
   );
 };
-export default AuthHandler(Dashboard);
+export default Dashboard;

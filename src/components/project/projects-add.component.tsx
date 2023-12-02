@@ -18,7 +18,7 @@ export default function ProjectsAdd() {
     try {
       e.preventDefault();
       await projectService.create(project);
-      router.push('/dashboard');
+      router.push('/admin/dashboard');
     } catch (e) {
       console.log(e);
     }
@@ -42,7 +42,7 @@ export default function ProjectsAdd() {
           className='ml-auto w-[50px]'
           asChild
         >
-          <Link href='/dashboard'>
+          <Link href='/admin/dashboard'>
             <ArrowLeft className='h-4 w-4' />
           </Link>
         </Button>

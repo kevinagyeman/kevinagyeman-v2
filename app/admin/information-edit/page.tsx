@@ -10,4 +10,4 @@ const InformationEdit = () => {
   );
 };
 
-export default AuthHandler(InformationEdit);
+export default InformationEdit;

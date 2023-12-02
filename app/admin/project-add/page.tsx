@@ -10,4 +10,4 @@ const ProjectAdd = () => {
   );
 };
 
-export default AuthHandler(ProjectAdd);
+export default ProjectAdd;

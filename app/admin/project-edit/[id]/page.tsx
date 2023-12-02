@@ -20,4 +20,4 @@ const ProjectEdit = ({ params }: ProjectProps) => {
   }
 };
 
-export default AuthHandler(ProjectEdit);
+export default ProjectEdit;

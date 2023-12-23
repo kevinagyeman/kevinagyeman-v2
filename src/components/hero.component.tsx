@@ -1,6 +1,5 @@
 import { informationDataState } from '@/store/information-store';
 import { InformationSchema } from '@/types/information-schema';
-import { getInformation, splitByLanguage } from '@/utils/utils';
 import { ChevronRight, Send } from 'lucide-react';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,15 +8,12 @@ import SkeletonLoader from './skeleton.component';
 import SkillsList from './skills-list.component';
 import { Button } from './ui/button';
 import Link from 'next/link';
+import { informationService } from '@/services/information.service';
+import { getInformation } from '@/utils/utils';
 
-const Hero = () => {
-  const { t } = useTranslation();
-  const [information, setInformation] =
-    useRecoilState<InformationSchema>(informationDataState);
-
-  useEffect(() => {
-    getInformation(setInformation);
-  }, []);
+const Hero = async () => {
+  // const { t } = useTranslation();
+  const information: any = await getInformation();
 
   return (
     <>
@@ -37,19 +33,19 @@ const Hero = () => {
             {information?.name} {information?.surname}
           </h1>
           <p className='text-l line-clamp-2 text-muted-foreground lg:text-xl'>
-            {splitByLanguage(`${information?.summary}`)}
+            {information?.summary}
           </p>
           <SkillsList string={`${information?.skills}`} numberOfSkills={4} />
           <div className='flex flex-wrap gap-3'>
             <Button variant={'secondary'} size={'lg'} asChild>
               <Link href='/contact'>
-                {t('hero.contactButton')}
+                {/* {t('hero.contactButton')} */}
                 <Send className='ml-2 h-4 w-4' />
               </Link>
             </Button>
             <Button variant={'outline'} size={'lg'} asChild>
               <Link href='/about'>
-                {t('hero.readMoreButton')}
+                {/* {t('hero.readMoreButton')} */}
                 <ChevronRight className='h-5 w-5' />
               </Link>
             </Button>

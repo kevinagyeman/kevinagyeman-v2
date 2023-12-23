@@ -1,24 +1,12 @@
-'use client';
-import { informationDataState } from '@/store/information-store';
-import { InformationSchema } from '@/types/information-schema';
-import { getInformation, splitByLanguage } from '@/utils/utils';
-import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { getInformation } from '@/utils/utils';
+import Image from 'next/image';
+import Link from 'next/link';
 import SkillsList from '../skills-list.component';
 import { Button } from '../ui/button';
 import Divider from '../ui/divider';
-import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
-import Image from 'next/image';
 
-const InformationElement = () => {
-  const [information, setInformation] =
-    useRecoilState<InformationSchema>(informationDataState);
-  const { t } = useTranslation();
-
-  useEffect(() => {
-    getInformation(setInformation);
-  }, []);
+const InformationElement = async () => {
+  const information: any = await getInformation();
 
   return (
     <>
@@ -32,18 +20,26 @@ const InformationElement = () => {
           {information.profileImageLink && (
             <Image
               src={information.profileImageLink}
-              className='h-32 rounded-full'
+              className='rounded-full'
               alt='profile image'
+              width='32'
+              height={'32'}
             />
+            //   <Image
+            //   className="origin-center rounded-full shadow-sm"
+            //   priority={true}
+            //   fill={true}
+            //   sizes="100vw, 100vh"
+            //   src={data[0].picture}
+            //   alt="profile"
+            // />
           )}
         </div>
         <h4 className='text-xl font-semibold'>
           {information?.name} {information?.surname}
         </h4>
         <p>{information?.role}</p>
-        <p className='text-muted-foreground'>
-          {splitByLanguage(`${information?.summary}`)}
-        </p>
+        <p className='text-muted-foreground'>{information?.summary}</p>
         <SkillsList string={`${information?.skills}`} />
         <p>{information?.additionalInfo || '-'}</p>
       </div>

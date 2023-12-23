@@ -1,38 +1,31 @@
-import { projectsListState } from '@/store/projects-store';
-import { getProjects, splitByLanguage, splitSkills } from '@/utils/utils';
+import { projectService } from '@/services/project.service';
+import { getProjects, splitSkills } from '@/utils/utils';
 import { ArrowUpRight, Check } from 'lucide-react';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
-import { ProjectSchema } from '../../types/project-schema';
 import Link from 'next/link';
+import { ProjectSchema } from '../../types/project-schema';
 
-export default function ProjectsListUser() {
-  const { t } = useTranslation();
-  const [projects, setProjects] =
-    useRecoilState<ProjectSchema[]>(projectsListState);
-
-  useEffect(() => {
-    getProjects(
-      setProjects,
-      {
-        fieldPath: 'createdAt',
-        directionStr: 'desc',
-      },
-      {
-        fieldPath: 'isPublished',
-        opStr: '==',
-        value: true,
-      }
-    );
-  }, []);
+export default async function ProjectsListUser() {
+  // const { t } = useTranslation();
+  const projects: any = await getProjects(
+    {
+      fieldPath: 'createdAt',
+      directionStr: 'desc',
+    },
+    {
+      fieldPath: 'isPublished',
+      opStr: '==',
+      value: true,
+    }
+  );
 
   return (
     <>
       <h2 className='mb-2 scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0'>
-        {t('projectSection.title')}
+        {/* {t('projectSection.title')} */}
       </h2>
-      <p className='text-muted-foreground'>{t('projectSection.sentence')}</p>
+      <p className='text-muted-foreground'>
+        {/* {t('projectSection.sentence')} */}
+      </p>
       {projects?.map((project: ProjectSchema, index: number) => (
         <Link href={`/project/${project.id}`} key={index}>
           <div
@@ -41,14 +34,14 @@ export default function ProjectsListUser() {
           >
             <div className='flex'>
               <h3 className='truncate text-2xl font-semibold'>
-                {splitByLanguage(`${project.title}`)}
+                {project.title}
               </h3>
               <div className='ml-auto'>
                 <ArrowUpRight />
               </div>
             </div>
             <p className='line-clamp-2 text-muted-foreground'>
-              {splitByLanguage(`${project.shortDescription}`)}
+              {project.shortDescription}
             </p>
             <div className='flex flex-wrap gap-x-3 gap-y-1'>
               {splitSkills(`${project?.skills}`, 3).map((skill, index) => (

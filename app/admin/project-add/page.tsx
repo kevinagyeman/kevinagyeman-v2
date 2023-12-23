@@ -1,4 +1,3 @@
-import AuthHandler from '@/components/auth-handler.component';
 import ProjectsAdd from '@/components/project/projects-add.component';
 
 const ProjectAdd = () => {

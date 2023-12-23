@@ -1,51 +1,42 @@
 import { Button } from '@/components/ui/button';
-import { projectDataState } from '@/store/projects-store';
-import { ProjectSchema } from '@/types/project-schema';
-import { getSingleProject, splitByLanguage } from '@/utils/utils';
+import { getSingleProject } from '@/utils/utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import { ReactElement, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ReactElement, useState } from 'react';
 import SkeletonLoader from '../skeleton.component';
 import SkillsList from '../skills-list.component';
 import ProjectNotFound from './project-not-found.component';
-import Link from 'next/link';
-import Image from 'next/image';
 
 type ProjectInfoProps = {
   projectId: string;
 };
 
-export default function ProjectsInfo({ projectId }: ProjectInfoProps) {
-  const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
-  const { t } = useTranslation();
-  const [projectAlert, setProjectAlert] = useState<ReactElement>(
-    <SkeletonLoader />
-  );
+export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
+  const project: any = await getSingleProject(projectId);
+  // const { t } = useTranslation();
+  // const [projectAlert, setProjectAlert] = useState<ReactElement>(
+  //   <SkeletonLoader />
+  // );
 
   const projectDelayFetch = () => {
     setTimeout(() => {
-      setProjectAlert(<ProjectNotFound />);
+      return <ProjectNotFound />;
     }, 2000);
   };
 
-  useEffect(() => {
-    projectDelayFetch();
-    getSingleProject(projectId, setProject);
-  }, []);
+  projectDelayFetch();
 
   return (
     <>
       {!project.id ? (
-        projectAlert
+        <SkeletonLoader />
       ) : (
         <>
           <div className='flex flex-col space-y-8'>
-            <h2 className='text-3xl font-semibold'>
-              {splitByLanguage(`${project.title}`)}
-            </h2>
+            <h2 className='text-3xl font-semibold'>{project.title}</h2>
             <p className='text-xl text-muted-foreground'>
-              {splitByLanguage(`${project.shortDescription}`)}
+              {/* {splitByLanguage(`${project.shortDescription}`)} */}
             </p>
             {project.imageLink && (
               <Image
@@ -56,7 +47,7 @@ export default function ProjectsInfo({ projectId }: ProjectInfoProps) {
             )}
             {project.description && (
               <p className='text-xl'>
-                {splitByLanguage(`${project.description}`)}
+                {/* {splitByLanguage(`${project.description}`)} */}
               </p>
             )}
             {project?.skills && <SkillsList string={`${project?.skills}`} />}
@@ -69,7 +60,7 @@ export default function ProjectsInfo({ projectId }: ProjectInfoProps) {
                   asChild
                 >
                   <Link href={project.link} target='_blank'>
-                    {t('hero.readMoreButton')}{' '}
+                    {/* {t('hero.readMoreButton')}{' '} */}
                     <ArrowUpRight className='ml-2 h-5 w-5' />
                   </Link>
                 </Button>

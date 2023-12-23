@@ -1,6 +1,5 @@
 'use client';
 
-import AuthHandler from '@/components/auth-handler.component';
 import ProjectsUpdate from '@/components/project/projects-update.component';
 
 type ProjectProps = {

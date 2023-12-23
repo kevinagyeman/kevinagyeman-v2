@@ -1,23 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { informationDataState } from '@/store/information-store';
-import { InformationSchema } from '@/types/information-schema';
-import { getInformation, splitByLanguage } from '@/utils/utils';
+import { getInformation } from '@/utils/utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
-import SkillsList from '../skills-list.component';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import SkillsList from '../skills-list.component';
 
-const InformationInfo = () => {
-  const [information, setInformation] =
-    useRecoilState<InformationSchema>(informationDataState);
-  const { t } = useTranslation();
-
-  useEffect(() => {
-    getInformation(setInformation);
-  });
+const InformationInfo = async () => {
+  const information: any = await getInformation();
 
   return (
     <>
@@ -40,11 +29,11 @@ const InformationInfo = () => {
           </code>
         </div>
         <p className=' text-xl text-muted-foreground'>
-          {splitByLanguage(`${information?.summary}`)}
+          {/* {splitByLanguage(`${information?.summary}`)} */}
         </p>
         <SkillsList string={`${information?.skills}`} />
         <p className=' text-xl'>
-          {splitByLanguage(`${information.additionalInfo}`)}
+          {/* {splitByLanguage(`${information.additionalInfo}`)} */}
         </p>
 
         <div className='flex space-x-2'>
@@ -56,7 +45,7 @@ const InformationInfo = () => {
               asChild
             >
               <Link href={information.additionalLink} target='_blank'>
-                {t('readCv')} <ArrowUpRight className='ml-2 h-5 w-5' />
+                {/* {t('readCv')} <ArrowUpRight className='ml-2 h-5 w-5' /> */}
               </Link>
             </Button>
           )}

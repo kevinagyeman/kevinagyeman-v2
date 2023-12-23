@@ -1,8 +1,6 @@
-'use client';
 import InformationElement from '@/components/information/information-element.component';
 import ProjectsListAdmin from '@/components/project/projects-list-admin.component';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import AuthHandler from '../../../src/components/auth-handler.component';
 
 const Dashboard = () => {
   return (

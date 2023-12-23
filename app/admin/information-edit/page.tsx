@@ -1,4 +1,3 @@
-import AuthHandler from '@/components/auth-handler.component';
 import InformationUpdate from '@/components/information/information-update.component';
 
 const InformationEdit = () => {

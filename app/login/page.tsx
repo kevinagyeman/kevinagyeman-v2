@@ -12,9 +12,6 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 export default function Login() {
-  const [isAdminLoggedData, setIsAdminLoggedData] = useRecoilState<boolean>(
-    isAdminLoggedDataState
-  );
   const [admin, setUser] = useState<AdminData>({
     email: '',
     password: '',
@@ -50,20 +47,12 @@ export default function Login() {
       );
       if (login.user.uid) {
         localStorage.setItem('admin', login.user.uid);
-        setIsAdminLoggedData(true);
         router.push('/admin/dashboard');
       }
     } catch (e) {
       console.error(e);
     }
   };
-
-  useEffect(() => {
-    if (isAdminLoggedData) {
-      router.push('/');
-    }
-  }, []);
-
   return (
     <>
       <div className='flex  w-full flex-col items-center justify-center align-middle'>

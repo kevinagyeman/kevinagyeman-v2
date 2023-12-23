@@ -9,17 +9,15 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import Link from 'next/link';
 
-export default function Contact() {
-  const { t } = useTranslation();
-  const [information, setInformation] =
-    useRecoilState<InformationSchema>(informationDataState);
-  const [isCopied, setIsCopied] = useState<boolean>(false);
+export default async function Contact() {
+  // const { t } = useTranslation();
+  let isCopied = false;
 
   const copyText = () => {
     navigator.clipboard.writeText(`${information?.email || ''}`);
-    setIsCopied(true);
+    isCopied = true;
     setTimeout(() => {
-      setIsCopied(false);
+      isCopied = false;
     }, 1000);
   };
 
@@ -27,37 +25,38 @@ export default function Contact() {
     window.location.href = `mailto:${information?.email || ''}`;
   };
 
-  useEffect(() => {
-    getInformation(setInformation);
-  }, []);
+  // useEffect(() => {
+  //   getInformation(setInformation);
+  // }, []);
+
+  const information: any = await getInformation();
 
   return (
     <>
       <div className='mt-5'>
         <h2 className='mb-2 text-3xl font-semibold'>
-          {t('contactCard.title')}
+          {/* {t('contactCard.title')} */}
         </h2>
-        <p className='text-muted-foreground'>{t('contactCard.subtitle')}</p>
+        <p className='text-muted-foreground'>d</p>
         <div className='mt-5 flex space-x-2'>
           <Input
             value={
-              !isCopied
-                ? information?.email || ''
-                : t('contactCard.alertEmailCopied')
+              (!isCopied && information?.email) || ''
+              // : t('contactCard.alertEmailCopied')
             }
             readOnly
           />
           <Button
             variant='secondary'
             className='shrink-0'
-            onClick={() => copyText()}
+            // onClick={() => copyText()}
           >
             <Copy className='h-4 w-4' />
           </Button>
           <Button
             variant='secondary'
             className='shrink-0'
-            onClick={() => sendEmail()}
+            // onClick={() => sendEmail()}
           >
             <Send className='h-4 w-4' />
           </Button>

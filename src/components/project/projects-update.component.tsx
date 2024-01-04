@@ -4,7 +4,7 @@ import { ProjectSchema } from '@/types/project-schema';
 import { getSingleProject } from '@/utils/utils';
 import { ArrowLeft } from 'lucide-react';
 import React, { ReactElement, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { SetterOrUpdater, useRecoilState } from 'recoil';
 import SkeletonLoader from '../skeleton.component';
 import { Button } from '../ui/button';
 import ProjectForm from './project-form.component';
@@ -30,6 +30,19 @@ export default function ProjectsUpdate({ projectId }: ProjectId) {
     }, 2000);
   };
 
+  const getSingleProject = async (
+    projectId: string,
+    projectSetter: SetterOrUpdater<ProjectSchema>
+  ) => {
+    const data = await projectService.getById(projectId);
+    if (data) {
+      const currentProject: ProjectSchema = {
+        ...data,
+        id: data.id,
+      };
+      projectSetter(currentProject);
+    }
+  };
   const updateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();

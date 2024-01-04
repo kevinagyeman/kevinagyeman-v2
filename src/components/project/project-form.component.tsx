@@ -1,10 +1,11 @@
-import { FormFieldSchema } from "@/types/form-field-schema";
-import { ProjectSchema } from "@/types/project-schema";
-import React from "react";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Switch } from "../ui/switch";
-import { Textarea } from "../ui/textarea";
+'use client';
+import { FormFieldSchema } from '@/types/form-field-schema';
+import { ProjectSchema } from '@/types/project-schema';
+import React from 'react';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Switch } from '../ui/switch';
+import { Textarea } from '../ui/textarea';
 
 type ProjectFormData = {
   project: ProjectSchema;
@@ -13,23 +14,28 @@ type ProjectFormData = {
   submitFunction(e: React.FormEvent<HTMLFormElement>): Promise<void>;
 };
 
-export default function ProjectForm({ project, isDisabled, projectSetter, submitFunction }: ProjectFormData) {
+export default function ProjectForm({
+  project,
+  isDisabled,
+  projectSetter,
+  submitFunction,
+}: ProjectFormData) {
   const formFields: FormFieldSchema[] = [
     {
-      label: "Title",
-      type: "text",
-      value: project.title || "",
+      label: 'Title',
+      type: 'text',
+      value: project.title || '',
       disabled: isDisabled,
-      hint: "italianoENGinglese",
+      hint: 'italianoENGinglese',
       required: true,
       onChange: (e) => {
         projectSetter({ ...project, title: e.target.value });
       },
     },
     {
-      label: "Link",
-      type: "text",
-      value: project.link || "",
+      label: 'Link',
+      type: 'text',
+      value: project.link || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -37,9 +43,9 @@ export default function ProjectForm({ project, isDisabled, projectSetter, submit
       },
     },
     {
-      label: "Image link",
-      type: "text",
-      value: project.imageLink || "",
+      label: 'Image link',
+      type: 'text',
+      value: project.imageLink || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -47,9 +53,9 @@ export default function ProjectForm({ project, isDisabled, projectSetter, submit
       },
     },
     {
-      label: "Skills",
-      type: "textarea",
-      value: project.skills || "",
+      label: 'Skills',
+      type: 'textarea',
+      value: project.skills || '',
       disabled: isDisabled,
       required: true,
       hint: "Separate every skill with ',' - (eg. Skill1, Skill2)",
@@ -58,9 +64,9 @@ export default function ProjectForm({ project, isDisabled, projectSetter, submit
       },
     },
     {
-      label: "Short Description",
-      type: "textarea",
-      value: project.shortDescription || "",
+      label: 'Short Description',
+      type: 'textarea',
+      value: project.shortDescription || '',
       disabled: isDisabled,
       required: true,
       onChange: (e) => {
@@ -68,9 +74,9 @@ export default function ProjectForm({ project, isDisabled, projectSetter, submit
       },
     },
     {
-      label: "Description",
-      type: "textarea",
-      value: project.description || "",
+      label: 'Description',
+      type: 'textarea',
+      value: project.description || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -81,27 +87,31 @@ export default function ProjectForm({ project, isDisabled, projectSetter, submit
 
   return (
     <>
-      <form onSubmit={(e) => submitFunction(e)} id="form">
-        <div className="mb-4 flex items-center space-x-2">
+      <form onSubmit={(e) => submitFunction(e)} id='form'>
+        <div className='mb-4 flex items-center space-x-2'>
           <Switch
-            id="status-mode"
+            id='status-mode'
             onCheckedChange={(e) => {
               projectSetter({ ...project, isPublished: e.valueOf() });
             }}
             checked={project?.isPublished}
             disabled={isDisabled}
           />
-          <Label htmlFor="status-mode">{project?.isPublished ? "Published" : "Draft"}</Label>
+          <Label htmlFor='status-mode'>
+            {project?.isPublished ? 'Published' : 'Draft'}
+          </Label>
         </div>
 
         {formFields.map((field: FormFieldSchema, index: number) => (
-          <div className="my-6" key={index}>
-            {field.type === "text" ? (
+          <div className='my-6' key={index}>
+            {field.type === 'text' ? (
               <>
                 <Label>{field.label}</Label>
-                {field.hint && <p className="text-xs text-muted-foreground">{field.hint}</p>}
+                {field.hint && (
+                  <p className='text-xs text-muted-foreground'>{field.hint}</p>
+                )}
                 <Input
-                  className="mt-1"
+                  className='mt-1'
                   required={field.required}
                   type={field.type}
                   placeholder={field.label}
@@ -113,9 +123,11 @@ export default function ProjectForm({ project, isDisabled, projectSetter, submit
             ) : (
               <>
                 <Label>{field.label}</Label>
-                {field.hint && <p className="text-xs text-muted-foreground">{field.hint}</p>}
+                {field.hint && (
+                  <p className='text-xs text-muted-foreground'>{field.hint}</p>
+                )}
                 <Textarea
-                  className="mt-1"
+                  className='mt-1'
                   placeholder={field.label}
                   value={field.value}
                   onChange={field.onChange}

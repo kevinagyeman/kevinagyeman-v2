@@ -24,12 +24,6 @@ export default function ProjectsAdd() {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      setProject(initProjectData);
-    };
-  }, []);
-
   return (
     <>
       <div className='my-8 flex flex-row gap-x-3'>

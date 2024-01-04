@@ -28,8 +28,10 @@ export default function IconAdmin() {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setIsAdminLogged(true);
+        console.log('sei dentro');
       } else {
         setIsAdminLogged(false);
+        console.log('sei fuori');
       }
     });
   }, []);

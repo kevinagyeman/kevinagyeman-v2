@@ -10,6 +10,7 @@ import { UserCredential, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { signIn } from 'next-auth/react';
 
 export default function Login() {
   const [admin, setUser] = useState<AdminData>({
@@ -37,22 +38,32 @@ export default function Login() {
     },
   ];
 
-  const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-      const login: UserCredential = await signInWithEmailAndPassword(
-        auth,
-        admin.email,
-        admin.password
-      );
-      if (login.user.uid) {
-        localStorage.setItem('admin', login.user.uid);
-        router.push('/admin/dashboard');
-      }
-    } catch (e) {
-      console.error(e);
-    }
+  const logIn = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signIn('credentials', {
+      email: admin.email,
+      password: admin.password,
+      redirect: true,
+      callbackUrl: '/',
+    });
   };
+
+  // const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   try {
+  //     e.preventDefault();
+  //     const login: UserCredential = await signInWithEmailAndPassword(
+  //       auth,
+  //       admin.email,
+  //       admin.password
+  //     );
+  //     if (login.user.uid) {
+  //       localStorage.setItem('admin', login.user.uid);
+  //       router.push('/admin/dashboard');
+  //     }
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
   return (
     <>
       <div className='flex  w-full flex-col items-center justify-center align-middle'>
@@ -60,7 +71,7 @@ export default function Login() {
           <h3 className='mb-3 scroll-m-20 text-2xl font-semibold tracking-tight'>
             Login
           </h3>
-          <form onSubmit={(e) => signIn(e)}>
+          <form onSubmit={(e) => logIn(e)}>
             {formFields.map((field: FormFieldSchema, index: number) => (
               <div className='my-5' key={index}>
                 <Label>{field.label}</Label>

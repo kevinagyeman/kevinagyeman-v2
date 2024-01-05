@@ -1,4 +1,4 @@
-import { FirebaseApp, initializeApp } from 'firebase/app';
+import { FirebaseApp, getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getAnalytics } from 'firebase/analytics';
 import { Firestore, getFirestore } from 'firebase/firestore';
@@ -13,8 +13,8 @@ const firebaseConfig = {
   measurementId: 'G-THFVBS56D2',
 };
 
-const app: FirebaseApp = initializeApp(firebaseConfig);
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const db = getFirestore();
+const auth = getAuth();
 
-// export const analytics = getAnalytics(app);
-export const db: Firestore = getFirestore(app);
-export const auth = getAuth(app);
+export { app, db, auth };

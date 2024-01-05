@@ -1,5 +1,4 @@
 'use client';
-import { isAdminLoggedDataState } from '@/store/admin-store';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useTheme } from 'next-themes';
@@ -10,11 +9,12 @@ import IconAdmin from './icon-admin';
 import LanguageSelector from './language-selector';
 import ThemeChanger from './theme-changer';
 import { Button } from './ui/button';
+import { useSession } from 'next-auth/react';
 
 export default function Navbar() {
+  const { data: session, status } = useSession();
   // const { t } = useTranslation();
-  const isAdminLoggedData =
-    localStorage.getItem('admin') !== null ? true : false;
+  const isAdminLogged = status === 'authenticated';
 
   const userNavigation = [
     { name: `home`, href: '/' },
@@ -22,7 +22,7 @@ export default function Navbar() {
     { name: `contacts`, href: '/contact' },
   ];
 
-  const navigation = isAdminLoggedData
+  const navigation = isAdminLogged
     ? [
         ...userNavigation,
         { name: 'Dashboard', href: '/admin/dashboard' },

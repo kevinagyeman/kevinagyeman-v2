@@ -22,20 +22,20 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          {/* <RecoilRoot> */}
-          {/* <Navbar /> */}
-          <div className='container max-w-lg'>
-            <SessionProvider>{children}</SessionProvider>
-          </div>
-          {/* <Footer /> */}
-          {/* </RecoilRoot> */}
-        </ThemeProvider>
+        <SessionProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            {/* <RecoilRoot> */}
+            <Navbar />
+            <div className='container max-w-lg'>{children}</div>
+            {/* <Footer /> */}
+            {/* </RecoilRoot> */}
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );

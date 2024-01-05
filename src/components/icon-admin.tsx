@@ -16,40 +16,13 @@ import { InformationSchema } from '@/types/information-schema';
 import { informationDataState } from '@/store/information-store';
 import { getInformation } from '@/utils/utils';
 import { useEffect, useState } from 'react';
+import { signOut, useSession } from 'next-auth/react';
 
 export default function IconAdmin() {
-  const router = useRouter();
-  const [isAdminLogged, setIsAdminLogged] = useState<boolean>();
-  // const [information, setInformation] =
-  //   useRecoilState<InformationSchema>(informationDataState);
-
-  useEffect(() => {
-    getInformation();
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setIsAdminLogged(true);
-        console.log('sei dentro');
-      } else {
-        setIsAdminLogged(false);
-        console.log('sei fuori');
-      }
-    });
-  }, []);
-
-  const signOut = async () => {
-    try {
-      await auth.signOut();
-      localStorage.removeItem('admin');
-      setIsAdminLogged(false);
-      router.push('/');
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const { data: session, status } = useSession();
 
   return (
     <>
-      <p>loggato: {isAdminLogged}</p>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           {
@@ -62,7 +35,7 @@ export default function IconAdmin() {
             />
           }
         </DropdownMenuTrigger>
-        {isAdminLogged && (
+        {status === 'authenticated' && (
           <DropdownMenuContent className='w-56'>
             <DropdownMenuGroup>
               <DropdownMenuItem

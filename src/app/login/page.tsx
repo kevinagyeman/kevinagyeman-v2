@@ -7,17 +7,22 @@ import { isAdminLoggedDataState } from '@/store/admin-store';
 import { AdminData } from '@/types/admin-schema';
 import { FormFieldSchema } from '@/types/form-field-schema';
 import { UserCredential, signInWithEmailAndPassword } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 
 export default function Login() {
   const [admin, setUser] = useState<AdminData>({
     email: '',
     password: '',
   });
-  const router = useRouter();
+
+  const { data: session, status } = useSession();
+
+  if (status === 'authenticated') {
+    redirect('/');
+  }
 
   const formFields: FormFieldSchema[] = [
     {
@@ -48,22 +53,6 @@ export default function Login() {
     });
   };
 
-  // const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   try {
-  //     e.preventDefault();
-  //     const login: UserCredential = await signInWithEmailAndPassword(
-  //       auth,
-  //       admin.email,
-  //       admin.password
-  //     );
-  //     if (login.user.uid) {
-  //       localStorage.setItem('admin', login.user.uid);
-  //       router.push('/admin/dashboard');
-  //     }
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
   return (
     <>
       <div className='flex  w-full flex-col items-center justify-center align-middle'>

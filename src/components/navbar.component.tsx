@@ -10,24 +10,25 @@ import LanguageSelector from './language-selector';
 import ThemeChanger from './theme-changer';
 import { Button } from './ui/button';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 export default function Navbar() {
   const { data: session, status } = useSession();
-  // const { t } = useTranslation();
   const isAdminLogged = status === 'authenticated';
+  const t = useTranslations('navbar');
 
   const userNavigation = [
-    { name: `home`, href: '/' },
-    { name: `about me`, href: '/about' },
-    { name: `contacts`, href: '/contact' },
+    { name: `${t('home')}`, href: '/' },
+    { name: `${t('about')}`, href: '/about' },
+    { name: `${t('contacts')}`, href: '/contact' },
   ];
 
   const navigation = isAdminLogged
     ? [
         ...userNavigation,
-        { name: 'Dashboard', href: '/admin/dashboard' },
-        { name: 'Add Project', href: '/admin/project-add' },
-        { name: 'Edit Information', href: '/admin/information-edit' },
+        { name: `${t('dashboard')}`, href: '/admin/dashboard' },
+        { name: `${t('addProject')}`, href: '/admin/project-add' },
+        { name: `${t('editInformation')}`, href: '/admin/information-edit' },
       ]
     : userNavigation;
 

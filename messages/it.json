@@ -1,0 +1,10 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "Chi sono",
+    "contacts": "Contatti",
+    "dashboard": "Pannello di controllo",
+    "addProject": "Nuovo progetto",
+    "editInformation": "Modifica informazioni"
+  }
+}

@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { getSingleProject } from '@/utils/utils';
+import { getSingleProject, splitByLanguage } from '@/utils/utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ReactElement, useState } from 'react';
 import SkeletonLoader from '../skeleton.component';
 import SkillsList from '../skills-list.component';
 import ProjectNotFound from './project-not-found.component';
+import { Link } from '../../../navigation';
 
 type ProjectInfoProps = {
   projectId: string;
@@ -19,13 +19,13 @@ export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
   //   <SkeletonLoader />
   // );
 
-  const projectDelayFetch = () => {
-    setTimeout(() => {
-      return <ProjectNotFound />;
-    }, 2000);
-  };
+  // const projectDelayFetch = () => {
+  //   setTimeout(() => {
+  //     return <ProjectNotFound />;
+  //   }, 2000);
+  // };
 
-  projectDelayFetch();
+  // projectDelayFetch();
 
   return (
     <>
@@ -36,7 +36,7 @@ export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
           <div className='flex flex-col space-y-8'>
             <h2 className='text-3xl font-semibold'>{project.title}</h2>
             <p className='text-xl text-muted-foreground'>
-              {/* {splitByLanguage(`${project.shortDescription}`)} */}
+              {splitByLanguage(`${project.shortDescription}`)}
             </p>
             {project.imageLink && (
               <Image
@@ -47,7 +47,7 @@ export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
             )}
             {project.description && (
               <p className='text-xl'>
-                {/* {splitByLanguage(`${project.description}`)} */}
+                {splitByLanguage(`${project.description}`)}
               </p>
             )}
             {project?.skills && <SkillsList string={`${project?.skills}`} />}

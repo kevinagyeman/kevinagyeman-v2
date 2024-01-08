@@ -8,9 +8,11 @@ import { useRecoilState } from 'recoil';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export default async function Contact() {
-  // const { t } = useTranslation();
+  const t = useTranslations('contact');
+  const information: any = await getInformation();
   let isCopied = false;
 
   const copyText = () => {
@@ -28,16 +30,11 @@ export default async function Contact() {
   // useEffect(() => {
   //   getInformation(setInformation);
   // }, []);
-
-  const information: any = await getInformation();
-
   return (
     <>
       <div className='mt-5'>
-        <h2 className='mb-2 text-3xl font-semibold'>
-          {/* {t('contactCard.title')} */}
-        </h2>
-        <p className='text-muted-foreground'>d</p>
+        <h2 className='mb-2 text-3xl font-semibold'>{t('title')}</h2>
+        <p className='text-muted-foreground'>{t('description')}</p>
         <div className='mt-5 flex space-x-2'>
           <Input
             value={

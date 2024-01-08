@@ -1,11 +1,12 @@
 import { projectService } from '@/services/project.service';
-import { getProjects, splitSkills } from '@/utils/utils';
+import { getProjects, splitByLanguage, splitSkills } from '@/utils/utils';
 import { ArrowUpRight, Check } from 'lucide-react';
-import Link from 'next/link';
 import { ProjectSchema } from '../../types/project-schema';
+import { Link } from '../../../navigation';
+import { useTranslations } from 'next-intl';
 
 export default async function ProjectsListUser() {
-  // const { t } = useTranslation();
+  const t = useTranslations('index');
   const projects: any = await getProjects(
     {
       fieldPath: 'createdAt',
@@ -21,11 +22,9 @@ export default async function ProjectsListUser() {
   return (
     <>
       <h2 className='mb-2 scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0'>
-        {/* {t('projectSection.title')} */}
+        {t('projects.title')}
       </h2>
-      <p className='text-muted-foreground'>
-        {/* {t('projectSection.sentence')} */}
-      </p>
+      <p className='text-muted-foreground'>{t('projects.description')}</p>
       {projects?.map((project: ProjectSchema, index: number) => (
         <Link href={`/project/${project.id}`} key={index}>
           <div
@@ -34,14 +33,14 @@ export default async function ProjectsListUser() {
           >
             <div className='flex'>
               <h3 className='truncate text-2xl font-semibold'>
-                {project.title}
+                {splitByLanguage(`${project.title}`)}
               </h3>
               <div className='ml-auto'>
                 <ArrowUpRight />
               </div>
             </div>
             <p className='line-clamp-2 text-muted-foreground'>
-              {project.shortDescription}
+              {splitByLanguage(`${project.shortDescription}`)}
             </p>
             <div className='flex flex-wrap gap-x-3 gap-y-1'>
               {splitSkills(`${project?.skills}`, 3).map((skill, index) => (

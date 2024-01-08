@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
-import { getInformation } from '@/utils/utils';
+import { getInformation, splitByLanguage } from '@/utils/utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import SkillsList from '../skills-list.component';
+import { Link } from '../../../navigation';
 
 const InformationInfo = async () => {
   const information: any = await getInformation();
@@ -12,13 +12,13 @@ const InformationInfo = async () => {
     <>
       <div className='flex flex-col space-y-6'>
         <div>
-          {information.profileImageLink && (
+          {/* {information.profileImageLink && (
             <Image
               src={information.profileImageLink}
               className='h-44 rounded-full'
               alt='profile image'
             />
-          )}
+          )} */}
         </div>
         <h2 className='text-3xl font-semibold'>
           {information.name} {information.surname}
@@ -29,11 +29,11 @@ const InformationInfo = async () => {
           </code>
         </div>
         <p className=' text-xl text-muted-foreground'>
-          {/* {splitByLanguage(`${information?.summary}`)} */}
+          {splitByLanguage(`${information?.summary}`)}
         </p>
         <SkillsList string={`${information?.skills}`} />
         <p className=' text-xl'>
-          {/* {splitByLanguage(`${information.additionalInfo}`)} */}
+          {splitByLanguage(`${information.additionalInfo}`)}
         </p>
 
         <div className='flex space-x-2'>

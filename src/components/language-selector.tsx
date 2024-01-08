@@ -20,7 +20,8 @@ export default function LanguageSelector() {
   const [language, setLanguage] = useState<string>(locale);
 
   const selectLanguage = (e: string) => {
-    router.push(e.valueOf());
+    router.push(e + '/' + pathname.replace(/\/(it|en)?\/?/, '/'));
+    // router.replace(pathname, { locale: e.valueOf() });
   };
 
   return (

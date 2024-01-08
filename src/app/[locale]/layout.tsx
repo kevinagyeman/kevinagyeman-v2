@@ -32,7 +32,7 @@ export default function RootLayout({ children, params: { locale } }: any) {
               {/* <RecoilRoot> */}
               <Navbar />
               <div className='container max-w-lg'>{children}</div>
-              {/* <Footer /> */}
+              <Footer />
               {/* </RecoilRoot> */}
             </ThemeProvider>
           </NextIntlClientProvider>

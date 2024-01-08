@@ -5,7 +5,6 @@ import Link from 'next/link';
 
 const Footer = () => {
   const year = new Date().getFullYear();
-  const { t } = useTranslation();
 
   return (
     <>
@@ -37,7 +36,7 @@ const Footer = () => {
             </Button>
           </div>
           <p className='text-center text-sm leading-loose text-muted-foreground md:text-left'>
-            {t('footer.credit') + year}
+            {`Kevin Agyeman | © ${year}`}
           </p>
         </div>
       </footer>

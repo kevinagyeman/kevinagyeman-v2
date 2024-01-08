@@ -4,18 +4,20 @@ import { projectService } from '@/services/project.service';
 import { InformationSchema } from '@/types/information-schema';
 import { ProjectSchema } from '@/types/project-schema';
 import { OrderBySchema, WhereSchema } from '@/types/query-schema';
+import { useLocale } from 'next-intl';
 import { SetterOrUpdater } from 'recoil';
 
-// export const splitByLanguage = (string: string): string => {
-//   const itString = string.split('ENG')[0];
-//   const enString = string.split('ENG')[1];
+export const splitByLanguage = (string: string): string => {
+  const locale = useLocale();
+  const itString = string.split('ENG')[0];
+  const enString = string.split('ENG')[1];
 
-//   if (i18n.language === 'en-GB') {
-//     return enString;
-//   } else {
-//     return itString;
-//   }
-// };
+  if (locale === 'en') {
+    return enString;
+  } else {
+    return itString;
+  }
+};
 
 export const splitSkills = (
   string: string,

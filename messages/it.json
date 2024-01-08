@@ -6,5 +6,19 @@
     "dashboard": "Pannello di controllo",
     "addProject": "Nuovo progetto",
     "editInformation": "Modifica informazioni"
+  },
+  "index": {
+    "hero": {
+      "contact": "Contattami",
+      "readMore": "Leggi di più"
+    },
+    "projects": {
+      "title": "Progetti",
+      "description": "Un elenco di alcuni progetti"
+    }
+  },
+  "contact": {
+    "title": "Contatti",
+    "description": "Contattami, puoi mandarmi una mail"
   }
 }

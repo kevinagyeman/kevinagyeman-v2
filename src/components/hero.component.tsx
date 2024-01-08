@@ -7,12 +7,13 @@ import { useRecoilState } from 'recoil';
 import SkeletonLoader from './skeleton.component';
 import SkillsList from './skills-list.component';
 import { Button } from './ui/button';
-import Link from 'next/link';
 import { informationService } from '@/services/information.service';
-import { getInformation } from '@/utils/utils';
+import { getInformation, splitByLanguage } from '@/utils/utils';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '../../navigation';
 
 const Hero = async () => {
-  // const { t } = useTranslation();
+  const t = useTranslations('index');
   const information: any = await getInformation();
 
   return (
@@ -33,19 +34,19 @@ const Hero = async () => {
             {information?.name} {information?.surname}
           </h1>
           <p className='text-l line-clamp-2 text-muted-foreground lg:text-xl'>
-            {information?.summary}
+            {splitByLanguage(`${information?.summary}`)}
           </p>
           <SkillsList string={`${information?.skills}`} numberOfSkills={4} />
           <div className='flex flex-wrap gap-3'>
             <Button variant={'secondary'} size={'lg'} asChild>
               <Link href='/contact'>
-                {/* {t('hero.contactButton')} */}
+                {t('hero.contact')}
                 <Send className='ml-2 h-4 w-4' />
               </Link>
             </Button>
             <Button variant={'outline'} size={'lg'} asChild>
               <Link href='/about'>
-                {/* {t('hero.readMoreButton')} */}
+                {t('hero.readMore')}
                 <ChevronRight className='h-5 w-5' />
               </Link>
             </Button>

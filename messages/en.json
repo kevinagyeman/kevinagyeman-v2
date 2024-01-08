@@ -6,5 +6,19 @@
     "dashboard": "Dashboard",
     "addProject": "New project",
     "editInformation": "Edit information"
+  },
+  "index": {
+    "hero": {
+      "contact": "Contact me",
+      "readMore": "Read more"
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "A list of some projects"
+    }
+  },
+  "contact": {
+    "title": "Contacts",
+    "description": "Contact me, you can send me an email"
   }
 }

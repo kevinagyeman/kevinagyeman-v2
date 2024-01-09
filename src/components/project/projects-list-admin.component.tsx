@@ -1,6 +1,6 @@
 import { projectsListState } from '@/store/projects-store';
 import { OrderBySchema } from '@/types/query-schema';
-import { getProjects, splitSkills } from '@/utils/utils';
+import { getProjects, splitByLanguage, splitSkills } from '@/utils/utils';
 import { Timestamp } from 'firebase/firestore';
 import { ArrowDownUp, Check, FilterX, Search } from 'lucide-react';
 import { useEffect } from 'react';
@@ -18,7 +18,7 @@ import {
 } from '../ui/dropdown-menu';
 import DeleteModal from './projects-delete.component';
 import { useTranslation } from 'react-i18next';
-import Link from 'next/link';
+import { Link } from '../../../navigation';
 
 const ProjectsListAdmin = async () => {
   const projects: any = await getProjects(
@@ -143,9 +143,11 @@ const ProjectsListAdmin = async () => {
               <Badge variant='outline'>Draft</Badge>
             )}
           </div>
-          <p className='text-l truncate font-semibold'>{project.title}</p>
+          <p className='text-l truncate font-semibold'>
+            {splitByLanguage(`${project.title}`)}
+          </p>
           <p className='truncate text-sm text-muted-foreground'>
-            {project.shortDescription}
+            {splitByLanguage(`${project.shortDescription}`)}
           </p>
           <div className='flex flex-wrap gap-x-3 gap-y-0'>
             {splitSkills(`${project.skills}`, 3).map(

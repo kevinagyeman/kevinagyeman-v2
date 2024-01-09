@@ -11,6 +11,7 @@ import { redirect, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { signIn, useSession } from 'next-auth/react';
+import { useLocale } from 'next-intl';
 
 export default function Login() {
   const [admin, setUser] = useState<AdminData>({
@@ -18,6 +19,7 @@ export default function Login() {
     password: '',
   });
 
+  const locale = useLocale();
   const { data: session, status } = useSession();
 
   if (status === 'authenticated') {
@@ -49,7 +51,7 @@ export default function Login() {
       email: admin.email,
       password: admin.password,
       redirect: true,
-      callbackUrl: '/',
+      callbackUrl: `/${locale}/admin/dashboard`,
     });
   };
 

@@ -1,8 +1,30 @@
 import InformationElement from '@/components/information/information-element.component';
 import ProjectsListAdmin from '@/components/project/projects-list-admin.component';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getServerSession } from 'next-auth';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import { authOptions } from '../../../../../pages/api/auth/[...nextauth]';
 
-const Dashboard = () => {
+export default async function Dashboard() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  // const session = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     redirect('/login');
+  //   },
+  // });
+
   return (
     <>
       <div className='text-center'>
@@ -27,5 +49,4 @@ const Dashboard = () => {
       </Tabs>
     </>
   );
-};
-export default Dashboard;
+}

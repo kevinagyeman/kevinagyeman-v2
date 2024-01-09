@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 
 export default async function ProjectsListUser() {
   const t = useTranslations('index');
-  const projects: any = await getProjects(
+  const projects: ProjectSchema[] | undefined = await getProjects(
     {
       fieldPath: 'createdAt',
       directionStr: 'desc',

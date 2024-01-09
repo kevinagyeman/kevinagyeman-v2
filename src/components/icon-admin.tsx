@@ -25,7 +25,7 @@ export default function IconAdmin() {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          {
+          {/* {
             <Image
               className='h-8 w-8 rounded-full'
               src=''
@@ -33,7 +33,7 @@ export default function IconAdmin() {
               width={300}
               height={300}
             />
-          }
+          } */}
         </DropdownMenuTrigger>
         {status === 'authenticated' && (
           <DropdownMenuContent className='w-56'>

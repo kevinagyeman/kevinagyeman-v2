@@ -1,3 +1,4 @@
+'use client';
 import { projectService } from '@/services/project.service';
 import { initProjectData, projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';

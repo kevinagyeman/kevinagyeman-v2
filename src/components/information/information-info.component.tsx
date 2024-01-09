@@ -17,6 +17,8 @@ const InformationInfo = async () => {
               src={information.profileImageLink}
               className='h-44 rounded-full'
               alt='profile image'
+              width={'600'}
+              height={'600'}
             />
           )} */}
         </div>

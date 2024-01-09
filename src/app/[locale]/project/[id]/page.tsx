@@ -1,5 +1,3 @@
-'use client';
-
 import ProjectsInfo from '@/components/project/projects-info.component';
 
 type ProjectProps = {

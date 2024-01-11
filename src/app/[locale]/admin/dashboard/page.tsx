@@ -6,25 +6,7 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { authOptions } from '../../../../../pages/api/auth/[...nextauth]';
 
-export default async function Dashboard() {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-
-  // const session = useSession({
-  //   required: true,
-  //   onUnauthenticated() {
-  //     redirect('/login');
-  //   },
-  // });
-
+export default function Dashboard() {
   return (
     <>
       <div className='text-center'>

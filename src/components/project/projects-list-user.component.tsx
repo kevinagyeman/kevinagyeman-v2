@@ -4,9 +4,10 @@ import { ArrowUpRight, Check } from 'lucide-react';
 import { ProjectSchema } from '../../types/project-schema';
 import { Link } from '../../../navigation';
 import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 export default async function ProjectsListUser() {
-  const t = useTranslations('index');
+  const t = await getTranslations('index');
   const projects: ProjectSchema[] | undefined = await getProjects(
     {
       fieldPath: 'createdAt',

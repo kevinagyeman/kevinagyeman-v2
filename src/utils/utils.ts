@@ -1,11 +1,9 @@
-import i18n from '@/i18n';
 import { informationService } from '@/services/information.service';
 import { projectService } from '@/services/project.service';
 import { InformationSchema } from '@/types/information-schema';
 import { ProjectSchema } from '@/types/project-schema';
 import { OrderBySchema, WhereSchema } from '@/types/query-schema';
 import { useLocale } from 'next-intl';
-import { SetterOrUpdater } from 'recoil';
 
 export const splitByLanguage = (string: string): string => {
   const locale = useLocale();

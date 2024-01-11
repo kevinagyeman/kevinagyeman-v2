@@ -12,15 +12,15 @@ const InformationInfo = async () => {
     <>
       <div className='flex flex-col space-y-6'>
         <div>
-          {/* {information.profileImageLink && (
+          {information.profileImageLink && (
             <Image
               src={information.profileImageLink}
-              className='h-44 rounded-full'
+              className='rounded-full'
               alt='profile image'
-              width={'600'}
-              height={'600'}
+              width={'176'}
+              height={'176'}
             />
-          )} */}
+          )}
         </div>
         <h2 className='text-3xl font-semibold'>
           {information.name} {information.surname}

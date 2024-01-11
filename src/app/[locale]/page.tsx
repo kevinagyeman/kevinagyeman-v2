@@ -3,13 +3,6 @@ import ProjectsListUser from '@/components/project/projects-list-user.component'
 import { useTranslations } from 'next-intl';
 
 export default function Index() {
-  const t = useTranslations('index');
-  // const session = useSession({
-  //   required: true,
-  //   onUnauthenticated() {
-  //     redirect('/login');
-  //   },
-  // });
   return (
     <>
       <Hero />
@@ -17,5 +10,3 @@ export default function Index() {
     </>
   );
 }
-
-// Home.requireAuth = true;

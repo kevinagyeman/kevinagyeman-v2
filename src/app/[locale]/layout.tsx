@@ -7,6 +7,7 @@ import { RecoilRoot } from 'recoil';
 import Footer from '@/components/footer.component';
 import SessionProvider from './SessionProvider';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
+import IconAdmin from '@/components/icon-admin';
 
 const inter = Inter({ subsets: ['latin'] });
 

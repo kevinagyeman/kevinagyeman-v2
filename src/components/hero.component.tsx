@@ -1,20 +1,14 @@
-import { informationDataState } from '@/store/information-store';
-import { InformationSchema } from '@/types/information-schema';
+import { getInformation, splitByLanguage } from '@/utils/utils';
 import { ChevronRight, Send } from 'lucide-react';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '../../navigation';
 import SkeletonLoader from './skeleton.component';
 import SkillsList from './skills-list.component';
 import { Button } from './ui/button';
-import { informationService } from '@/services/information.service';
-import { getInformation, splitByLanguage } from '@/utils/utils';
-import { useLocale, useTranslations } from 'next-intl';
-import { Link } from '../../navigation';
 
-const Hero = async () => {
-  const t = useTranslations('index');
+export default async function Hero() {
   const information: any = await getInformation();
+  const t = await getTranslations('index');
 
   return (
     <>
@@ -55,6 +49,4 @@ const Hero = async () => {
       )}
     </>
   );
-};
-
-export default Hero;
+}

@@ -1,13 +1,49 @@
-import createMiddleware from 'next-intl/middleware';
-import { locales, localePrefix } from './navigation';
+import { withAuth } from 'next-auth/middleware';
+import createIntlMiddleware from 'next-intl/middleware';
+import { NextRequest } from 'next/server';
 
-export default createMiddleware({
-  defaultLocale: 'en',
-  localePrefix,
+const locales = ['en', 'it'];
+const publicPages = ['/', '/login', '/about', '/contact', '/project'];
+
+const intlMiddleware = createIntlMiddleware({
   locales,
+  localePrefix: 'never',
+  defaultLocale: 'en',
 });
 
+const authMiddleware = withAuth(
+  // Note that this callback is only invoked if
+  // the `authorized` callback has returned `true`
+  // and not for pages listed in `pages`.
+  function onSuccess(req) {
+    return intlMiddleware(req);
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => token != null,
+    },
+    pages: {
+      signIn: '/login',
+    },
+  }
+);
+
+export default function middleware(req: NextRequest) {
+  const publicPathnameRegex = RegExp(
+    `^(/(${locales.join('|')}))?(${publicPages
+      .flatMap((p) => (p === '/' ? ['', '/'] : p))
+      .join('|')})/?$`,
+    'i'
+  );
+  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+
+  if (isPublicPage) {
+    return intlMiddleware(req);
+  } else {
+    return (authMiddleware as any)(req);
+  }
+}
+
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/', '/(it|en)/:path*'],
+  matcher: ['/((?!api|_next|.*\\..*).*)'],
 };

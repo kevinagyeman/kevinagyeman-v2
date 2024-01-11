@@ -9,10 +9,11 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 export default async function Contact() {
-  const t = useTranslations('contact');
   const information: any = await getInformation();
+  const t = await getTranslations('contact');
   let isCopied = false;
 
   const copyText = () => {

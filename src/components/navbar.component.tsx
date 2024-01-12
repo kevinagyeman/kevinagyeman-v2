@@ -1,16 +1,13 @@
 'use client';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { useTheme } from 'next-themes';
-import { useTranslation } from 'react-i18next';
-import { useRecoilValue } from 'recoil';
+import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import IconAdmin from './icon-admin';
 import LanguageSelector from './language-selector';
 import ThemeChanger from './theme-changer';
 import { Button } from './ui/button';
-import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
-import { Link } from '../../navigation';
 
 export default function Navbar() {
   const { data: session, status } = useSession();

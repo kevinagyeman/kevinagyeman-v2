@@ -2,12 +2,11 @@
 import { informationService } from '@/services/information.service';
 import { informationDataState } from '@/store/information-store';
 import { InformationSchema } from '@/types/information-schema';
-import { getInformation } from '@/utils/utils';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { SetterOrUpdater, useRecoilState } from 'recoil';
 import { Button } from '../ui/button';
 import InformationForm from './information-form.component';
 
@@ -15,16 +14,26 @@ export default function InformationUpdate() {
   const [information, setInformation] =
     useRecoilState<InformationSchema>(informationDataState);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
+  const router = useRouter();
+
+  const getInformation = async (
+    informationSetter: SetterOrUpdater<InformationSchema>
+  ) => {
+    const data = await informationService.getById();
+    if (data) {
+      const currentInformation: InformationSchema = {
+        ...data,
+        id: data.id,
+      };
+      informationSetter(currentInformation);
+    }
+  };
 
   const updateInformation = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-      await informationService.update(information);
-      setIsInputDisabled(true);
-      redirect('/admin/dashboard');
-    } catch (e) {
-      console.log(e);
-    }
+    e.preventDefault();
+    await informationService.update(information);
+    setIsInputDisabled(true);
+    router.push('/admin/dashboard');
   };
 
   const editInformationButton = () => {

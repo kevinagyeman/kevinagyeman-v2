@@ -1,6 +1,7 @@
 'use client';
 
 import ProjectsUpdate from '@/components/project/projects-update.component';
+import { RecoilRoot } from 'recoil';
 
 type ProjectProps = {
   params: {
@@ -13,7 +14,9 @@ const ProjectEdit = ({ params }: ProjectProps) => {
     return (
       <>
         <h2 className='mb-5 text-3xl font-semibold'>Edit Project</h2>
-        <ProjectsUpdate projectId={params.id} />
+        <RecoilRoot>
+          <ProjectsUpdate projectId={params.id} />
+        </RecoilRoot>
       </>
     );
   }

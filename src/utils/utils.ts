@@ -4,9 +4,10 @@ import { InformationSchema } from '@/types/information-schema';
 import { ProjectSchema } from '@/types/project-schema';
 import { OrderBySchema, WhereSchema } from '@/types/query-schema';
 import { useLocale } from 'next-intl';
+import { getLocale } from 'next-intl/server';
 
-export const splitByLanguage = (string: string): string => {
-  const locale = useLocale();
+export const splitByLanguage = async (string: string) => {
+  const locale = await getLocale();
   const itString = string.split('ENG')[0];
   const enString = string.split('ENG')[1];
 
@@ -60,18 +61,3 @@ export const getInformation = async () => {
     return currentInformation;
   }
 };
-
-// export const getInformationServer = async () => {
-//   try {
-//     const data = await informationService.getById();
-//     if (data) {
-//       const currentInformation: InformationSchema = {
-//         ...data,
-//         id: data.id,
-//       };
-//       return currentInformation;
-//     }
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };

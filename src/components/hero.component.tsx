@@ -1,7 +1,7 @@
 import { getInformation, splitByLanguage } from '@/utils/utils';
 import { ChevronRight, Send } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
-import { Link } from '../../navigation';
+import Link from 'next/link';
 import SkeletonLoader from './skeleton.component';
 import SkillsList from './skills-list.component';
 import { Button } from './ui/button';

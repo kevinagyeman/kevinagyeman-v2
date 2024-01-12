@@ -1,13 +1,10 @@
-import { projectService } from '@/services/project.service';
 import { getProjects, splitByLanguage, splitSkills } from '@/utils/utils';
 import { ArrowUpRight, Check } from 'lucide-react';
-import { ProjectSchema } from '../../types/project-schema';
-import { Link } from '../../../navigation';
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import { Link } from '../../../navigation';
+import { ProjectSchema } from '../../types/project-schema';
 
 export default async function ProjectsListUser() {
-  const t = await getTranslations('index');
   const projects: ProjectSchema[] | undefined = await getProjects(
     {
       fieldPath: 'createdAt',
@@ -19,6 +16,7 @@ export default async function ProjectsListUser() {
       value: true,
     }
   );
+  const t = await getTranslations('index');
 
   return (
     <>
@@ -26,7 +24,7 @@ export default async function ProjectsListUser() {
         {t('projects.title')}
       </h2>
       <p className='text-muted-foreground'>{t('projects.description')}</p>
-      {projects?.map((project: ProjectSchema, index: number) => (
+      {projects?.map(async (project: ProjectSchema, index: number) => (
         <Link href={`/project/${project.id}`} key={index}>
           <div
             className='my-3 flex 
@@ -34,14 +32,14 @@ export default async function ProjectsListUser() {
           >
             <div className='flex'>
               <h3 className='truncate text-2xl font-semibold'>
-                {splitByLanguage(`${project.title}`)}
+                {await splitByLanguage(`${project.title}`)}
               </h3>
               <div className='ml-auto'>
                 <ArrowUpRight />
               </div>
             </div>
             <p className='line-clamp-2 text-muted-foreground'>
-              {splitByLanguage(`${project.shortDescription}`)}
+              {await splitByLanguage(`${project.shortDescription}`)}
             </p>
             <div className='flex flex-wrap gap-x-3 gap-y-1'>
               {splitSkills(`${project?.skills}`, 3).map((skill, index) => (

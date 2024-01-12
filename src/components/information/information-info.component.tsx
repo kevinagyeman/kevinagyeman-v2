@@ -4,15 +4,16 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import SkillsList from '../skills-list.component';
 import { Link } from '../../../navigation';
+import { InformationSchema } from '@/types/information-schema';
 
 const InformationInfo = async () => {
-  const information: any = await getInformation();
+  const information: InformationSchema | undefined = await getInformation();
 
   return (
     <>
       <div className='flex flex-col space-y-6'>
         <div>
-          {information.profileImageLink && (
+          {information?.profileImageLink && (
             <Image
               src={information.profileImageLink}
               className='rounded-full'
@@ -23,7 +24,7 @@ const InformationInfo = async () => {
           )}
         </div>
         <h2 className='text-3xl font-semibold'>
-          {information.name} {information.surname}
+          {information?.name} {information?.surname}
         </h2>
         <div>
           <code className='relative rounded bg-muted px-[0.4rem] py-[0.2rem] font-mono text-sm'>
@@ -31,15 +32,15 @@ const InformationInfo = async () => {
           </code>
         </div>
         <p className=' text-xl text-muted-foreground'>
-          {splitByLanguage(`${information?.summary}`)}
+          {await splitByLanguage(`${information?.summary}`)}
         </p>
         <SkillsList string={`${information?.skills}`} />
         <p className=' text-xl'>
-          {splitByLanguage(`${information.additionalInfo}`)}
+          {await splitByLanguage(`${information?.additionalInfo}`)}
         </p>
 
         <div className='flex space-x-2'>
-          {information.additionalLink && (
+          {information?.additionalLink && (
             <Button
               variant={'secondary'}
               className='w-full'

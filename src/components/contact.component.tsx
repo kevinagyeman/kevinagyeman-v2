@@ -1,18 +1,13 @@
-import { informationDataState } from '@/store/information-store';
 import { InformationSchema } from '@/types/information-schema';
 import { getInformation } from '@/utils/utils';
 import { ArrowLeft, Copy, Send } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
+import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
 
 export default async function Contact() {
-  const information: any = await getInformation();
+  const information: InformationSchema | undefined = await getInformation();
   const t = await getTranslations('contact');
   let isCopied = false;
 
@@ -28,9 +23,6 @@ export default async function Contact() {
     window.location.href = `mailto:${information?.email || ''}`;
   };
 
-  // useEffect(() => {
-  //   getInformation(setInformation);
-  // }, []);
   return (
     <>
       <div className='mt-5'>

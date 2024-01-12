@@ -1,8 +1,7 @@
 'use client';
-
 import { useLocale } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { usePathname, useRouter } from '../../navigation';
 import {
   Select,
   SelectContent,
@@ -14,14 +13,13 @@ import {
 
 export default function LanguageSelector() {
   const router = useRouter();
-  const pathname = usePathname() || '/';
+  const pathname = usePathname();
   const locale = useLocale();
 
   const [language, setLanguage] = useState<string>(locale);
 
   const selectLanguage = (e: string) => {
-    router.push(e + '/' + pathname.replace(/\/(it|en)?\/?/, '/'));
-    // router.replace(pathname, { locale: e.valueOf() });
+    router.replace(pathname, { locale: e.valueOf() });
   };
 
   return (

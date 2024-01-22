@@ -8,6 +8,7 @@ import Footer from '@/components/footer.component';
 import SessionProvider from './SessionProvider';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import IconAdmin from '@/components/icon-admin';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,7 +33,10 @@ export default function RootLayout({ children, params: { locale } }: any) {
             >
               {/* <RecoilRoot> */}
               <Navbar />
-              <div className='container max-w-lg'>{children}</div>
+              <div className='container max-w-lg'>
+                {children}
+                <SpeedInsights />
+              </div>
               <Footer />
               {/* </RecoilRoot> */}
             </ThemeProvider>

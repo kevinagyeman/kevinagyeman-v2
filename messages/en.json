@@ -20,5 +20,10 @@
   "contact": {
     "title": "Contacts",
     "description": "Contact me, you can send me an email"
+  },
+  "pageNotFound": {
+    "title": "Error 404 - Page Not Found",
+    "sentence": "The link you visited leads nowhere, go back to the home",
+    "goBackHome": "Go back Home"
   }
 }

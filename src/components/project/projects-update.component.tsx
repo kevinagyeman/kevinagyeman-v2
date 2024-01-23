@@ -9,7 +9,7 @@ import { SetterOrUpdater, useRecoilState } from 'recoil';
 import SkeletonLoader from '../skeleton.component';
 import { Button } from '../ui/button';
 import ProjectForm from './project-form.component';
-import ProjectNotFound from './project-not-found.component';
+import ProjectNotFound from '../page-not-found.component';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 

@@ -1,12 +1,6 @@
 import ProjectsInfo from '@/components/project/projects-info.component';
 
-type ProjectProps = {
-  params: {
-    id: string;
-  };
-};
-
-export default function Project({ params }: ProjectProps) {
+export default function Project({ params }: { params: { id: string } }) {
   if (params.id) {
     return (
       <>

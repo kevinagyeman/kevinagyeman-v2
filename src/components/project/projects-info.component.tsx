@@ -1,13 +1,12 @@
 import { Button } from '@/components/ui/button';
+import { ProjectSchema } from '@/types/project-schema';
 import { getSingleProject, splitByLanguage } from '@/utils/utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '../../../navigation';
-import SkeletonLoader from '../skeleton.component';
+import PageNotFound from '../page-not-found.component';
 import SkillsList from '../skills-list.component';
-import ProjectNotFound from './project-not-found.component';
 import TranslationString from '../translation-string.component';
-import { ProjectSchema } from '@/types/project-schema';
 
 type ProjectInfoProps = {
   projectId: string;
@@ -15,14 +14,6 @@ type ProjectInfoProps = {
 
 export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
   const project: ProjectSchema | undefined = await getSingleProject(projectId);
-
-  const projectDelayFetch = () => {
-    setTimeout(() => {
-      return <ProjectNotFound />;
-    }, 2000);
-  };
-
-  projectDelayFetch();
 
   if (project?.id) {
     return (
@@ -72,6 +63,6 @@ export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
       </div>
     );
   } else {
-    return <SkeletonLoader />;
+    return <PageNotFound />;
   }
 }

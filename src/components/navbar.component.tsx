@@ -63,7 +63,9 @@ export default function Navbar() {
                   <div className='flex space-x-4'>
                     {navigation.map((item) => (
                       <Button asChild variant={'ghost'} key={item.name}>
-                        <Link href={item.href}>{item.name}</Link>
+                        <Link href={item.href} prefetch={true}>
+                          {item.name}
+                        </Link>
                       </Button>
                     ))}
                   </div>
@@ -82,6 +84,7 @@ export default function Navbar() {
             <div className='space-y-1 px-2 pb-3 pt-2'>
               {navigation.map((item, index: number) => (
                 <Link
+                  prefetch={true}
                   href={item.href}
                   key={index}
                   className={

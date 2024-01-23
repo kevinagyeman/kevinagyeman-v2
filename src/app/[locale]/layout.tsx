@@ -22,6 +22,9 @@ export default function RootLayout({ children, params: { locale } }: any) {
 
   return (
     <html lang={locale}>
+      <head>
+        <link rel='icon' href='/favicon.ico' sizes='any' />
+      </head>
       <body className={inter.className}>
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>
@@ -31,14 +34,12 @@ export default function RootLayout({ children, params: { locale } }: any) {
               enableSystem
               disableTransitionOnChange
             >
-              {/* <RecoilRoot> */}
               <Navbar />
               <div className='container max-w-lg'>
                 {children}
                 <SpeedInsights />
               </div>
               <Footer />
-              {/* </RecoilRoot> */}
             </ThemeProvider>
           </NextIntlClientProvider>
         </SessionProvider>

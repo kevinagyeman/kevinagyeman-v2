@@ -9,6 +9,7 @@ import SessionProvider from './SessionProvider';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import IconAdmin from '@/components/icon-admin';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,6 +38,7 @@ export default function RootLayout({ children, params: { locale } }: any) {
               <Navbar />
               <div className='container max-w-lg'>
                 {children}
+                <Analytics />
                 <SpeedInsights />
               </div>
               <Footer />

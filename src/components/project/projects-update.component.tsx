@@ -9,9 +9,9 @@ import { SetterOrUpdater, useRecoilState } from 'recoil';
 import SkeletonLoader from '../skeleton.component';
 import { Button } from '../ui/button';
 import ProjectForm from './project-form.component';
-import ProjectNotFound from '../page-not-found.component';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import PageNotFound from '../page-not-found.component';
 
 type ProjectId = {
   projectId: any;
@@ -27,7 +27,7 @@ export default function ProjectsUpdate({ projectId }: ProjectId) {
 
   const projectDelayFetch = () => {
     setTimeout(() => {
-      setProjectAlert(<ProjectNotFound />);
+      setProjectAlert(<PageNotFound />);
     }, 2000);
   };
 

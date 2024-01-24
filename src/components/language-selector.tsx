@@ -30,7 +30,10 @@ export default function LanguageSelector() {
         }}
         value={language}
       >
-        <SelectTrigger className='mx-1 w-[60px] border-none bg-transparent focus:border-transparent focus:ring-transparent'>
+        <SelectTrigger
+          className='mx-1 w-[60px] border-none bg-transparent focus:border-transparent focus:ring-transparent'
+          aria-label='Language selector'
+        >
           <SelectValue placeholder='Select a a language' />
         </SelectTrigger>
         <SelectContent>

@@ -1,7 +1,7 @@
 {
   "navbar": {
     "home": "Home",
-    "about": "About",
+    "about": "About Me",
     "contacts": "Contacts",
     "dashboard": "Dashboard",
     "addProject": "New project",
@@ -10,7 +10,7 @@
   "index": {
     "hero": {
       "contact": "Contact me",
-      "readMore": "Read more"
+      "readMore": "About Me"
     },
     "projects": {
       "title": "Projects",

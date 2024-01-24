@@ -17,7 +17,7 @@ const InformationInfo = async () => {
             <Image
               src={information.profileImageLink}
               className='rounded-full'
-              alt='profile image'
+              alt='Profile image'
               width={'176'}
               height={'176'}
             />

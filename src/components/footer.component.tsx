@@ -17,7 +17,11 @@ const Footer = () => {
               className='rounded-full'
               asChild
             >
-              <Link href='https://github.com/kevinagyeman' target='_blank'>
+              <Link
+                href='https://github.com/kevinagyeman'
+                target='_blank'
+                aria-label='GitHub'
+              >
                 <Github className='h-4 w-4' />
               </Link>
             </Button>
@@ -30,6 +34,7 @@ const Footer = () => {
               <Link
                 href='https://www.linkedin.com/in/kevinagyeman/'
                 target='_blank'
+                aria-label='Linkedin'
               >
                 <Linkedin className='h-4 w-4' />
               </Link>

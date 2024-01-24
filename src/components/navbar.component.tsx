@@ -3,33 +3,30 @@ import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import IconAdmin from './icon-admin';
 import LanguageSelector from './language-selector';
 import ThemeChanger from './theme-changer';
 import { Button } from './ui/button';
-import { useTheme } from 'next-themes';
-import { useEffect } from 'react';
 
 export default function Navbar() {
   const { data: session, status } = useSession();
   const isAdminLogged = status === 'authenticated';
   const t = useTranslations('navbar');
 
-  const userNavigation = [
+  const navigation = [
     { name: `${t('home')}`, href: '/' },
     { name: `${t('about')}`, href: '/about' },
     { name: `${t('contacts')}`, href: '/contact' },
+    ...(isAdminLogged
+      ? [
+          { name: `${t('dashboard')}`, href: '/admin/dashboard' },
+          { name: `${t('addProject')}`, href: '/admin/project-add' },
+          { name: `${t('editInformation')}`, href: '/admin/information-edit' },
+        ]
+      : []),
   ];
-
-  const navigation = isAdminLogged
-    ? [
-        ...userNavigation,
-        { name: `${t('dashboard')}`, href: '/admin/dashboard' },
-        { name: `${t('addProject')}`, href: '/admin/project-add' },
-        { name: `${t('editInformation')}`, href: '/admin/information-edit' },
-      ]
-    : userNavigation;
 
   return (
     <Disclosure

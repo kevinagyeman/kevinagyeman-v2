@@ -19,10 +19,6 @@ export default async function Contact() {
     }, 1000);
   };
 
-  const sendEmail = () => {
-    window.location.href = `mailto:${information?.email || ''}`;
-  };
-
   return (
     <>
       <div className='mt-5'>
@@ -43,12 +39,10 @@ export default async function Contact() {
           >
             <Copy className='h-4 w-4' />
           </Button>
-          <Button
-            variant='secondary'
-            className='shrink-0'
-            // onClick={() => sendEmail()}
-          >
-            <Send className='h-4 w-4' />
+          <Button variant='secondary' className='shrink-0' asChild>
+            <Link href={`mailto:${information?.email}`}>
+              <Send className='h-4 w-4' />
+            </Link>
           </Button>
         </div>
       </div>

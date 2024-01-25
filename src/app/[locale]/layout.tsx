@@ -20,7 +20,7 @@ export default function RootLayout({ children, params: { locale } }: any) {
   const messages = useMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning={true}>
       <body className={inter.className}>
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>

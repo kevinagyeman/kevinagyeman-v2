@@ -38,7 +38,6 @@ export default function Navbar() {
           <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
             <div className='relative flex h-16 items-center justify-between'>
               <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
-                {/* Mobile menu button*/}
                 <Disclosure.Button className='relative inline-flex items-center justify-center rounded-md p-2 text-black hover:text-black   dark:text-white  dark:hover:text-white '>
                   <span className='absolute -inset-0.5' />
                   <span className='sr-only'>Open main menu</span>
@@ -85,7 +84,7 @@ export default function Navbar() {
                     'text-light hover:text-light block rounded-md px-3 py-2 text-base font-medium hover:bg-zinc-800'
                   }
                 >
-                  <Disclosure.Button>{item.name}</Disclosure.Button>
+                  <Button>{item.name}</Button>
                 </Link>
               ))}
             </div>

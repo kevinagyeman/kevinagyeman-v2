@@ -85,7 +85,7 @@ export default function Navbar() {
                     'text-light hover:text-light block rounded-md px-3 py-2 text-base font-medium hover:bg-zinc-800'
                   }
                 >
-                  <Button>{item.name}</Button>
+                  <Disclosure.Button>{item.name}</Disclosure.Button>
                 </Link>
               ))}
             </div>

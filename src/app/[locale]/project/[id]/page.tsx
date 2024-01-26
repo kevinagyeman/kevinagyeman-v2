@@ -4,7 +4,7 @@ import { getSingleProject, splitByLanguage } from '@/utils/utils';
 import { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {
-  params: { id: string };
+  params: { id: string; locale: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
@@ -33,10 +33,9 @@ export async function generateMetadata(
           url: `${project?.imageLink}`,
           width: 1800,
           height: 1600,
-          alt: 'My custom alt',
         },
       ],
-      locale: 'en_US',
+      locale: params.locale,
       type: 'website',
     },
   };

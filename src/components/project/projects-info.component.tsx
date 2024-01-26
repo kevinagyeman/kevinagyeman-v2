@@ -7,6 +7,7 @@ import { Link } from '../../../navigation';
 import PageNotFound from '../page-not-found.component';
 import SkillsList from '../skills-list.component';
 import TranslationString from '../translation-string.component';
+import { getTranslations } from 'next-intl/server';
 
 type ProjectInfoProps = {
   projectId: string;
@@ -14,6 +15,7 @@ type ProjectInfoProps = {
 
 export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
   const project: ProjectSchema | undefined = await getSingleProject(projectId);
+  const t = await getTranslations('project');
 
   if (project?.id) {
     return (
@@ -48,10 +50,7 @@ export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
               asChild
             >
               <Link href={project.link} target='_blank'>
-                <TranslationString
-                  mainPath={'index'}
-                  translationPath={'hero.readMore'}
-                />{' '}
+                {t('readMore')}
                 <ArrowUpRight className='ml-2 h-5 w-5' />
               </Link>
             </Button>

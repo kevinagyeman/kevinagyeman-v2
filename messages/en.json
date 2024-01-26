@@ -25,5 +25,8 @@
     "title": "Error 404 - Page Not Found",
     "sentence": "The link you visited leads nowhere, go back to the home",
     "goBackHome": "Go back Home"
+  },
+  "project": {
+    "readMore": "Read More"
   }
 }

@@ -1,8 +1,6 @@
 'use client';
-import { auth } from '@/firebase';
-import { isAdminLoggedDataState } from '@/store/admin-store';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,13 +8,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { InformationSchema } from '@/types/information-schema';
-import { informationDataState } from '@/store/information-store';
-import { getInformation } from '@/utils/utils';
-import { useEffect, useState } from 'react';
-import { signOut, useSession } from 'next-auth/react';
 
 export default function IconAdmin() {
   const { data: session, status } = useSession();

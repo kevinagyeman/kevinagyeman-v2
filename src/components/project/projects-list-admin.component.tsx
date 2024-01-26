@@ -1,24 +1,13 @@
-import { projectsListState } from '@/store/projects-store';
 import { OrderBySchema } from '@/types/query-schema';
 import { getProjects, splitByLanguage, splitSkills } from '@/utils/utils';
 import { Timestamp } from 'firebase/firestore';
-import { ArrowDownUp, Check, FilterX, Search } from 'lucide-react';
-import { useEffect } from 'react';
-import { SetterOrUpdater, useRecoilState } from 'recoil';
+import { Check } from 'lucide-react';
+import { SetterOrUpdater } from 'recoil';
+import { Link } from '../../../navigation';
 import { ProjectSchema } from '../../types/project-schema';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import Divider from '../ui/divider';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
-import DeleteModal from './projects-delete.component';
-import { useTranslation } from 'react-i18next';
-import { Link } from '../../../navigation';
 
 const ProjectsListAdmin = async () => {
   const projects: any = await getProjects(

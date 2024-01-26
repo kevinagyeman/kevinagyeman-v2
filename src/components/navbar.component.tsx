@@ -9,6 +9,7 @@ import IconAdmin from './icon-admin';
 import LanguageSelector from './language-selector';
 import ThemeChanger from './theme-changer';
 import { Button } from './ui/button';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -96,13 +97,10 @@ export default function Navbar() {
 }
 
 const Logo = () => {
-  const { theme } = useTheme();
-
   return (
     <svg
       id='kevin_agyeman_logo'
-      className='h-8 w-auto'
-      fill={theme === 'dark' ? 'white' : 'black'}
+      className='h-8 w-auto fill-black dark:fill-white'
       data-name='Kevin Agyeman'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 1080 1080'

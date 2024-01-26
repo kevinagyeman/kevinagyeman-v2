@@ -1,9 +1,8 @@
 'use client';
-import { initProjectData, projectDataState } from '@/store/projects-store';
+import { projectDataState } from '@/store/projects-store';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { projectService } from '../../services/project.service';
 import { ProjectSchema } from '../../types/project-schema';

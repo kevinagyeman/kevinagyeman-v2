@@ -28,7 +28,9 @@ export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
           <Image
             src={project.imageLink}
             className='w-full'
-            alt='project image'
+            alt={`${project.title} image`}
+            width='1080'
+            height={'1080'}
           />
         )}
         {project.description && (

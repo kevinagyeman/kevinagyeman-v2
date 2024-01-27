@@ -3,13 +3,11 @@ import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import IconAdmin from './icon-admin';
 import LanguageSelector from './language-selector';
 import ThemeChanger from './theme-changer';
 import { Button } from './ui/button';
-import { useEffect, useState } from 'react';
 
 export default function Navbar() {
   const { data: session, status } = useSession();

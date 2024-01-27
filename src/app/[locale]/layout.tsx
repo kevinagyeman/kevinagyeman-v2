@@ -13,6 +13,14 @@ import SessionProvider from './SessionProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'kevin',
+  image: 'dd',
+  description: 'ddd',
+};
+
 type Props = {
   params: { id: string; locale: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -67,6 +75,10 @@ export default function RootLayout({ children, params: { locale } }: any) {
             >
               <Navbar />
               <div className='container max-w-lg'>
+                <script
+                  type='application/ld+json'
+                  dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
                 {children}
                 <Analytics />
                 <SpeedInsights />

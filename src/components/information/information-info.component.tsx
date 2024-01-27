@@ -5,9 +5,11 @@ import Image from 'next/image';
 import SkillsList from '../skills-list.component';
 import { Link } from '../../../navigation';
 import { InformationSchema } from '@/types/information-schema';
+import { getTranslations } from 'next-intl/server';
 
 const InformationInfo = async () => {
   const information: InformationSchema | undefined = await getInformation();
+  const t = await getTranslations('about');
 
   return (
     <>
@@ -23,9 +25,9 @@ const InformationInfo = async () => {
             />
           )}
         </div>
-        <h2 className='text-3xl font-semibold'>
+        <h1 className='text-3xl font-semibold'>
           {information?.name} {information?.surname}
-        </h2>
+        </h1>
         <div>
           <code className='relative rounded bg-muted px-[0.4rem] py-[0.2rem] font-mono text-sm'>
             {information?.role}
@@ -47,13 +49,17 @@ const InformationInfo = async () => {
               size={'lg'}
               asChild
             >
-              <Link href={information.additionalLink} target='_blank'>
-                {/* {t('readCv')} <ArrowUpRight className='ml-2 h-5 w-5' /> */}
+              <Link
+                href={information.additionalLink}
+                target='_blank'
+                rel='external'
+              >
+                {t('readResume')} <ArrowUpRight className='ml-2 h-5 w-5' />
               </Link>
             </Button>
           )}
           <Button variant={'outline'} size={'lg'} asChild className='ml-auto'>
-            <Link href='/'>
+            <Link href='/' rel='canonical'>
               <ArrowLeft className='h-5 w-5' />
             </Link>
           </Button>

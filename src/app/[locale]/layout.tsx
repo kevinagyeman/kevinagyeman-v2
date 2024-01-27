@@ -37,6 +37,9 @@ export async function generateMetadata(
     title: `Kevin Agyeman | ${information?.role}`,
     description: `${await splitByLanguage(`${information?.summary}`)}`,
     keywords: [`${information?.skills}`],
+    alternates: {
+      canonical: 'https://kevinagyeman.com',
+    },
     openGraph: {
       title: `Kevin Agyeman | ${information?.role}`,
       description: `${await splitByLanguage(`${information?.summary}`)}`,
@@ -66,6 +69,10 @@ export default function RootLayout({ children, params: { locale } }: any) {
   return (
     <html lang={locale} suppressHydrationWarning={true}>
       <body className={inter.className}>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>
             <ThemeProvider
@@ -76,10 +83,6 @@ export default function RootLayout({ children, params: { locale } }: any) {
             >
               <Navbar />
               <div className='container max-w-lg'>
-                <script
-                  type='application/ld+json'
-                  dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-                />
                 {children}
                 <Analytics />
                 <SpeedInsights />

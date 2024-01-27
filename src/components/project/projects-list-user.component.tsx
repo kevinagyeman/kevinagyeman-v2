@@ -25,7 +25,7 @@ export default async function ProjectsListUser() {
       </h2>
       <p className='text-muted-foreground'>{t('projects.description')}</p>
       {projects?.map(async (project: ProjectSchema, index: number) => (
-        <Link href={`/project/${project.id}`} key={index}>
+        <Link href={`/project/${project.id}`} key={index} rel='canonical'>
           <div
             className='my-3 flex 
     flex-col space-y-3 rounded-lg border p-6 lg:transition lg:ease-in-out lg:hover:scale-110 lg:hover:bg-zinc-100 lg:dark:hover:bg-zinc-900'

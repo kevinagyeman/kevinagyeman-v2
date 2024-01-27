@@ -15,10 +15,11 @@ const inter = Inter({ subsets: ['latin'] });
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: 'kevin',
-  image: 'dd',
-  description: 'ddd',
+  '@type': 'Person',
+  name: 'Kevin Agyeman',
+  image:
+    'https://firebasestorage.googleapis.com/v0/b/kevinagyeman-db.appspot.com/o/cover-site.png?alt=media&token=be8cef1a-0754-42ed-83c6-479c19cbefee',
+  description: 'Web Developer',
 };
 
 type Props = {

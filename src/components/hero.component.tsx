@@ -28,13 +28,13 @@ export default async function Hero() {
         <SkillsList string={`${information?.skills}`} numberOfSkills={4} />
         <div className='flex flex-wrap gap-3'>
           <Button variant={'secondary'} size={'lg'} asChild>
-            <Link href='/contact'>
+            <Link href='/contact' rel='canonical'>
               {t('hero.contact')}
               <Send className='ml-2 h-4 w-4' />
             </Link>
           </Button>
           <Button variant={'outline'} size={'lg'} asChild>
-            <Link href='/about'>
+            <Link href='/about' rel='canonical'>
               {t('hero.readMore')}
               <ChevronRight className='h-5 w-5' />
             </Link>

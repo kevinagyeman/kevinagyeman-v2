@@ -29,9 +29,11 @@ const InformationInfo = async () => {
           {information?.name} {information?.surname}
         </h1>
         <div>
-          <code className='relative rounded bg-muted px-[0.4rem] py-[0.2rem] font-mono text-sm'>
-            {information?.role}
-          </code>
+          <h2>
+            <code className='relative rounded bg-muted px-[0.4rem] py-[0.2rem] font-mono text-sm'>
+              {information?.role}
+            </code>
+          </h2>
         </div>
         <p className=' text-xl text-muted-foreground'>
           {await splitByLanguage(`${information?.summary}`)}

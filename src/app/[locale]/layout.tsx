@@ -36,7 +36,7 @@ export async function generateMetadata(
   return {
     title: `Kevin Agyeman | ${information?.role}`,
     description:
-      `${await splitByLanguage(`${information?.summary}`)}`.slice(0, 120) +
+      `${await splitByLanguage(`${information?.summary}`)}`.slice(0, 150) +
       '...',
     keywords: [`${information?.skills}`],
     alternates: {
@@ -45,7 +45,7 @@ export async function generateMetadata(
     openGraph: {
       title: `Kevin Agyeman | ${information?.role}`,
       description:
-        `${await splitByLanguage(`${information?.summary}`)}`.slice(0, 120) +
+        `${await splitByLanguage(`${information?.summary}`)}`.slice(0, 150) +
         '...',
       url: 'https://kevinagyeman.com',
       siteName: 'Kevin Agyeman',

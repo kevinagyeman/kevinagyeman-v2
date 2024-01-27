@@ -35,18 +35,14 @@ export async function generateMetadata(
 
   return {
     title: `Kevin Agyeman | ${information?.role}`,
-    description:
-      `${await splitByLanguage(`${information?.summary}`)}`.slice(0, 150) +
-      '...',
+    description: `${await splitByLanguage(`${information?.summary}`)}`,
     keywords: [`${information?.skills}`],
     alternates: {
       canonical: 'https://kevinagyeman.com',
     },
     openGraph: {
       title: `Kevin Agyeman | ${information?.role}`,
-      description:
-        `${await splitByLanguage(`${information?.summary}`)}`.slice(0, 150) +
-        '...',
+      description: `${await splitByLanguage(`${information?.summary}`)}`,
       url: 'https://kevinagyeman.com',
       siteName: 'Kevin Agyeman',
       images: [

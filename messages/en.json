@@ -5,7 +5,8 @@
     "contacts": "Contacts",
     "dashboard": "Dashboard",
     "addProject": "New project",
-    "editInformation": "Edit information"
+    "editInformation": "Edit information",
+    "project": "Project"
   },
   "index": {
     "hero": {

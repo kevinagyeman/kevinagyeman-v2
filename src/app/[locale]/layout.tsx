@@ -83,6 +83,7 @@ export default function RootLayout({ children, params: { locale } }: any) {
             >
               <Navbar />
               <div className='container max-w-lg'>
+                {/* <BreadcrumbMenu /> */}
                 {children}
                 <Analytics />
                 <SpeedInsights />

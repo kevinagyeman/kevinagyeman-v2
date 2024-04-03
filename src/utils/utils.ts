@@ -51,7 +51,9 @@ export const getSingleProject = async (projectId: string) => {
   }
 };
 
-export const getInformation = async () => {
+export const getInformation = async (): Promise<
+  InformationSchema | undefined
+> => {
   const data = await informationService.getById();
   if (data) {
     const currentInformation: InformationSchema = {

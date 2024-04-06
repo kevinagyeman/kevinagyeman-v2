@@ -1,15 +1,25 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
-import { getInformation, serverSplitByLanguage } from '@/utils/utils';
+import {
+  ClientSplitByLanguage,
+  getInformation,
+  serverSplitByLanguage,
+} from '@/utils/utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import SkillsList from '../skills-list.component';
 import { Link } from '../../../navigation';
 import { InformationSchema } from '@/types/information-schema';
 import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
-const InformationInfo = async () => {
-  const information: InformationSchema | undefined = await getInformation();
-  const t = await getTranslations('about');
+type InformationInfoProps = {
+  information: InformationSchema;
+};
+
+const InformationInfo = ({ information }: InformationInfoProps) => {
+  const t = useTranslations('index');
 
   return (
     <>
@@ -36,11 +46,11 @@ const InformationInfo = async () => {
           </h2>
         </div>
         <p className=' text-xl text-muted-foreground'>
-          {await serverSplitByLanguage(`${information?.summary}`)}
+          {ClientSplitByLanguage(`${information?.summary}`)}
         </p>
         <SkillsList string={`${information?.skills}`} />
         <p className=' text-xl'>
-          {await serverSplitByLanguage(`${information?.additionalInfo}`)}
+          {ClientSplitByLanguage(`${information?.additionalInfo}`)}
         </p>
 
         <div className='flex space-x-2'>

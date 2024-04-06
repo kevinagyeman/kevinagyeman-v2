@@ -1,3 +1,4 @@
+import PageNotFound from '@/components/page-not-found.component';
 import ProjectsInfo from '@/components/project/projects-info.component';
 import { ProjectSchema } from '@/types/project-schema';
 import { getSingleProject, serverSplitByLanguage } from '@/utils/utils';
@@ -49,12 +50,12 @@ export async function generateMetadata(
   };
 }
 
-export default function Project({ params }: { params: { id: string } }) {
-  if (params.id) {
-    return (
-      <>
-        <ProjectsInfo projectId={params.id} />
-      </>
-    );
+export default async function Project({ params }: { params: { id: string } }) {
+  const project: ProjectSchema | undefined = await getSingleProject(params.id);
+
+  if (project?.id) {
+    return <ProjectsInfo project={JSON.parse(JSON.stringify(project))} />;
+  } else {
+    return <PageNotFound />;
   }
 }

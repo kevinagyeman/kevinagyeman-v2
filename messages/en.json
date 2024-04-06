@@ -20,7 +20,8 @@
   },
   "contact": {
     "title": "Contacts",
-    "description": "Contact me, you can send me an email"
+    "description": "Contact me, you can send me an email",
+    "alertEmailCopied": "Email copied!"
   },
   "pageNotFound": {
     "title": "Error 404 - Page Not Found",

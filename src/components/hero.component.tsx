@@ -1,4 +1,10 @@
-import { getInformation, serverSplitByLanguage } from '@/utils/utils';
+'use client';
+
+import {
+  ClientSplitByLanguage,
+  getInformation,
+  serverSplitByLanguage,
+} from '@/utils/utils';
 import { ChevronRight, Send } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
@@ -6,10 +12,14 @@ import SkeletonLoader from './skeleton.component';
 import SkillsList from './skills-list.component';
 import { Button } from './ui/button';
 import { InformationSchema } from '@/types/information-schema';
+import { useTranslations } from 'next-intl';
 
-export default async function Hero() {
-  const information: InformationSchema | undefined = await getInformation();
-  const t = await getTranslations('index');
+type HeroProps = {
+  information: InformationSchema;
+};
+
+export default function Hero({ information }: HeroProps) {
+  const t = useTranslations('index');
 
   if (information?.id) {
     return (
@@ -23,18 +33,18 @@ export default async function Hero() {
           {information?.name} {information?.surname}
         </h1>
         <p className='text-l line-clamp-2 text-muted-foreground lg:text-xl'>
-          {await serverSplitByLanguage(`${information?.summary}`)}
+          {ClientSplitByLanguage(`${information?.summary}`)}
         </p>
         <SkillsList string={`${information?.skills}`} numberOfSkills={4} />
         <div className='flex flex-wrap gap-3'>
           <Button variant={'secondary'} size={'lg'} asChild>
-            <Link href='/contact' rel='canonical'>
+            <Link href='/contact' rel='canonical' prefetch={true}>
               {t('hero.contact')}
               <Send className='ml-2 h-4 w-4' />
             </Link>
           </Button>
           <Button variant={'outline'} size={'lg'} asChild>
-            <Link href='/about' rel='canonical'>
+            <Link href='/about' rel='canonical' prefetch={true}>
               {t('hero.readMore')}
               <ChevronRight className='h-5 w-5' />
             </Link>

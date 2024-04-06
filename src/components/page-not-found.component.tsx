@@ -1,11 +1,13 @@
+'use client';
+
 import { MoveLeft } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 import { Button } from './ui/button';
-import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
 
-export default async function PageNotFound() {
-  const t = await getTranslations('pageNotFound');
+export default function PageNotFound() {
+  const t = useTranslations('pageNotFound');
 
   return (
     <>

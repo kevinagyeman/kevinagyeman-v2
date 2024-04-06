@@ -11,7 +11,7 @@ export const serverSplitByLanguage = async (string: string) => {
   return languageHandler(locale, string);
 };
 
-export const clientSplitByLanguage = async (string: string) => {
+export const ClientSplitByLanguage = (string: string) => {
   const locale = useLocale();
   return languageHandler(locale, string);
 };

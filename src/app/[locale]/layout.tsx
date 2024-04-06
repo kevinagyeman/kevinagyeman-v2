@@ -2,7 +2,7 @@ import Footer from '@/components/footer.component';
 import Navbar from '@/components/navbar.component';
 import { ThemeProvider } from '@/components/theme-provider';
 import { InformationSchema } from '@/types/information-schema';
-import { getInformation, splitByLanguage } from '@/utils/utils';
+import { getInformation, serverSplitByLanguage } from '@/utils/utils';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, ResolvingMetadata } from 'next';
@@ -35,14 +35,14 @@ export async function generateMetadata(
 
   return {
     title: `Kevin Agyeman | ${information?.role}`,
-    description: `${await splitByLanguage(`${information?.summary}`)}`,
+    description: `${await serverSplitByLanguage(`${information?.summary}`)}`,
     keywords: [`${information?.skills}`],
     alternates: {
       canonical: 'https://kevinagyeman.com',
     },
     openGraph: {
       title: `Kevin Agyeman | ${information?.role}`,
-      description: `${await splitByLanguage(`${information?.summary}`)}`,
+      description: `${await serverSplitByLanguage(`${information?.summary}`)}`,
       url: 'https://kevinagyeman.com',
       siteName: 'Kevin Agyeman',
       images: [

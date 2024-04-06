@@ -1,6 +1,6 @@
 import ProjectsInfo from '@/components/project/projects-info.component';
 import { ProjectSchema } from '@/types/project-schema';
-import { getSingleProject, splitByLanguage } from '@/utils/utils';
+import { getSingleProject, serverSplitByLanguage } from '@/utils/utils';
 import { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {
@@ -15,12 +15,20 @@ export async function generateMetadata(
   const project: ProjectSchema | undefined = await getSingleProject(params.id);
 
   return {
-    title: `Kevin Agyeman | ${await splitByLanguage(`${project?.title}`)}`,
-    description: `${await splitByLanguage(`${project?.shortDescription}`)}`,
+    title: `Kevin Agyeman | ${await serverSplitByLanguage(
+      `${project?.title}`
+    )}`,
+    description: `${await serverSplitByLanguage(
+      `${project?.shortDescription}`
+    )}`,
     keywords: [`${project?.skills}`],
     openGraph: {
-      title: `Kevin Agyeman | ${await splitByLanguage(`${project?.title}`)}`,
-      description: `${await splitByLanguage(`${project?.shortDescription}`)}`,
+      title: `Kevin Agyeman | ${await serverSplitByLanguage(
+        `${project?.title}`
+      )}`,
+      description: `${await serverSplitByLanguage(
+        `${project?.shortDescription}`
+      )}`,
       url: 'https://kevinagyeman.com',
       siteName: 'Kevin Agyeman',
       images: [

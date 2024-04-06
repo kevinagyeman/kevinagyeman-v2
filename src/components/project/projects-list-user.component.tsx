@@ -1,11 +1,10 @@
 'use client';
 
-import { getProjects, splitByLanguage, splitSkills } from '@/utils/utils';
+import { clientSplitByLanguage, splitSkills } from '@/utils/utils';
 import { ArrowUpRight, Check } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import { Link } from '../../../navigation';
 import { ProjectSchema } from '../../types/project-schema';
-import { useTranslations } from 'next-intl';
 
 type ProjectsListUserProps = {
   projects: ProjectSchema[];
@@ -32,14 +31,14 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
           >
             <div className='flex'>
               <h3 className='truncate text-2xl font-semibold'>
-                {`${project.title}`}
+                {clientSplitByLanguage(`${project.title}`)}
               </h3>
               <div className='ml-auto'>
                 <ArrowUpRight />
               </div>
             </div>
             <p className='line-clamp-2 text-muted-foreground'>
-              {`${project.shortDescription}`}
+              {clientSplitByLanguage(`${project.shortDescription}`)}
             </p>
             <div className='flex flex-wrap gap-x-3 gap-y-1'>
               {splitSkills(`${project?.skills}`, 3).map((skill, index) => (

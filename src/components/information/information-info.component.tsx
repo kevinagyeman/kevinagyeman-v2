@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { getInformation, splitByLanguage } from '@/utils/utils';
+import { getInformation, serverSplitByLanguage } from '@/utils/utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import SkillsList from '../skills-list.component';
@@ -36,11 +36,11 @@ const InformationInfo = async () => {
           </h2>
         </div>
         <p className=' text-xl text-muted-foreground'>
-          {await splitByLanguage(`${information?.summary}`)}
+          {await serverSplitByLanguage(`${information?.summary}`)}
         </p>
         <SkillsList string={`${information?.skills}`} />
         <p className=' text-xl'>
-          {await splitByLanguage(`${information?.additionalInfo}`)}
+          {await serverSplitByLanguage(`${information?.additionalInfo}`)}
         </p>
 
         <div className='flex space-x-2'>

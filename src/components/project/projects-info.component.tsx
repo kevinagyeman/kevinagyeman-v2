@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ProjectSchema } from '@/types/project-schema';
-import { getSingleProject, splitByLanguage } from '@/utils/utils';
+import { getSingleProject, serverSplitByLanguage } from '@/utils/utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '../../../navigation';
@@ -21,10 +21,10 @@ export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
     return (
       <div className='flex flex-col space-y-8'>
         <h2 className='text-3xl font-semibold'>
-          {await splitByLanguage(`${project.title}`)}
+          {await serverSplitByLanguage(`${project.title}`)}
         </h2>
         <p className='text-xl text-muted-foreground'>
-          {await splitByLanguage(`${project.shortDescription}`)}
+          {await serverSplitByLanguage(`${project.shortDescription}`)}
         </p>
         {project.imageLink && (
           <Image
@@ -37,7 +37,7 @@ export default async function ProjectsInfo({ projectId }: ProjectInfoProps) {
         )}
         {project.description && (
           <p className='text-xl'>
-            {await splitByLanguage(`${project.description}`)}
+            {await serverSplitByLanguage(`${project.description}`)}
           </p>
         )}
         {project?.skills && <SkillsList string={`${project?.skills}`} />}

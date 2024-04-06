@@ -1,4 +1,4 @@
-import { getInformation, splitByLanguage } from '@/utils/utils';
+import { getInformation, serverSplitByLanguage } from '@/utils/utils';
 import { ChevronRight, Send } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
@@ -23,7 +23,7 @@ export default async function Hero() {
           {information?.name} {information?.surname}
         </h1>
         <p className='text-l line-clamp-2 text-muted-foreground lg:text-xl'>
-          {await splitByLanguage(`${information?.summary}`)}
+          {await serverSplitByLanguage(`${information?.summary}`)}
         </p>
         <SkillsList string={`${information?.skills}`} numberOfSkills={4} />
         <div className='flex flex-wrap gap-3'>

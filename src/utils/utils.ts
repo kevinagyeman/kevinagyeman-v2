@@ -6,8 +6,17 @@ import { OrderBySchema, WhereSchema } from '@/types/query-schema';
 import { useLocale } from 'next-intl';
 import { getLocale } from 'next-intl/server';
 
-export const splitByLanguage = async (string: string) => {
+export const serverSplitByLanguage = async (string: string) => {
   const locale = await getLocale();
+  return languageHandler(locale, string);
+};
+
+export const clientSplitByLanguage = async (string: string) => {
+  const locale = useLocale();
+  return languageHandler(locale, string);
+};
+
+const languageHandler = (locale: string, string: string): string => {
   const itString = string.split('ENG')[0];
   const enString = string.split('ENG')[1];
 

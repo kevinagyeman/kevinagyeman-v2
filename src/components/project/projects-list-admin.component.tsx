@@ -1,5 +1,5 @@
 import { OrderBySchema } from '@/types/query-schema';
-import { getProjects, splitByLanguage, splitSkills } from '@/utils/utils';
+import { getProjects, serverSplitByLanguage, splitSkills } from '@/utils/utils';
 import { Timestamp } from 'firebase/firestore';
 import { Check } from 'lucide-react';
 import { SetterOrUpdater } from 'recoil';
@@ -133,10 +133,10 @@ const ProjectsListAdmin = async () => {
             )}
           </div>
           <p className='text-l truncate font-semibold'>
-            {splitByLanguage(`${project.title}`)}
+            {serverSplitByLanguage(`${project.title}`)}
           </p>
           <p className='truncate text-sm text-muted-foreground'>
-            {splitByLanguage(`${project.shortDescription}`)}
+            {serverSplitByLanguage(`${project.shortDescription}`)}
           </p>
           <div className='flex flex-wrap gap-x-3 gap-y-0'>
             {splitSkills(`${project.skills}`, 3).map(

@@ -1,34 +1,47 @@
+'use client';
+
 import InformationElement from '@/components/information/information-element.component';
 import ProjectsListAdmin from '@/components/project/projects-list-admin.component';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getServerSession } from 'next-auth';
-import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
-import { authOptions } from '../../../../../pages/api/auth/[...nextauth]';
+import { ReactElement } from 'react';
+import { RecoilRoot } from 'recoil';
+import ProjectAdd from '@/components/project/project-add.component';
+import InformationUpdate from '@/components/information/information-update.component';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion';
 
-export default function Dashboard() {
+export default function Dashboard(): ReactElement {
   return (
-    <>
-      <div className='text-center'>
-        <h1 className='scroll-m-20 text-3xl font-bold tracking-tight lg:text-5xl'>
-          Dashboard
-        </h1>
-        <p className='mb-5 mt-3 text-muted-foreground'>
-          Edit data about website
-        </p>
+    <RecoilRoot>
+      <div className='container'>
+        <Accordion
+          type='multiple'
+          className='w-full'
+          defaultValue={['projects', 'information']}
+        >
+          <AccordionItem value='projects'>
+            <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
+              Projects
+            </AccordionTrigger>
+            <AccordionContent>
+              <ProjectAdd />
+              <ProjectsListAdmin />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value='information'>
+            <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
+              Information
+            </AccordionTrigger>
+            <AccordionContent>
+              <InformationElement />
+              <InformationUpdate />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
-      <Tabs defaultValue='projects'>
-        <TabsList className='mb-10 grid grid-cols-2'>
-          <TabsTrigger value='projects'>Projects</TabsTrigger>
-          <TabsTrigger value='information'>Information</TabsTrigger>
-        </TabsList>
-        <TabsContent value='projects'>
-          <ProjectsListAdmin />
-        </TabsContent>
-        <TabsContent value='information'>
-          <InformationElement />
-        </TabsContent>
-      </Tabs>
-    </>
+    </RecoilRoot>
   );
 }

@@ -1,4 +1,5 @@
 'use client';
+
 import { projectService } from '@/services/project.service';
 import { initProjectData, projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
@@ -12,24 +13,16 @@ import ProjectForm from './project-form.component';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import PageNotFound from '../page-not-found.component';
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 
 type ProjectId = {
   projectId: any;
 };
 
-export default function ProjectsUpdate({ projectId }: ProjectId) {
+export default function ProjectUpdate({ projectId }: ProjectId) {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
-  const [projectAlert, setProjectAlert] = useState<ReactElement>(
-    <SkeletonLoader />
-  );
   const router = useRouter();
-
-  const projectDelayFetch = () => {
-    setTimeout(() => {
-      setProjectAlert(<PageNotFound />);
-    }, 2000);
-  };
 
   const getSingleProject = async (
     projectId: string,
@@ -65,7 +58,8 @@ export default function ProjectsUpdate({ projectId }: ProjectId) {
   };
 
   useEffect(() => {
-    projectDelayFetch();
+    console.log('ciao chiamato');
+
     getSingleProject(projectId, setProject);
     return () => {
       setProject(initProjectData);
@@ -74,49 +68,43 @@ export default function ProjectsUpdate({ projectId }: ProjectId) {
 
   return (
     <>
-      {!project.id ? (
-        projectAlert
-      ) : (
-        <>
-          <div className='my-8 flex flex-row gap-x-3'>
-            <Button
-              variant='secondary'
-              onClick={() => {
-                editProjectButton();
-              }}
-            >
-              {isInputDisabled ? 'Edit' : 'Undo'}
-            </Button>
-            <Button type='submit' disabled={isInputDisabled} form='form'>
-              Update
-            </Button>
-            <Button
-              variant='outline'
-              size={'icon'}
-              className='ml-auto w-[50px]'
-              asChild
-            >
-              <Link href='/admin/dashboard'>
-                <ArrowLeft className='h-4 w-4' />
-              </Link>
-            </Button>
-          </div>
-          <ProjectForm
-            isDisabled={isInputDisabled}
-            projectSetter={setProject}
-            submitFunction={updateProject}
-            project={project}
-          />
-          <Button
-            type='submit'
-            className='mt-3 w-full'
-            disabled={isInputDisabled}
-            form='form'
-          >
-            Update
-          </Button>
-        </>
-      )}
+      <div className='my-8 flex flex-row gap-x-3'>
+        <Button
+          variant='secondary'
+          onClick={() => {
+            editProjectButton();
+          }}
+        >
+          {isInputDisabled ? 'Edit' : 'Undo'}
+        </Button>
+        <Button type='submit' disabled={isInputDisabled} form='form'>
+          Update
+        </Button>
+        <Button
+          variant='outline'
+          size={'icon'}
+          className='ml-auto w-[50px]'
+          asChild
+        >
+          <Link href='/admin/dashboard'>
+            <ArrowLeft className='h-4 w-4' />
+          </Link>
+        </Button>
+      </div>
+      <ProjectForm
+        isDisabled={isInputDisabled}
+        projectSetter={setProject}
+        submitFunction={updateProject}
+        project={project}
+      />
+      <Button
+        type='submit'
+        className='mt-3 w-full'
+        disabled={isInputDisabled}
+        form='form'
+      >
+        Update
+      </Button>
     </>
   );
 }

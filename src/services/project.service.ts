@@ -1,4 +1,4 @@
-import { OrderBySchema, WhereSchema } from "@/types/query-schema";
+import { OrderBySchema, WhereSchema } from '@/types/query-schema';
 import {
   DocumentData,
   QuerySnapshot,
@@ -12,11 +12,11 @@ import {
   query,
   updateDoc,
   where,
-} from "firebase/firestore";
-import { db } from "../firebase";
-import { ProjectSchema } from "../types/project-schema";
+} from 'firebase/firestore';
+import { db } from '../firebase';
+import { ProjectSchema } from '../types/project-schema';
 
-const projectsCollection = collection(db, "/projects");
+const projectsCollection = collection(db, '/projects');
 
 const mappedProjects = (data: QuerySnapshot<DocumentData, DocumentData>) => {
   const result: ProjectSchema[] = data.docs.map((doc) => ({
@@ -29,10 +29,19 @@ const mappedProjects = (data: QuerySnapshot<DocumentData, DocumentData>) => {
 export const projectService = {
   getAll: async (orderByValue: OrderBySchema, whereValue?: WhereSchema) => {
     try {
-      const orderByQuery = orderBy(orderByValue.fieldPath, orderByValue.directionStr);
+      const orderByQuery = orderBy(
+        orderByValue.fieldPath,
+        orderByValue.directionStr
+      );
       if (whereValue) {
-        const whereQuery = where(whereValue.fieldPath, whereValue.opStr, whereValue.value);
-        const data = await getDocs(query(projectsCollection, whereQuery, orderByQuery));
+        const whereQuery = where(
+          whereValue.fieldPath,
+          whereValue.opStr,
+          whereValue.value
+        );
+        const data = await getDocs(
+          query(projectsCollection, whereQuery, orderByQuery)
+        );
         return mappedProjects(data);
       } else {
         const data = await getDocs(query(projectsCollection, orderByQuery));

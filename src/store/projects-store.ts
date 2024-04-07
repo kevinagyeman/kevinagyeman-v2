@@ -14,7 +14,7 @@ export const projectDataState = atom({
   default: projectData,
 });
 
-const projectsList: ProjectSchema[] = [];
+export const projectsList: ProjectSchema[] = [];
 
 export const projectsListState = atom({
   key: 'projectsListState',

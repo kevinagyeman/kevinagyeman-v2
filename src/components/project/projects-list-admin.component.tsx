@@ -1,26 +1,37 @@
+'use client';
+
+import { useEffect } from 'react';
+import { projectsList, projectsListState } from '@/store/projects-store';
 import { OrderBySchema } from '@/types/query-schema';
-import { getProjects, serverSplitByLanguage, splitSkills } from '@/utils/utils';
+import {
+  ClientSplitByLanguage,
+  clientGetProjects,
+  splitSkills,
+} from '@/utils/utils';
 import { Timestamp } from 'firebase/firestore';
-import { Check } from 'lucide-react';
-import { SetterOrUpdater } from 'recoil';
+import { ArrowDownUp, Check, FilterX, Search } from 'lucide-react';
+
+import { SetterOrUpdater, useRecoilState } from 'recoil';
 import { Link } from '../../../navigation';
 import { ProjectSchema } from '../../types/project-schema';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import Divider from '../ui/divider';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
+import ProjectsUpdate from './project-update.component';
+import DeleteModal from './projects-delete.component';
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
+import ProjectUpdate from './project-update.component';
 
-const ProjectsListAdmin = async () => {
-  const projects: any = await getProjects(
-    {
-      fieldPath: 'createdAt',
-      directionStr: 'desc',
-    },
-    {
-      fieldPath: 'isPublished',
-      opStr: '==',
-      value: true,
-    }
-  );
+export default function ProjectsListAdmin() {
+  const [projects, setProjects] =
+    useRecoilState<ProjectSchema[]>(projectsListState);
 
   const formatDate = (date: Timestamp | undefined): string | undefined => {
     if (date) {
@@ -35,13 +46,17 @@ const ProjectsListAdmin = async () => {
     }
   };
 
+  useEffect(() => {
+    clientGetProjects(setProjects, {
+      fieldPath: 'createdAt',
+      directionStr: 'desc',
+    });
+  }, [projects]);
+
   return (
     <>
-      <Button variant='secondary' className='w-full' size={'lg'} asChild>
-        <Link href={`/admin/project-add`}>Add New Project</Link>
-      </Button>
       <Divider title={'Filters'} />
-      {/* <div className='flex flex-wrap justify-center gap-2'>
+      <div className='flex flex-wrap justify-center gap-2'>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='outline'>
@@ -52,7 +67,7 @@ const ProjectsListAdmin = async () => {
             <DropdownMenuGroup>
               <DropdownMenuItem
                 onClick={() =>
-                  getProjects(
+                  clientGetProjects(
                     setProjects,
                     {
                       fieldPath: 'createdAt',
@@ -70,7 +85,7 @@ const ProjectsListAdmin = async () => {
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() =>
-                  getProjects(
+                  clientGetProjects(
                     setProjects,
                     {
                       fieldPath: 'createdAt',
@@ -109,7 +124,7 @@ const ProjectsListAdmin = async () => {
         <Button
           variant='outline'
           onClick={() =>
-            getProjects(setProjects, {
+            clientGetProjects(setProjects, {
               fieldPath: 'createdAt',
               directionStr: 'desc',
             })
@@ -117,10 +132,10 @@ const ProjectsListAdmin = async () => {
         >
           Reset filtri <FilterX className='ml-2 h-4 w-4' />
         </Button>
-      </div> */}
+      </div>
       <Divider title={'Projects'} />
 
-      {projects.map((project: ProjectSchema, index: number) => (
+      {projects?.map((project: ProjectSchema, index: number) => (
         <div
           className='mb-4 flex flex-col space-y-2 rounded-lg border p-6'
           key={index}
@@ -132,11 +147,9 @@ const ProjectsListAdmin = async () => {
               <Badge variant='outline'>Draft</Badge>
             )}
           </div>
-          <p className='text-l truncate font-semibold'>
-            {serverSplitByLanguage(`${project.title}`)}
-          </p>
+          <p className='text-l truncate font-semibold'>{`${project.title}`}</p>
           <p className='truncate text-sm text-muted-foreground'>
-            {serverSplitByLanguage(`${project.shortDescription}`)}
+            {`${project.shortDescription}`}
           </p>
           <div className='flex flex-wrap gap-x-3 gap-y-0'>
             {splitSkills(`${project.skills}`, 3).map(
@@ -154,20 +167,22 @@ const ProjectsListAdmin = async () => {
             Created At: {formatDate(project.createdAt)}
           </p>
           <div className='flex gap-x-3 pt-3'>
-            <Button variant={'secondary'} className='w-full' asChild>
-              <Link href={`/admin/project-edit/${project.id}`}>
-                View / Edit
-              </Link>
-            </Button>
+            <p>{project.id}</p>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant='outline'>modifica vedi</Button>
+              </DialogTrigger>
+              <DialogContent className='max-h-screen overflow-y-auto my-10'>
+                <ProjectUpdate projectId={project.id} />
+              </DialogContent>
+            </Dialog>
             {/* <DeleteModal projectId={project.id} /> */}
           </div>
         </div>
       ))}
     </>
   );
-};
-
-export default ProjectsListAdmin;
+}
 
 type FilterButton = {
   buttonLabel: string;
@@ -177,46 +192,46 @@ type FilterButton = {
   projectsSetter: SetterOrUpdater<ProjectSchema[]>;
 };
 
-// const FilterButton = ({
-//   buttonLabel,
-//   orderBy,
-//   descLabel,
-//   ascLabel,
-//   projectsSetter,
-// }: FilterButton) => {
-//   return (
-//     <>
-//       <DropdownMenu>
-//         <DropdownMenuTrigger asChild>
-//           <Button variant='outline'>
-//             {buttonLabel} <ArrowDownUp className='ml-2 h-4 w-4' />
-//           </Button>
-//         </DropdownMenuTrigger>
-//         <DropdownMenuContent className='w-56'>
-//           <DropdownMenuGroup>
-//             <DropdownMenuItem
-//               onClick={() =>
-//                 getProjects(projectsSetter, {
-//                   fieldPath: orderBy.fieldPath,
-//                   directionStr: 'asc',
-//                 })
-//               }
-//             >
-//               <span>{ascLabel ? ascLabel : 'Dal meno recente'}</span>
-//             </DropdownMenuItem>
-//             <DropdownMenuItem
-//               onClick={() =>
-//                 getProjects(projectsSetter, {
-//                   fieldPath: orderBy.fieldPath,
-//                   directionStr: 'desc',
-//                 })
-//               }
-//             >
-//               <span>{descLabel ? descLabel : 'Dal più recente'}</span>
-//             </DropdownMenuItem>
-//           </DropdownMenuGroup>
-//         </DropdownMenuContent>
-//       </DropdownMenu>
-//     </>
-//   );
-// };
+const FilterButton = ({
+  buttonLabel,
+  orderBy,
+  descLabel,
+  ascLabel,
+  projectsSetter,
+}: FilterButton) => {
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='outline'>
+            {buttonLabel} <ArrowDownUp className='ml-2 h-4 w-4' />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className='w-56'>
+          <DropdownMenuGroup>
+            <DropdownMenuItem
+              onClick={() =>
+                clientGetProjects(projectsSetter, {
+                  fieldPath: orderBy.fieldPath,
+                  directionStr: 'asc',
+                })
+              }
+            >
+              <span>{ascLabel ? ascLabel : 'Dal meno recente'}</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                clientGetProjects(projectsSetter, {
+                  fieldPath: orderBy.fieldPath,
+                  directionStr: 'desc',
+                })
+              }
+            >
+              <span>{descLabel ? descLabel : 'Dal più recente'}</span>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
+  );
+};

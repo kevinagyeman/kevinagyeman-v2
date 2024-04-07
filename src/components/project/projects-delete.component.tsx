@@ -1,3 +1,5 @@
+'use client';
+
 import { projectsListState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
 import { Trash } from 'lucide-react';

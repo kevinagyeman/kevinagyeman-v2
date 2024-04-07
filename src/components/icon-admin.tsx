@@ -1,4 +1,5 @@
 'use client';
+
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import {
@@ -8,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
+import Link from 'next/link';
 
 export default function IconAdmin() {
   const { data: session, status } = useSession();
@@ -28,18 +30,29 @@ export default function IconAdmin() {
             />
           )}
         </DropdownMenuTrigger>
-        {status === 'authenticated' && (
-          <DropdownMenuContent className='w-56'>
-            <DropdownMenuGroup>
+
+        <DropdownMenuContent className='w-56'>
+          <DropdownMenuGroup>
+            {status === 'authenticated' ? (
               <DropdownMenuItem
                 onClick={() => signOut()}
                 className='cursor-pointer'
               >
                 Logout
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        )}
+            ) : (
+              <DropdownMenuItem
+                onClick={() => signOut()}
+                className='cursor-pointer'
+                asChild
+              >
+                <Link href='/about' rel='canonical' prefetch={true}>
+                  Login
+                </Link>
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
       </DropdownMenu>
     </>
   );

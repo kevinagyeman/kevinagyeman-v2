@@ -1,6 +1,6 @@
 'use client';
 
-import { ClientSplitByLanguage, splitSkills } from '@/utils/utils';
+import { ClientSplitByLanguage, splitSkills } from '@/utils/server-utils';
 import { ArrowUpRight, Check } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '../../../navigation';

@@ -3,17 +3,12 @@
 import { projectService } from '@/services/project.service';
 import { initProjectData, projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
-import { getSingleProject } from '@/utils/utils';
-import { ArrowLeft } from 'lucide-react';
-import React, { ReactElement, useEffect, useState } from 'react';
-import { SetterOrUpdater, useRecoilState } from 'recoil';
-import SkeletonLoader from '../skeleton.component';
+import { clientGetSingleProject } from '@/utils/client-utils';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { Button } from '../ui/button';
 import ProjectForm from './project-form.component';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import PageNotFound from '../page-not-found.component';
-import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 
 type ProjectId = {
   projectId: any;
@@ -22,59 +17,30 @@ type ProjectId = {
 export default function ProjectUpdate({ projectId }: ProjectId) {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
-  const router = useRouter();
 
-  const getSingleProject = async (
-    projectId: string,
-    projectSetter: SetterOrUpdater<ProjectSchema>
-  ) => {
-    const data = await projectService.getById(projectId);
-    if (data) {
-      const currentProject: ProjectSchema = {
-        ...data,
-        id: data.id,
-      };
-      projectSetter(currentProject);
-    }
-  };
   const updateProject = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-      await projectService.update(projectId, project);
-      setIsInputDisabled(true);
-      router.push('/admin/dashboard');
-    } catch (e) {
-      console.log(e);
-    }
+    e.preventDefault();
+    await projectService.update(projectId, project);
+    setIsInputDisabled(true);
   };
 
   const editProjectButton = () => {
     if (isInputDisabled) {
       setIsInputDisabled(false);
     } else {
-      getSingleProject(projectId, setProject);
+      clientGetSingleProject(projectId, setProject);
       setIsInputDisabled(true);
     }
   };
 
   useEffect(() => {
-    console.log('ciao chiamato');
-
-    getSingleProject(projectId, setProject);
-    return () => {
-      setProject(initProjectData);
-    };
+    clientGetSingleProject(projectId, setProject);
   }, []);
 
   return (
     <>
       <div className='my-8 flex flex-row gap-x-3'>
-        <Button
-          variant='secondary'
-          onClick={() => {
-            editProjectButton();
-          }}
-        >
+        <Button variant='secondary' onClick={() => editProjectButton()}>
           {isInputDisabled ? 'Edit' : 'Undo'}
         </Button>
         <Button type='submit' disabled={isInputDisabled} form='form'>
@@ -85,11 +51,7 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
           size={'icon'}
           className='ml-auto w-[50px]'
           asChild
-        >
-          <Link href='/admin/dashboard'>
-            <ArrowLeft className='h-4 w-4' />
-          </Link>
-        </Button>
+        ></Button>
       </div>
       <ProjectForm
         isDisabled={isInputDisabled}

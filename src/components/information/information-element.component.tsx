@@ -1,15 +1,15 @@
 'use client';
 
-import { clientGetInformation, getInformation } from '@/utils/utils';
+import { informationDataState } from '@/store/information-store';
+import { InformationSchema } from '@/types/information-schema';
+import { clientGetInformation } from '@/utils/client-utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import SkillsList from '../skills-list.component';
 import { Button } from '../ui/button';
 import Divider from '../ui/divider';
-import { InformationSchema } from '@/types/information-schema';
-import { ReactElement, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { informationDataState } from '@/store/information-store';
 
 export default function InformationElement() {
   const [information, setInformation] =

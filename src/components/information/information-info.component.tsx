@@ -5,7 +5,7 @@ import {
   ClientSplitByLanguage,
   getInformation,
   serverSplitByLanguage,
-} from '@/utils/utils';
+} from '@/utils/server-utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import SkillsList from '../skills-list.component';

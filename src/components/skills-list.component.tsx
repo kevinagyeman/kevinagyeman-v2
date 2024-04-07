@@ -1,5 +1,5 @@
 'use client';
-import { splitSkills } from '@/utils/utils';
+import { splitSkills } from '@/utils/server-utils';
 import { Badge } from './ui/badge';
 
 type SkillsListProps = {

@@ -9,8 +9,8 @@ import {
 } from '../ui/dropdown-menu';
 import { SetterOrUpdater } from 'recoil';
 import { ProjectSchema } from '@/types/project-schema';
-import { ArrowDownUp } from 'lucide-react';
-import { clientGetProjects } from '@/utils/utils';
+import { ArrowDownUp, Search } from 'lucide-react';
+import { clientGetProjects } from '@/utils/client-utils';
 
 type FilterButtonProps = {
   buttonLabel: string;
@@ -18,6 +18,7 @@ type FilterButtonProps = {
   ascLabel?: string;
   descLabel?: string;
   projectsSetter: SetterOrUpdater<ProjectSchema[]>;
+  isConditional: boolean;
 };
 
 export default function ProjectFilter({
@@ -26,40 +27,91 @@ export default function ProjectFilter({
   descLabel,
   ascLabel,
   projectsSetter,
+  isConditional,
 }: FilterButtonProps) {
   return (
     <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant='outline'>
-            {buttonLabel} <ArrowDownUp className='ml-2 h-4 w-4' />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className='w-56'>
-          <DropdownMenuGroup>
-            <DropdownMenuItem
-              onClick={() =>
-                clientGetProjects(projectsSetter, {
-                  fieldPath: orderBy.fieldPath,
-                  directionStr: 'asc',
-                })
-              }
-            >
-              <span>{ascLabel ? ascLabel : 'Dal meno recente'}</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() =>
-                clientGetProjects(projectsSetter, {
-                  fieldPath: orderBy.fieldPath,
-                  directionStr: 'desc',
-                })
-              }
-            >
-              <span>{descLabel ? descLabel : 'Dal più recente'}</span>
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      {isConditional ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant='outline'>
+              Status <Search className='ml-2 h-4 w-4' />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className='w-56'>
+            <DropdownMenuGroup>
+              <DropdownMenuItem
+                onClick={() =>
+                  clientGetProjects(
+                    projectsSetter,
+                    {
+                      fieldPath: 'createdAt',
+                      directionStr: 'desc',
+                    },
+                    {
+                      fieldPath: 'isPublished',
+                      opStr: '==',
+                      value: true,
+                    }
+                  )
+                }
+              >
+                <span>Solo i pubblicati </span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
+                  clientGetProjects(
+                    projectsSetter,
+                    {
+                      fieldPath: 'createdAt',
+                      directionStr: 'desc',
+                    },
+                    {
+                      fieldPath: 'isPublished',
+                      opStr: '==',
+                      value: false,
+                    }
+                  )
+                }
+              >
+                <span>Solo le bozze</span>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant='outline'>
+              {buttonLabel} <ArrowDownUp className='ml-2 h-4 w-4' />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className='w-56'>
+            <DropdownMenuGroup>
+              <DropdownMenuItem
+                onClick={() =>
+                  clientGetProjects(projectsSetter, {
+                    fieldPath: orderBy.fieldPath,
+                    directionStr: 'asc',
+                  })
+                }
+              >
+                <span>{ascLabel ? ascLabel : 'Dal meno recente'}</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
+                  clientGetProjects(projectsSetter, {
+                    fieldPath: orderBy.fieldPath,
+                    directionStr: 'desc',
+                  })
+                }
+              >
+                <span>{descLabel ? descLabel : 'Dal più recente'}</span>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
     </>
   );
 }

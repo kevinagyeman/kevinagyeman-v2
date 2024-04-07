@@ -1,7 +1,7 @@
 import PageNotFound from '@/components/page-not-found.component';
 import ProjectsInfo from '@/components/project/projects-info.component';
 import { ProjectSchema } from '@/types/project-schema';
-import { getSingleProject, serverSplitByLanguage } from '@/utils/utils';
+import { getSingleProject, serverSplitByLanguage } from '@/utils/server-utils';
 import { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {

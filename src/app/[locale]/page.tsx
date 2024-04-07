@@ -2,7 +2,7 @@ import Hero from '@/components/hero.component';
 import ProjectsListUser from '@/components/project/projects-list-user.component';
 import { InformationSchema } from '@/types/information-schema';
 import { ProjectSchema } from '@/types/project-schema';
-import { getInformation, getProjects } from '@/utils/utils';
+import { getInformation, getProjects } from '@/utils/server-utils';
 
 export default async function Index() {
   const projectsList: ProjectSchema[] | undefined = await getProjects(

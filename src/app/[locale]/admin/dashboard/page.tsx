@@ -16,32 +16,30 @@ import {
 export default function Dashboard(): ReactElement {
   return (
     <RecoilRoot>
-      <div className='container'>
-        <Accordion
-          type='multiple'
-          className='w-full'
-          defaultValue={['projects', 'information']}
-        >
-          <AccordionItem value='projects'>
-            <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
-              Projects
-            </AccordionTrigger>
-            <AccordionContent>
-              <ProjectAdd />
-              <ProjectsListAdmin />
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value='information'>
-            <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
-              Information
-            </AccordionTrigger>
-            <AccordionContent>
-              <InformationElement />
-              <InformationUpdate />
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </div>
+      <Accordion
+        type='multiple'
+        className='w-full'
+        defaultValue={['projects', 'information']}
+      >
+        <AccordionItem value='projects'>
+          <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
+            Projects
+          </AccordionTrigger>
+          <AccordionContent>
+            <ProjectAdd />
+            <ProjectsListAdmin />
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value='information'>
+          <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
+            Information
+          </AccordionTrigger>
+          <AccordionContent>
+            <InformationElement />
+            <InformationUpdate />
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </RecoilRoot>
   );
 }

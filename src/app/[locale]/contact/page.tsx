@@ -1,6 +1,6 @@
 import Contact from '@/components/contact.component';
 import { InformationSchema } from '@/types/information-schema';
-import { getInformation } from '@/utils/utils';
+import { getInformation } from '@/utils/server-utils';
 
 export default async function Contacts() {
   const information: InformationSchema | undefined = await getInformation();

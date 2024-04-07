@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { ProjectSchema } from '@/types/project-schema';
-import { ClientSplitByLanguage } from '@/utils/utils';
+import { ClientSplitByLanguage } from '@/utils/server-utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';

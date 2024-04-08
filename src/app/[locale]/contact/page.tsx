@@ -5,6 +5,10 @@ import { getInformation } from '@/utils/server-utils';
 export default async function Contacts() {
   const information: InformationSchema | undefined = await getInformation();
   if (information) {
-    return <Contact information={JSON.parse(JSON.stringify(information))} />;
+    return (
+      <div className='container max-w-lg'>
+        <Contact information={JSON.parse(JSON.stringify(information))} />
+      </div>
+    );
   }
 }

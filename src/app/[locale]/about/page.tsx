@@ -8,9 +8,11 @@ export default async function About() {
   return (
     <>
       {information ? (
-        <InformationInfo
-          information={JSON.parse(JSON.stringify(information))}
-        />
+        <div className='container max-w-lg'>
+          <InformationInfo
+            information={JSON.parse(JSON.stringify(information))}
+          />
+        </div>
       ) : null}
     </>
   );

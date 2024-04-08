@@ -18,13 +18,13 @@ export default async function Index() {
   );
   const information: InformationSchema | undefined = await getInformation();
   return (
-    <>
+    <div className='container max-w-lg'>
       {information ? (
         <Hero information={JSON.parse(JSON.stringify(information))} />
       ) : null}
       {projectsList ? (
         <ProjectsListUser projects={JSON.parse(JSON.stringify(projectsList))} />
       ) : null}
-    </>
+    </div>
   );
 }

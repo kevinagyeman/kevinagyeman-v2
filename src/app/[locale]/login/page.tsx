@@ -57,7 +57,7 @@ export default function Login() {
   };
 
   return (
-    <>
+    <div className='container max-w-lg'>
       <div className='flex  w-full flex-col items-center justify-center align-middle'>
         <div className='w-80  rounded-lg border p-6'>
           <h3 className='mb-3 scroll-m-20 text-2xl font-semibold tracking-tight'>
@@ -83,6 +83,6 @@ export default function Login() {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }

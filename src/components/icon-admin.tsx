@@ -41,12 +41,8 @@ export default function IconAdmin() {
                 Logout
               </DropdownMenuItem>
             ) : (
-              <DropdownMenuItem
-                onClick={() => signOut()}
-                className='cursor-pointer'
-                asChild
-              >
-                <Link href='/about' rel='canonical' prefetch={true}>
+              <DropdownMenuItem className='cursor-pointer' asChild>
+                <Link href='/login' rel='canonical' prefetch={true}>
                   Login
                 </Link>
               </DropdownMenuItem>

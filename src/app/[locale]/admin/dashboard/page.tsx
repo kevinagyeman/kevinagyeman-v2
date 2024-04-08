@@ -17,31 +17,33 @@ import Divider from '@/components/ui/divider';
 export default function Dashboard(): ReactElement {
   return (
     <RecoilRoot>
-      <Accordion
-        type='multiple'
-        className='w-full'
-        defaultValue={['projects', 'information']}
-      >
-        <AccordionItem value='projects'>
-          <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
-            Projects
-          </AccordionTrigger>
-          <AccordionContent>
-            <Divider title={'Projects'} />
-            <ProjectAdd />
-            <ProjectsListAdmin />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value='information'>
-          <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
-            Information
-          </AccordionTrigger>
-          <AccordionContent>
-            <Divider title={'Information'} />
-            <InformationElement />
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+      <div className='container'>
+        <Accordion
+          type='multiple'
+          className='w-full'
+          defaultValue={['projects', 'information']}
+        >
+          <AccordionItem value='projects'>
+            <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
+              Projects
+            </AccordionTrigger>
+            <AccordionContent>
+              <Divider title={'Projects'} />
+              <ProjectAdd />
+              <ProjectsListAdmin />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value='information'>
+            <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
+              Information
+            </AccordionTrigger>
+            <AccordionContent>
+              <Divider title={'Information'} />
+              <InformationElement />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
     </RecoilRoot>
   );
 }

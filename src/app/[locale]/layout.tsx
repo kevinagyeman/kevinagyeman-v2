@@ -82,12 +82,10 @@ export default function RootLayout({ children, params: { locale } }: any) {
               disableTransitionOnChange
             >
               <Navbar />
-              <div className='container'>
-                {/* <BreadcrumbMenu /> */}
-                {children}
-                <Analytics />
-                <SpeedInsights />
-              </div>
+              {/* <BreadcrumbMenu /> */}
+              {children}
+              <Analytics />
+              <SpeedInsights />
               <Footer />
             </ThemeProvider>
           </NextIntlClientProvider>

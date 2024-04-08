@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from '@/components/ui/accordion';
+import Divider from '@/components/ui/divider';
 
 export default function Dashboard(): ReactElement {
   return (
@@ -26,6 +27,7 @@ export default function Dashboard(): ReactElement {
             Projects
           </AccordionTrigger>
           <AccordionContent>
+            <Divider title={'Projects'} />
             <ProjectAdd />
             <ProjectsListAdmin />
           </AccordionContent>
@@ -35,8 +37,8 @@ export default function Dashboard(): ReactElement {
             Information
           </AccordionTrigger>
           <AccordionContent>
+            <Divider title={'Information'} />
             <InformationElement />
-            <InformationUpdate />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

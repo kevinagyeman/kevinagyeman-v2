@@ -34,7 +34,7 @@ export default function ProjectFilter({
       {isConditional ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant='outline'>
+            <Button variant='secondary' size={'sm'}>
               Status <Search className='ml-2 h-4 w-4' />
             </Button>
           </DropdownMenuTrigger>
@@ -82,7 +82,7 @@ export default function ProjectFilter({
       ) : (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant='outline'>
+            <Button variant='secondary' size={'sm'}>
               {buttonLabel} <ArrowDownUp className='ml-2 h-4 w-4' />
             </Button>
           </DropdownMenuTrigger>

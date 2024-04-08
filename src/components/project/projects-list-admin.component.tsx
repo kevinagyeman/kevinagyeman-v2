@@ -36,7 +36,7 @@ const FilterSection = () => {
 
   return (
     <>
-      <div className='flex flex-wrap justify-center gap-2'>
+      <div className='flex flex-wrap gap-2 my-5'>
         <ProjectFilter
           buttonLabel={'Title'}
           orderBy={{ fieldPath: 'title' }}
@@ -67,6 +67,7 @@ const FilterSection = () => {
         />
         <Button
           variant='outline'
+          size={'sm'}
           onClick={() =>
             clientGetProjects(setProjects, {
               fieldPath: 'createdAt',

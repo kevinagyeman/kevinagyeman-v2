@@ -21,11 +21,7 @@ export default function Navbar() {
     { name: `${t('about')}`, href: '/about' },
     { name: `${t('contacts')}`, href: '/contact' },
     ...(isAdminLogged
-      ? [
-          { name: `${t('dashboard')}`, href: '/admin/dashboard' },
-          { name: `${t('addProject')}`, href: '/admin/project-add' },
-          { name: `${t('editInformation')}`, href: '/admin/information-edit' },
-        ]
+      ? [{ name: `${t('dashboard')}`, href: '/admin/dashboard' }]
       : []),
   ];
 

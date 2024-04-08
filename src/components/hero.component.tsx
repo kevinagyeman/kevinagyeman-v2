@@ -32,7 +32,7 @@ export default function Hero({ information }: HeroProps) {
         <h1 className='text-4xl font-extrabold lg:text-5xl'>
           {information?.name} {information?.surname}
         </h1>
-        <p className='text-l line-clamp-2 text-muted-foreground lg:text-xl'>
+        <p className='text-l line-clamp-3 text-muted-foreground lg:text-xl'>
           {ClientSplitByLanguage(`${information?.summary}`)}
         </p>
         <SkillsList string={`${information?.skills}`} numberOfSkills={4} />

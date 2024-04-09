@@ -46,7 +46,11 @@ export default async function Project({ params }: { params: { id: string } }) {
   const project: ProjectSchema | undefined = await getSingleProject(params.id);
 
   if (project?.id) {
-    return <ProjectsInfo project={JSON.parse(JSON.stringify(project))} />;
+    return (
+      <div className='container max-w-lg'>
+        <ProjectsInfo project={JSON.parse(JSON.stringify(project))} />
+      </div>
+    );
   } else {
     return <PageNotFound />;
   }

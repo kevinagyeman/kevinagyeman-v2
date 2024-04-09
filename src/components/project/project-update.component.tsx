@@ -4,7 +4,10 @@ import { storage } from '@/firebase';
 import { projectService } from '@/services/project.service';
 import { projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
-import { clientGetSingleProject } from '@/utils/client-utils';
+import {
+  clientGetSingleProject,
+  clientUploadImage,
+} from '@/utils/client-utils';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
@@ -39,16 +42,8 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
   };
 
   const uploadImage = async () => {
-    try {
-      if (img) {
-        const imgRef = ref(storage, `projects/${projectId}`);
-        const value = await uploadBytes(imgRef, img);
-        const url = await getDownloadURL(value.ref);
-        setProject({ ...project, imageLink: url });
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    const newUrl = await clientUploadImage(img, `projects/${projectId}`);
+    setProject({ ...project, imageLink: newUrl });
   };
 
   useEffect(() => {

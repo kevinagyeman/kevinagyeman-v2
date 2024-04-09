@@ -1,8 +1,10 @@
+import { storage } from '@/firebase';
 import { informationService } from '@/services/information.service';
 import { projectService } from '@/services/project.service';
 import { InformationSchema } from '@/types/information-schema';
 import { ProjectSchema } from '@/types/project-schema';
 import { OrderBySchema, WhereSchema } from '@/types/query-schema';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { SetterOrUpdater } from 'recoil';
 
 export const clientGetSingleProject = async (
@@ -40,5 +42,18 @@ export const clientGetInformation = async (
       id: data.id,
     };
     informationSetter(currentInformation);
+  }
+};
+
+export const clientUploadImage = async (image: any, storagePath: string) => {
+  try {
+    if (image) {
+      const imgRef = ref(storage, storagePath);
+      const value = await uploadBytes(imgRef, image);
+      const url = await getDownloadURL(value.ref);
+      return url;
+    }
+  } catch (e) {
+    console.log(e);
   }
 };

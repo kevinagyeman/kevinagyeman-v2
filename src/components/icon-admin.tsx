@@ -10,20 +10,29 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import Link from 'next/link';
+import { informationDataState } from '@/store/information-store';
+import { InformationSchema } from '@/types/information-schema';
+import { useRecoilState } from 'recoil';
+import { clientGetInformation } from '@/utils/client-utils';
+import { useEffect } from 'react';
 
 export default function IconAdmin() {
   const { data: session, status } = useSession();
-  const adminImageLink =
-    'https://firebasestorage.googleapis.com/v0/b/kevinagyeman-db.appspot.com/o/profile-photo.jpg?alt=media&token=45868e69-9037-4b08-86f0-b7a7ab5367c9';
+  const [information, setInformation] =
+    useRecoilState<InformationSchema>(informationDataState);
+
+  useEffect(() => {
+    clientGetInformation(setInformation);
+  }, []);
 
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          {adminImageLink && (
+          {information.profileImageLink && (
             <Image
               className='h-8 w-8 rounded-full'
-              src={adminImageLink}
+              src={information.profileImageLink}
               alt='profile'
               width={32}
               height={32}

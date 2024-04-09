@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/ui/button';
 import { ProjectSchema } from '@/types/project-schema';
-import { ClientSplitByLanguage } from '@/utils/server-utils';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -18,11 +17,9 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
 
   return (
     <div className='flex flex-col space-y-8'>
-      <h2 className='text-3xl font-semibold'>
-        {ClientSplitByLanguage(`${project.title}`)}
-      </h2>
+      <h2 className='text-3xl font-semibold'>{project.title}</h2>
       <p className='text-xl text-muted-foreground'>
-        {ClientSplitByLanguage(`${project.shortDescription}`)}
+        {project.shortDescription}
       </p>
       {project.imageLink && (
         <Image
@@ -33,11 +30,7 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
           height={'1080'}
         />
       )}
-      {project.description && (
-        <p className='text-xl'>
-          {ClientSplitByLanguage(`${project.description}`)}
-        </p>
-      )}
+      {project.description && <p className='text-xl'>{project.description}</p>}
       {project?.skills && <SkillsList string={`${project?.skills}`} />}
       <div className='flex space-x-2'>
         {project.link && (

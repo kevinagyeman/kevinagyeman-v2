@@ -1,18 +1,12 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import {
-  ClientSplitByLanguage,
-  getInformation,
-  serverSplitByLanguage,
-} from '@/utils/server-utils';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import Image from 'next/image';
-import SkillsList from '../skills-list.component';
-import { Link } from '../../../navigation';
 import { InformationSchema } from '@/types/information-schema';
-import { getTranslations } from 'next-intl/server';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { Link } from '../../../navigation';
+import SkillsList from '../skills-list.component';
 
 type InformationInfoProps = {
   information: InformationSchema;
@@ -45,13 +39,9 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
             </code>
           </h2>
         </div>
-        <p className=' text-xl text-muted-foreground'>
-          {ClientSplitByLanguage(`${information?.summary}`)}
-        </p>
+        <p className=' text-xl text-muted-foreground'>{information?.summary}</p>
         <SkillsList string={`${information?.skills}`} />
-        <p className=' text-xl'>
-          {ClientSplitByLanguage(`${information?.additionalInfo}`)}
-        </p>
+        <p className=' text-xl'>{information?.additionalInfo}</p>
 
         <div className='flex space-x-2'>
           {information?.additionalLink && (

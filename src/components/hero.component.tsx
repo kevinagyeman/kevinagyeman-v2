@@ -1,18 +1,12 @@
 'use client';
 
-import {
-  ClientSplitByLanguage,
-  getInformation,
-  serverSplitByLanguage,
-} from '@/utils/server-utils';
+import { InformationSchema } from '@/types/information-schema';
 import { ChevronRight, Send } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import SkeletonLoader from './skeleton.component';
 import SkillsList from './skills-list.component';
 import { Button } from './ui/button';
-import { InformationSchema } from '@/types/information-schema';
-import { useTranslations } from 'next-intl';
 
 type HeroProps = {
   information: InformationSchema;
@@ -33,7 +27,7 @@ export default function Hero({ information }: HeroProps) {
           {information?.name} {information?.surname}
         </h1>
         <p className='text-l line-clamp-3 text-muted-foreground lg:text-xl'>
-          {ClientSplitByLanguage(`${information?.summary}`)}
+          {information?.summary}
         </p>
         <SkillsList string={`${information?.skills}`} numberOfSkills={4} />
         <div className='flex flex-wrap gap-3'>

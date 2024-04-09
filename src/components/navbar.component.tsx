@@ -10,6 +10,7 @@ import IconAdmin from './icon-admin';
 import LanguageSelector from './language-selector';
 import ThemeChanger from './theme-changer';
 import { Button } from './ui/button';
+import { RecoilRoot } from 'recoil';
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -66,8 +67,10 @@ export default function Navbar() {
                 <div className='hidden sm:block'>
                   <ThemeChanger />
                 </div>
-                <LanguageSelector />
-                <IconAdmin />
+                {/* <LanguageSelector /> */}
+                <RecoilRoot>
+                  <IconAdmin />
+                </RecoilRoot>
               </div>
             </div>
           </div>

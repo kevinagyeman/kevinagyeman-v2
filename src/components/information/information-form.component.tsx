@@ -1,9 +1,11 @@
-import { FormFieldSchema } from "@/types/form-field-schema";
-import { InformationSchema } from "@/types/information-schema";
-import React from "react";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Textarea } from "../ui/textarea";
+'use client';
+
+import { FormFieldSchema } from '@/types/form-field-schema';
+import { InformationSchema } from '@/types/information-schema';
+import React from 'react';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Textarea } from '../ui/textarea';
 
 type InformationFormData = {
   information: InformationSchema;
@@ -12,12 +14,17 @@ type InformationFormData = {
   submitFunction(e: React.FormEvent<HTMLFormElement>): Promise<void>;
 };
 
-const InformationForm = ({ information, isDisabled, informationSetter, submitFunction }: InformationFormData) => {
+const InformationForm = ({
+  information,
+  isDisabled,
+  informationSetter,
+  submitFunction,
+}: InformationFormData) => {
   const formFields: FormFieldSchema[] = [
     {
-      label: "Name",
-      type: "text",
-      value: information.name || "",
+      label: 'Name',
+      type: 'text',
+      value: information.name || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -25,9 +32,9 @@ const InformationForm = ({ information, isDisabled, informationSetter, submitFun
       },
     },
     {
-      label: "Surname",
-      type: "text",
-      value: information.surname || "",
+      label: 'Surname',
+      type: 'text',
+      value: information.surname || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -35,9 +42,9 @@ const InformationForm = ({ information, isDisabled, informationSetter, submitFun
       },
     },
     {
-      label: "Email",
-      type: "text",
-      value: information.email || "",
+      label: 'Email',
+      type: 'text',
+      value: information.email || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -45,20 +52,9 @@ const InformationForm = ({ information, isDisabled, informationSetter, submitFun
       },
     },
     {
-      label: "Profile Image Link",
-      type: "text",
-      value: information.profileImageLink || "",
-      disabled: isDisabled,
-      required: false,
-      onChange: (e) => {
-        informationSetter({ ...information, profileImageLink: e.target.value });
-      },
-    },
-
-    {
-      label: "Role",
-      type: "text",
-      value: information.role || "",
+      label: 'Role',
+      type: 'text',
+      value: information.role || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -66,9 +62,9 @@ const InformationForm = ({ information, isDisabled, informationSetter, submitFun
       },
     },
     {
-      label: "Additional link",
-      type: "text",
-      value: information.additionalLink || "",
+      label: 'Additional link',
+      type: 'text',
+      value: information.additionalLink || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -77,9 +73,9 @@ const InformationForm = ({ information, isDisabled, informationSetter, submitFun
     },
 
     {
-      label: "Skills",
-      type: "textarea",
-      value: information.skills || "",
+      label: 'Skills',
+      type: 'textarea',
+      value: information.skills || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -87,9 +83,9 @@ const InformationForm = ({ information, isDisabled, informationSetter, submitFun
       },
     },
     {
-      label: "Summary",
-      type: "textarea",
-      value: information.summary || "",
+      label: 'Summary',
+      type: 'textarea',
+      value: information.summary || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -97,9 +93,9 @@ const InformationForm = ({ information, isDisabled, informationSetter, submitFun
       },
     },
     {
-      label: "Additional Information",
-      type: "textarea",
-      value: information.additionalInfo || "",
+      label: 'Additional Information',
+      type: 'textarea',
+      value: information.additionalInfo || '',
       disabled: isDisabled,
       required: false,
       onChange: (e) => {
@@ -110,14 +106,14 @@ const InformationForm = ({ information, isDisabled, informationSetter, submitFun
 
   return (
     <>
-      <form onSubmit={(e) => submitFunction(e)} id="form">
+      <form onSubmit={(e) => submitFunction(e)} id='form'>
         {formFields.map((field: FormFieldSchema, index: number) => (
-          <div className="my-5" key={index}>
-            {field.type === "text" ? (
+          <div className='my-5' key={index}>
+            {field.type === 'text' ? (
               <>
                 <Label>{field.label}</Label>
                 <Input
-                  className="mt-1"
+                  className='mt-1'
                   required={field.required}
                   type={field.type}
                   placeholder={field.label}
@@ -130,7 +126,7 @@ const InformationForm = ({ information, isDisabled, informationSetter, submitFun
               <>
                 <Label>{field.label}</Label>
                 <Textarea
-                  className="mt-1"
+                  className='mt-1'
                   placeholder={field.label}
                   value={field?.value}
                   onChange={field.onChange}

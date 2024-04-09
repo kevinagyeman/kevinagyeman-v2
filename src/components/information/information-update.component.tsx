@@ -1,18 +1,18 @@
 'use client';
 
+import { storage } from '@/firebase';
 import { informationService } from '@/services/information.service';
 import { informationDataState } from '@/store/information-store';
 import { InformationSchema } from '@/types/information-schema';
 import { clientGetInformation } from '@/utils/client-utils';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import Image from 'next/image';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import InformationForm from './information-form.component';
-import { storage } from '@/firebase';
-import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage';
 import { Label } from '../ui/label';
-import Image from 'next/image';
+import InformationForm from './information-form.component';
 
 export default function InformationUpdate(): ReactElement {
   const [information, setInformation] =
@@ -26,7 +26,7 @@ export default function InformationUpdate(): ReactElement {
     setIsInputDisabled(true);
   };
 
-  const uploadNewProfileImage = async () => {
+  const uploadImage = async () => {
     try {
       if (img) {
         const imgRef = ref(storage, `information/profile`);
@@ -88,7 +88,7 @@ export default function InformationUpdate(): ReactElement {
       />
       <div>
         <Button
-          onClick={() => uploadNewProfileImage()}
+          onClick={() => uploadImage()}
           disabled={isInputDisabled}
           variant={'secondary'}
         >

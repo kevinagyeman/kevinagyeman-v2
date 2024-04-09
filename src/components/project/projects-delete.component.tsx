@@ -42,16 +42,15 @@ export default function DeleteModal({ projectId }: DeleteModalProps) {
   };
 
   useEffect(() => {
-    console.log('crea delete');
-
     clientGetSingleProject(projectId, setProject);
   }, [projectId]);
 
   return (
     <div>
-      {projectId}
-      {project.title}
-      <Button onClick={() => deleteProject()}>cancella</Button>
+      <small>{projectId}</small>
+      <h1>{project.title}</h1>
+      <p>Are you sure?</p>
+      <Button onClick={() => deleteProject()}>Delete</Button>
     </div>
   );
 }

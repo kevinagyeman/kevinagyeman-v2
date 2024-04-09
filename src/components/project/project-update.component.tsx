@@ -1,13 +1,17 @@
 'use client';
 
+import { storage } from '@/firebase';
 import { projectService } from '@/services/project.service';
-import { initProjectData, projectDataState } from '@/store/projects-store';
+import { projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
 import { clientGetSingleProject } from '@/utils/client-utils';
-import { useRouter } from 'next/navigation';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
 import ProjectForm from './project-form.component';
 
 type ProjectId = {
@@ -17,6 +21,7 @@ type ProjectId = {
 export default function ProjectUpdate({ projectId }: ProjectId) {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
+  const [img, setImg] = useState<any>();
 
   const updateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,7 +38,21 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
     }
   };
 
+  const uploadImage = async () => {
+    try {
+      if (img) {
+        const imgRef = ref(storage, `projects/${projectId}`);
+        const value = await uploadBytes(imgRef, img);
+        const url = await getDownloadURL(value.ref);
+        setProject({ ...project, imageLink: url });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
+    setImg(project.imageLink);
     clientGetSingleProject(projectId, setProject);
   }, []);
 
@@ -52,6 +71,28 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
           className='ml-auto w-[50px]'
           asChild
         ></Button>
+      </div>
+      {project.imageLink && (
+        <Image src={project.imageLink} alt='profile' width={300} height={300} />
+      )}
+      <Label>Upload an image</Label>
+      <Input
+        placeholder='Choose image'
+        accept='image/png,image/jpeg'
+        type='file'
+        onChange={(e) => {
+          setImg(e.target.files && e.target.files[0]);
+        }}
+        disabled={isInputDisabled}
+      />
+      <div>
+        <Button
+          onClick={() => uploadImage()}
+          disabled={isInputDisabled}
+          variant={'secondary'}
+        >
+          Upload File
+        </Button>
       </div>
       <ProjectForm
         isDisabled={isInputDisabled}

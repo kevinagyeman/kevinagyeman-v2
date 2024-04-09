@@ -44,16 +44,6 @@ export default function ProjectForm({
       },
     },
     {
-      label: 'Image link',
-      type: 'text',
-      value: project.imageLink || '',
-      disabled: isDisabled,
-      required: false,
-      onChange: (e) => {
-        projectSetter({ ...project, imageLink: e.target.value });
-      },
-    },
-    {
       label: 'Skills',
       type: 'textarea',
       value: project.skills || '',

@@ -68,7 +68,14 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
         ></Button>
       </div>
       {project.imageLink && (
-        <Image src={project.imageLink} alt='profile' width={300} height={300} />
+        <Image
+          src={project.imageLink}
+          alt='profile'
+          width='0'
+          height='0'
+          sizes='100vw'
+          style={{ width: '100%', height: 'auto' }}
+        />
       )}
       <Label>Upload an image</Label>
       <Input

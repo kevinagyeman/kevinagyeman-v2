@@ -24,8 +24,10 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
               src={information.profileImageLink}
               className='rounded-full'
               alt='Profile image'
-              width={'176'}
-              height={'176'}
+              width='0'
+              height='0'
+              sizes='100vw'
+              style={{ width: '176px', height: 'auto' }}
             />
           )}
         </div>

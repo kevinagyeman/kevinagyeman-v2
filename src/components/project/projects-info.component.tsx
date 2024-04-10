@@ -26,8 +26,10 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
           src={project.imageLink}
           className='w-full'
           alt={`${project.title} image`}
-          width='1080'
-          height={'1080'}
+          width='0'
+          height='0'
+          sizes='100vw'
+          style={{ width: '100%', height: 'auto' }}
         />
       )}
       {project.description && <p className='text-xl'>{project.description}</p>}

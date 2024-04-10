@@ -30,8 +30,10 @@ export default function InformationElement() {
                 src={information.profileImageLink}
                 className='rounded-full'
                 alt='profile image'
-                width='200'
-                height={'200'}
+                width='0'
+                height='0'
+                sizes='100vw'
+                style={{ width: '100%', height: 'auto', maxWidth: '300px' }}
               />
             )}
           </div>

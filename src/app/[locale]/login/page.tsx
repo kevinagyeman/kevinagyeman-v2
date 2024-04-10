@@ -5,16 +5,20 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AdminData } from '@/types/admin-schema';
 import { FormFieldSchema } from '@/types/form-field-schema';
-import { signIn, useSession } from 'next-auth/react';
+import { SignInResponse, signIn, useSession } from 'next-auth/react';
 import { useLocale } from 'next-intl';
 import { redirect } from 'next/navigation';
 import { useState, ReactElement } from 'react';
+import { AlertCircle } from 'lucide-react';
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function Login(): ReactElement {
   const [admin, setAdmin] = useState<AdminData>({
     email: '',
     password: '',
   });
+  const [errorMessage, setErrorMessage] = useState<string>();
 
   const locale = useLocale();
   const { data: session, status } = useSession();
@@ -45,13 +49,20 @@ export default function Login(): ReactElement {
   const logIn = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      await signIn('credentials', {
+      const signInResult = await signIn('credentials', {
         email: admin.email,
         password: admin.password,
         redirect: false,
         callbackUrl: `/${locale}/admin/dashboard`,
       });
-    } catch (e) {}
+      if (signInResult?.error === 'CredentialsSignin') {
+        setErrorMessage('Invalid credentials');
+      } else {
+        setErrorMessage('Something went wrong');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -83,8 +94,18 @@ export default function Login(): ReactElement {
               Login
             </Button>
           </form>
+          {errorMessage && <AlertError errorLabel={errorMessage} />}
         </div>
       </div>
     </div>
   );
 }
+
+const AlertError = ({ errorLabel }: { errorLabel: string }) => {
+  return (
+    <Alert variant='destructive' className='mt-4'>
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>{errorLabel}</AlertDescription>
+    </Alert>
+  );
+};

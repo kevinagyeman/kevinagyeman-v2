@@ -23,7 +23,7 @@ export default function IconAdmin() {
 
   useEffect(() => {
     clientGetInformation(setInformation);
-  }, []);
+  }, [setInformation]);
 
   return (
     <>

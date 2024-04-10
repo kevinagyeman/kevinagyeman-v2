@@ -20,7 +20,7 @@ export default function ProjectsListAdmin() {
       fieldPath: 'createdAt',
       directionStr: 'desc',
     });
-  }, [projects]);
+  }, [setProjects]);
 
   return (
     <>

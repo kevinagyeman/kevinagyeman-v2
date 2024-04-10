@@ -1,6 +1,5 @@
 'use client';
 
-import { storage } from '@/firebase';
 import { informationService } from '@/services/information.service';
 import { informationDataState } from '@/store/information-store';
 import { InformationSchema } from '@/types/information-schema';
@@ -42,7 +41,7 @@ export default function InformationUpdate(): ReactElement {
   useEffect(() => {
     setImg(information.profileImageLink);
     clientGetInformation(setInformation);
-  }, []);
+  }, [information.profileImageLink, setInformation]);
 
   return (
     <>

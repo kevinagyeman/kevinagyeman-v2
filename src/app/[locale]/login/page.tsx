@@ -3,19 +3,15 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { auth } from '@/firebase';
-import { isAdminLoggedDataState } from '@/store/admin-store';
 import { AdminData } from '@/types/admin-schema';
 import { FormFieldSchema } from '@/types/form-field-schema';
-import { UserCredential, signInWithEmailAndPassword } from 'firebase/auth';
-import { redirect, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
 import { signIn, useSession } from 'next-auth/react';
 import { useLocale } from 'next-intl';
+import { redirect } from 'next/navigation';
+import { useState, ReactElement } from 'react';
 
-export default function Login() {
-  const [admin, setUser] = useState<AdminData>({
+export default function Login(): ReactElement {
+  const [admin, setAdmin] = useState<AdminData>({
     email: '',
     password: '',
   });
@@ -33,7 +29,7 @@ export default function Login() {
       type: 'text',
       required: true,
       onChange: (e) => {
-        setUser({ ...admin, email: e.target.value });
+        setAdmin({ ...admin, email: e.target.value });
       },
     },
     {
@@ -41,19 +37,21 @@ export default function Login() {
       type: 'password',
       required: true,
       onChange: (e) => {
-        setUser({ ...admin, password: e.target.value });
+        setAdmin({ ...admin, password: e.target.value });
       },
     },
   ];
 
-  const logIn = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    signIn('credentials', {
-      email: admin.email,
-      password: admin.password,
-      redirect: true,
-      callbackUrl: `/${locale}/admin/dashboard`,
-    });
+  const logIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      await signIn('credentials', {
+        email: admin.email,
+        password: admin.password,
+        redirect: false,
+        callbackUrl: `/${locale}/admin/dashboard`,
+      });
+    } catch (e) {}
   };
 
   return (
@@ -77,7 +75,11 @@ export default function Login() {
                 />
               </div>
             ))}
-            <Button type='submit' className='mt-3 w-full'>
+            <Button
+              type='submit'
+              className='mt-3 w-full'
+              disabled={!admin.email || !admin.password}
+            >
               Login
             </Button>
           </form>

@@ -6,23 +6,11 @@ import {
   projectsListState,
 } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
-import { Trash } from 'lucide-react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { projectService } from '../../services/project.service';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '../ui/alert-dialog';
-import { Button } from '../ui/button';
-import { useEffect } from 'react';
 import { clientGetSingleProject } from '@/utils/client-utils';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { projectService } from '../../services/project.service';
+import { Button } from '../ui/button';
 
 type DeleteModalProps = {
   projectId: string;
@@ -43,7 +31,7 @@ export default function DeleteModal({ projectId }: DeleteModalProps) {
 
   useEffect(() => {
     clientGetSingleProject(projectId, setProject);
-  }, [projectId]);
+  }, [setProject, projectId]);
 
   return (
     <div>

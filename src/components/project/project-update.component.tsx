@@ -49,7 +49,7 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
   useEffect(() => {
     setImg(project.imageLink);
     clientGetSingleProject(projectId, setProject);
-  }, []);
+  }, [project.imageLink, projectId, setProject]);
 
   return (
     <>

@@ -17,7 +17,7 @@ export default function InformationElement() {
 
   useEffect(() => {
     clientGetInformation(setInformation);
-  }, []);
+  }, [setInformation]);
 
   if (information.id) {
     return (

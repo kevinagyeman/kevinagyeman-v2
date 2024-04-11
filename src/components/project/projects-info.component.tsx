@@ -24,6 +24,7 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
         <p className='text-xl text-muted-foreground'>
           {project.shortDescription}
         </p>
+        {project?.skills && <SkillsList string={`${project?.skills}`} />}
         {project.imageLink && (
           <Image
             src={project.imageLink}
@@ -38,7 +39,6 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
         {project.description && (
           <p className='text-xl'>{project.description}</p>
         )}
-        {project?.skills && <SkillsList string={`${project?.skills}`} />}
         <div className='flex space-x-2'>
           {project.link && (
             <Button
@@ -53,11 +53,6 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
               </Link>
             </Button>
           )}
-          <Button variant={'outline'} size={'lg'} asChild>
-            <Link href='/'>
-              <ArrowLeft className='h-5 w-5' />
-            </Link>
-          </Button>
         </div>
       </div>
     </>

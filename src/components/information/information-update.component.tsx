@@ -17,6 +17,7 @@ export default function InformationUpdate(): ReactElement {
     useRecoilState<InformationSchema>(informationDataState);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
   const [img, setImg] = useState<any>();
+  const [isUploaded, setIsUploaded] = useState<boolean>(false);
 
   const updateInformation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,6 +28,7 @@ export default function InformationUpdate(): ReactElement {
   const uploadImage = async () => {
     const newUrl = await clientUploadImage(img, `information/profile`);
     setInformation({ ...information, profileImageLink: newUrl });
+    setIsUploaded(true);
   };
 
   const editInformationButton = () => {
@@ -92,6 +94,13 @@ export default function InformationUpdate(): ReactElement {
           >
             Upload File
           </Button>
+        </div>
+        <div>
+          {isUploaded ? (
+            <small className='text-emerald-500'>Uploaded Succesfully</small>
+          ) : (
+            <small className='text-amber-300'>Not uploaded</small>
+          )}
         </div>
       </div>
       <InformationForm

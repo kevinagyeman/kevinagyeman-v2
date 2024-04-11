@@ -24,6 +24,7 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
   const [img, setImg] = useState<any>();
+  const [isUploaded, setIsUploaded] = useState<boolean>(false);
 
   const updateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,6 +44,7 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
   const uploadImage = async () => {
     const newUrl = await clientUploadImage(img, `projects/${projectId}`);
     setProject({ ...project, imageLink: newUrl });
+    setIsUploaded(true);
   };
 
   const formatDate = (date: Timestamp | undefined): string | undefined => {
@@ -123,6 +125,13 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
           >
             Upload File
           </Button>
+        </div>
+        <div>
+          {isUploaded ? (
+            <small className='text-emerald-500'>Uploaded Succesfully</small>
+          ) : (
+            <small className='text-amber-300'>Not uploaded</small>
+          )}
         </div>
       </div>
       <ProjectForm

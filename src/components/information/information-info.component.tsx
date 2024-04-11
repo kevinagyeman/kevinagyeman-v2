@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '../../../navigation';
 import SkillsList from '../skills-list.component';
+import BreadcrumbMenu from '../breadcrumb-menu.component';
 
 type InformationInfoProps = {
   information: InformationSchema;
@@ -17,6 +18,7 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
 
   return (
     <>
+      <BreadcrumbMenu pageName={t('hero.readMore')} />
       <div className='flex flex-col space-y-6'>
         <div>
           {information?.profileImageLink && (
@@ -62,11 +64,6 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
               </Link>
             </Button>
           )}
-          <Button variant={'outline'} size={'lg'} asChild className='ml-auto'>
-            <Link href='/' rel='canonical'>
-              <ArrowLeft className='h-5 w-5' />
-            </Link>
-          </Button>
         </div>
       </div>
     </>

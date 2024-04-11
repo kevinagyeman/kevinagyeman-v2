@@ -12,24 +12,14 @@ import {
 } from './ui/breadcrumb';
 import { useTranslations } from 'next-intl';
 
-export default function BreadcrumbMenu(): ReactElement {
-  const t = useTranslations('navbar');
-  const pathname = usePathname();
-  const splittedPathName = pathname?.split('/').slice(-1).join('');
+type BreadcrumbMenuProps = {
+  pageName: string;
+};
 
-  const getPageName = () => {
-    switch (splittedPathName) {
-      case 'about':
-        return t('about');
-      case 'contact':
-        return t('contacts');
-      case '':
-        return '';
-      default:
-        return t('project');
-    }
-  };
-  const pageName = getPageName();
+export default function BreadcrumbMenu({
+  pageName,
+}: BreadcrumbMenuProps): ReactElement {
+  const t = useTranslations('navbar');
 
   return (
     <>

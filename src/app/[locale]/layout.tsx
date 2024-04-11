@@ -10,6 +10,7 @@ import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { Inter } from 'next/font/google';
 import '../globals.css';
 import SessionProvider from './SessionProvider';
+import BreadcrumbMenu from '@/components/breadcrumb-menu.component';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -83,7 +84,6 @@ export default function RootLayout({ children, params: { locale } }: any) {
             >
               <Navbar />
               <div className='container max-w-lg'>
-                {/* <BreadcrumbMenu /> */}
                 {children}
                 <Analytics />
                 <SpeedInsights />

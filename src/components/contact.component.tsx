@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useState } from 'react';
+import BreadcrumbMenu from './breadcrumb-menu.component';
 
 type ContactProps = {
   information: InformationSchema;
@@ -17,6 +18,7 @@ export default function Contact({ information }: ContactProps) {
 
   return (
     <>
+      <BreadcrumbMenu pageName={t('title')} />
       <div className='mt-5'>
         <h2 className='mb-2 text-3xl font-semibold'>{t('title')}</h2>
         <p className='text-muted-foreground'>{t('description')}</p>

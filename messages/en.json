@@ -10,8 +10,9 @@
   },
   "index": {
     "hero": {
-      "contact": "Contact me",
-      "readMore": "About Me"
+      "contact": "Contact",
+      "readMore": "About",
+      "resume": "Resume"
     },
     "projects": {
       "title": "Projects",

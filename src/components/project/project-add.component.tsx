@@ -20,7 +20,11 @@ export default function ProjectAdd(): ReactElement {
 
   return (
     <CustomModalDialog
-      dialogTrigger={<Button size={'lg'}>Add New Project</Button>}
+      dialogTrigger={
+        <Button size={'lg'} className='w-full'>
+          Add New Project
+        </Button>
+      }
     >
       <div className='my-8 flex flex-row gap-x-3'>
         <Button type='submit' form='form'>

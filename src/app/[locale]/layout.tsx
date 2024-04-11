@@ -82,11 +82,13 @@ export default function RootLayout({ children, params: { locale } }: any) {
               disableTransitionOnChange
             >
               <Navbar />
-              {/* <BreadcrumbMenu /> */}
-              {children}
-              <Analytics />
-              <SpeedInsights />
-              <Footer />
+              <div className='container max-w-lg'>
+                {/* <BreadcrumbMenu /> */}
+                {children}
+                <Analytics />
+                <SpeedInsights />
+                <Footer />
+              </div>
             </ThemeProvider>
           </NextIntlClientProvider>
         </SessionProvider>

@@ -66,36 +66,34 @@ export default function Login(): ReactElement {
   };
 
   return (
-    <div className='container max-w-lg'>
-      <div className='flex  w-full flex-col items-center justify-center align-middle'>
-        <div className='w-80  rounded-lg border p-6'>
-          <h3 className='mb-3 scroll-m-20 text-2xl font-semibold tracking-tight'>
+    <div className='flex  w-full flex-col items-center justify-center align-middle'>
+      <div className='w-80  rounded-lg border p-6'>
+        <h3 className='mb-3 scroll-m-20 text-2xl font-semibold tracking-tight'>
+          Login
+        </h3>
+        <form onSubmit={(e) => logIn(e)}>
+          {formFields.map((field: FormFieldSchema, index: number) => (
+            <div className='my-5' key={index}>
+              <Label>{field.label}</Label>
+              <Input
+                required={field.required}
+                type={field.type}
+                placeholder={field.label}
+                onChange={field.onChange}
+                disabled={field.disabled}
+                autoComplete='on'
+              />
+            </div>
+          ))}
+          <Button
+            type='submit'
+            className='mt-3 w-full'
+            disabled={!admin.email || !admin.password}
+          >
             Login
-          </h3>
-          <form onSubmit={(e) => logIn(e)}>
-            {formFields.map((field: FormFieldSchema, index: number) => (
-              <div className='my-5' key={index}>
-                <Label>{field.label}</Label>
-                <Input
-                  required={field.required}
-                  type={field.type}
-                  placeholder={field.label}
-                  onChange={field.onChange}
-                  disabled={field.disabled}
-                  autoComplete='on'
-                />
-              </div>
-            ))}
-            <Button
-              type='submit'
-              className='mt-3 w-full'
-              disabled={!admin.email || !admin.password}
-            >
-              Login
-            </Button>
-          </form>
-          {errorMessage && <AlertError errorLabel={errorMessage} />}
-        </div>
+          </Button>
+        </form>
+        {errorMessage && <AlertError errorLabel={errorMessage} />}
       </div>
     </div>
   );

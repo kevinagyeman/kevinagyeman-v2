@@ -6,9 +6,13 @@ import { clientGetInformation } from '@/utils/client-utils';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import CustomModalDialog from '../custom-modal-dialog.component';
 import SkillsList from '../skills-list.component';
-import { Button } from '../ui/button';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '../ui/accordion';
 import InformationUpdate from './information-update.component';
 
 export default function InformationElement() {
@@ -22,20 +26,21 @@ export default function InformationElement() {
   if (information.id) {
     return (
       <>
-        <EditInformationModal />
         <div className='flex flex-col space-y-4 mt-5'>
-          <div>
-            {information.profileImageLink && (
-              <Image
-                src={information.profileImageLink}
-                className='rounded-full'
-                alt='profile image'
-                width='0'
-                height='0'
-                sizes='100vw'
-                style={{ width: '100%', height: 'auto', maxWidth: '300px' }}
-              />
-            )}
+          <div className='flex flex-col gap-y-3 mb-8'>
+            <div>
+              {information.profileImageLink && (
+                <Image
+                  src={information.profileImageLink}
+                  className='rounded-full'
+                  alt='profile image'
+                  width='0'
+                  height='0'
+                  sizes='100vw'
+                  style={{ width: '100%', height: 'auto', maxWidth: '300px' }}
+                />
+              )}
+            </div>
           </div>
           <h4 className='text-xl font-semibold'>
             {information?.name} {information?.surname}
@@ -46,17 +51,17 @@ export default function InformationElement() {
           {information && <p>{information.additionalInfo}</p>}
           <p className='text-sm text-muted-foreground'>{information?.email}</p>
         </div>
+        <Accordion type='single' className='w-full' collapsible>
+          <AccordionItem value='ddd'>
+            <AccordionTrigger className='hover:no-underline'>
+              Edit information
+            </AccordionTrigger>
+            <AccordionContent>
+              <InformationUpdate />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </>
     );
   }
 }
-
-const EditInformationModal = () => {
-  return (
-    <CustomModalDialog
-      dialogTrigger={<Button size={'lg'}>Edit Information</Button>}
-    >
-      <InformationUpdate />
-    </CustomModalDialog>
-  );
-};

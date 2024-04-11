@@ -1,6 +1,5 @@
 'use client';
 
-import { storage } from '@/firebase';
 import { projectService } from '@/services/project.service';
 import { projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
@@ -8,9 +7,9 @@ import {
   clientGetSingleProject,
   clientUploadImage,
 } from '@/utils/client-utils';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { Timestamp } from 'firebase/firestore';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -46,6 +45,19 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
     setProject({ ...project, imageLink: newUrl });
   };
 
+  const formatDate = (date: Timestamp | undefined): string | undefined => {
+    if (date) {
+      const dateFormatted = new Date(date.seconds * 1000).toLocaleString([], {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      return dateFormatted;
+    }
+  };
+
   useEffect(() => {
     setImg(project.imageLink);
     clientGetSingleProject(projectId, setProject);
@@ -53,6 +65,14 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
 
   return (
     <>
+      <div className='flex flex-col'>
+        <small className='text-secondary'>
+          Updated At: {formatDate(project.updatedAt)}
+        </small>
+        <small className='text-secondary'>
+          Created At: {formatDate(project.createdAt)}
+        </small>
+      </div>
       <div className='my-8 flex flex-row gap-x-3'>
         <Button variant='secondary' onClick={() => editProjectButton()}>
           {isInputDisabled ? 'Edit' : 'Undo'}
@@ -67,34 +87,43 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
           asChild
         ></Button>
       </div>
-      {project.imageLink && (
-        <Image
-          src={project.imageLink}
-          alt='profile'
-          width='0'
-          height='0'
-          sizes='100vw'
-          style={{ width: '100%', height: 'auto' }}
-        />
-      )}
-      <Label>Upload an image</Label>
-      <Input
-        placeholder='Choose image'
-        accept='image/png,image/jpeg'
-        type='file'
-        onChange={(e) => {
-          setImg(e.target.files && e.target.files[0]);
-        }}
-        disabled={isInputDisabled}
-      />
-      <div>
-        <Button
-          onClick={() => uploadImage()}
-          disabled={isInputDisabled}
-          variant={'secondary'}
-        >
-          Upload File
-        </Button>
+      <div className='flex flex-col gap-y-3 mb-5'>
+        <div>
+          {project.imageLink ? (
+            <Image
+              src={project.imageLink}
+              alt='profile'
+              width='0'
+              height='0'
+              sizes='100vw'
+              style={{ width: '100%', height: 'auto' }}
+              className='rounded-lg'
+            />
+          ) : (
+            <ImageMissing />
+          )}
+        </div>
+        <Label>Upload an image</Label>
+        <div>
+          <Input
+            placeholder='Choose image'
+            accept='image/png,image/jpeg'
+            type='file'
+            onChange={(e) => {
+              setImg(e.target.files && e.target.files[0]);
+            }}
+            disabled={isInputDisabled}
+          />
+        </div>
+        <div>
+          <Button
+            onClick={() => uploadImage()}
+            disabled={isInputDisabled}
+            variant={'secondary'}
+          >
+            Upload File
+          </Button>
+        </div>
       </div>
       <ProjectForm
         isDisabled={isInputDisabled}
@@ -113,3 +142,11 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
     </>
   );
 }
+
+const ImageMissing = (): ReactElement => {
+  return (
+    <div className='h-[300px] border rounded-lg justify-center items-center flex mb-2'>
+      <h1 className='text-lg'>Image missing</h1>
+    </div>
+  );
+};

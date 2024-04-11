@@ -58,34 +58,41 @@ export default function InformationUpdate(): ReactElement {
           Update
         </Button>
       </div>
-      {information.profileImageLink && (
-        <Image
-          src={information.profileImageLink}
-          alt='profile'
-          width='0'
-          height='0'
-          sizes='100vw'
-          style={{ width: '100%', height: 'auto' }}
-        />
-      )}
-      <Label>Upload an image</Label>
-      <Input
-        placeholder='Choose image'
-        accept='image/png,image/jpeg'
-        type='file'
-        onChange={(e) => {
-          setImg(e.target.files && e.target.files[0]);
-        }}
-        disabled={isInputDisabled}
-      />
-      <div>
-        <Button
-          onClick={() => uploadImage()}
-          disabled={isInputDisabled}
-          variant={'secondary'}
-        >
-          Upload File
-        </Button>
+      <div className='flex flex-col gap-y-3 mb-5'>
+        <div>
+          {information.profileImageLink && (
+            <Image
+              src={information.profileImageLink}
+              alt='profile'
+              width='0'
+              height='0'
+              sizes='100vw'
+              style={{ width: '100%', height: 'auto' }}
+              className='rounded-lg'
+            />
+          )}
+        </div>
+        <Label>Upload an image</Label>
+        <div>
+          <Input
+            placeholder='Choose image'
+            accept='image/png,image/jpeg'
+            type='file'
+            onChange={(e) => {
+              setImg(e.target.files && e.target.files[0]);
+            }}
+            disabled={isInputDisabled}
+          />
+        </div>
+        <div>
+          <Button
+            onClick={() => uploadImage()}
+            disabled={isInputDisabled}
+            variant={'secondary'}
+          >
+            Upload File
+          </Button>
+        </div>
       </div>
       <InformationForm
         isDisabled={isInputDisabled}

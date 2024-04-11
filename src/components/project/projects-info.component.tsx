@@ -24,7 +24,7 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
       {project.imageLink && (
         <Image
           src={project.imageLink}
-          className='w-full'
+          className='w-full rounded-lg'
           alt={`${project.title} image`}
           width='0'
           height='0'

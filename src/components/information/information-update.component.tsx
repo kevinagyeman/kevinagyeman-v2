@@ -3,13 +3,18 @@
 import { informationService } from '@/services/information.service';
 import { informationDataState } from '@/store/information-store';
 import { InformationSchema } from '@/types/information-schema';
-import { clientGetInformation, clientUploadImage } from '@/utils/client-utils';
-import Image from 'next/image';
+import {
+  clientEditButton,
+  clientGetInformation,
+  clientUpload,
+} from '@/utils/client-utils';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import FileDisplay from '../file-display.component';
+import FunctionFeedback from '../function-feedback.component';
+import SubmitButton from '../submit-button.component';
 import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
+import Upload from '../upload.component';
 import InformationForm from './information-form.component';
 
 export default function InformationUpdate(): ReactElement {
@@ -18,26 +23,19 @@ export default function InformationUpdate(): ReactElement {
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
   const [img, setImg] = useState<any>();
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
+  const [isUpdated, setIsUpdated] = useState<boolean>(false);
 
   const updateInformation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await informationService.update(information);
     setIsInputDisabled(true);
+    setIsUpdated(true);
   };
 
-  const uploadImage = async () => {
-    const newUrl = await clientUploadImage(img, `information/profile`);
+  const uploadDoc = async () => {
+    const newUrl = await clientUpload(img, `information/profile`);
     setInformation({ ...information, profileImageLink: newUrl });
     setIsUploaded(true);
-  };
-
-  const editInformationButton = () => {
-    if (isInputDisabled) {
-      setIsInputDisabled(false);
-    } else {
-      clientGetInformation(setInformation);
-      setIsInputDisabled(true);
-    }
   };
 
   useEffect(() => {
@@ -50,58 +48,28 @@ export default function InformationUpdate(): ReactElement {
       <div className='my-8 flex flex-row gap-x-3'>
         <Button
           variant='secondary'
-          onClick={() => {
-            editInformationButton();
-          }}
+          onClick={() =>
+            clientEditButton(
+              isInputDisabled,
+              setIsInputDisabled,
+              information.id,
+              setInformation
+            )
+          }
         >
           {isInputDisabled ? 'Edit' : 'Undo'}
         </Button>
-        <Button type='submit' disabled={isInputDisabled} form='form'>
-          Update
-        </Button>
       </div>
       <div className='flex flex-col gap-y-3 mb-5'>
-        <div>
-          {information.profileImageLink && (
-            <Image
-              src={information.profileImageLink}
-              alt='profile'
-              width='0'
-              height='0'
-              sizes='100vw'
-              style={{ width: '100%', height: 'auto' }}
-              className='rounded-lg'
-            />
-          )}
-        </div>
-        <Label>Upload an image</Label>
-        <div>
-          <Input
-            placeholder='Choose image'
-            accept='image/png,image/jpeg'
-            type='file'
-            onChange={(e) => {
-              setImg(e.target.files && e.target.files[0]);
-            }}
-            disabled={isInputDisabled}
-          />
-        </div>
-        <div>
-          <Button
-            onClick={() => uploadImage()}
-            disabled={isInputDisabled}
-            variant={'secondary'}
-          >
-            Upload File
-          </Button>
-        </div>
-        <div>
-          {isUploaded ? (
-            <small className='text-emerald-500'>Uploaded Succesfully</small>
-          ) : (
-            <small className='text-amber-300'>Not uploaded</small>
-          )}
-        </div>
+        <FileDisplay fileUrl={information.profileImageLink} />
+        <Upload
+          label={'Upload an image'}
+          isInputDisabled={isInputDisabled}
+          uploadFunction={uploadDoc}
+          setFile={(e: any) => setImg(e.target.files && e.target.files[0])}
+          fileAccepted={'image/png,image/jpeg'}
+        />
+        <FunctionFeedback hasBeenSuccessful={isUploaded} />
       </div>
       <InformationForm
         isDisabled={isInputDisabled}
@@ -109,14 +77,8 @@ export default function InformationUpdate(): ReactElement {
         submitFunction={updateInformation}
         information={information}
       />
-      <Button
-        type='submit'
-        className='mt-3 w-full'
-        disabled={isInputDisabled}
-        form='form'
-      >
-        Update
-      </Button>
+      <SubmitButton title={'Update'} isInputDisabled={isInputDisabled} />
+      <FunctionFeedback hasBeenSuccessful={isUpdated} />
     </>
   );
 }

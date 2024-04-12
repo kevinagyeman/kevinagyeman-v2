@@ -4,6 +4,7 @@ import { projectService } from '@/services/project.service';
 import { InformationSchema } from '@/types/information-schema';
 import { ProjectSchema } from '@/types/project-schema';
 import { OrderBySchema, WhereSchema } from '@/types/query-schema';
+import { Timestamp } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { SetterOrUpdater } from 'recoil';
 
@@ -45,7 +46,7 @@ export const clientGetInformation = async (
   }
 };
 
-export const clientUploadImage = async (image: any, storagePath: string) => {
+export const clientUpload = async (image: any, storagePath: string) => {
   try {
     if (image) {
       const imgRef = ref(storage, storagePath);
@@ -55,5 +56,34 @@ export const clientUploadImage = async (image: any, storagePath: string) => {
     }
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const clientFormatDate = (
+  date: Timestamp | undefined
+): string | undefined => {
+  if (date) {
+    const dateFormatted = new Date(date.seconds * 1000).toLocaleString([], {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+    return dateFormatted;
+  }
+};
+
+export const clientEditButton = (
+  isInputDisabled: boolean,
+  setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>,
+  id: string,
+  setHook: SetterOrUpdater<ProjectSchema | InformationSchema>
+) => {
+  if (isInputDisabled) {
+    setIsInputDisabled(false);
+  } else {
+    clientGetSingleProject(id, setHook);
+    setIsInputDisabled(true);
   }
 };

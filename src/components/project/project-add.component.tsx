@@ -1,45 +1,48 @@
 'use client';
 
 import { initProjectData, projectDataState } from '@/store/projects-store';
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { projectService } from '../../services/project.service';
 import { ProjectSchema } from '../../types/project-schema';
-import CustomModalDialog from '../custom-modal-dialog.component';
-import { Button } from '../ui/button';
+import SubmitButton from '../submit-button.component';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '../ui/accordion';
 import ProjectForm from './project-form.component';
+import FunctionFeedback from '../function-feedback.component';
 
 export default function ProjectAdd(): ReactElement {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
+  const [isCreatd, setIsCreated] = useState<boolean>(false);
 
   const addProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await projectService.create(project);
     setProject(initProjectData);
+    setIsCreated(true);
   };
 
   return (
-    <CustomModalDialog
-      dialogTrigger={
-        <Button size={'lg'} className='w-full'>
+    <Accordion type='single' className='w-full' collapsible>
+      <AccordionItem value={'project-add'}>
+        <AccordionTrigger className='hover:no-underline'>
           Add New Project
-        </Button>
-      }
-    >
-      <div className='my-8 flex flex-row gap-x-3'>
-        <Button type='submit' form='form'>
-          Create
-        </Button>
-      </div>
-      <ProjectForm
-        isDisabled={false}
-        projectSetter={setProject}
-        submitFunction={addProject}
-        project={project}
-      />
-      <Button type='submit' className='mt-3 w-full' form='form'>
-        Create
-      </Button>
-    </CustomModalDialog>
+        </AccordionTrigger>
+        <AccordionContent>
+          <ProjectForm
+            isDisabled={false}
+            projectSetter={setProject}
+            submitFunction={addProject}
+            project={project}
+          />
+          <SubmitButton title={'Create new Project'} isInputDisabled={false} />
+          <FunctionFeedback hasBeenSuccessful={isCreatd} />
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 }

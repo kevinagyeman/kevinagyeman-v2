@@ -1,6 +1,6 @@
 'use client';
 
-import { clientUploadImage } from '@/utils/client-utils';
+import { clientUpload } from '@/utils/client-utils';
 import { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -15,10 +15,7 @@ export default function ResumeCV() {
 
   const uploadDoc = async () => {
     try {
-      const newUrl = await clientUploadImage(
-        doc,
-        `resume/Resume_Kevin_Agyeman`
-      );
+      const newUrl = await clientUpload(doc, `resume/Resume_Kevin_Agyeman`);
       setDoc(newUrl);
       setIsUploaded(true);
     } catch (e) {

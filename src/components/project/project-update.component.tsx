@@ -1,63 +1,59 @@
 'use client';
 
 import { projectService } from '@/services/project.service';
-import { projectDataState } from '@/store/projects-store';
+import {
+  initProjectData,
+  projectDataState,
+  projectsListState,
+} from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
 import {
+  clientEditButton,
   clientGetSingleProject,
-  clientUploadImage,
+  clientUpload,
 } from '@/utils/client-utils';
-import { Timestamp } from 'firebase/firestore';
-import Image from 'next/image';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import Dates from '../dates.component';
+import FileDisplay from '../file-display.component';
+import FunctionFeedback from '../function-feedback.component';
+import SubmitButton from '../submit-button.component';
 import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
+import Upload from '../upload.component';
 import ProjectForm from './project-form.component';
 
-type ProjectId = {
-  projectId: any;
+type ProjectUpdateProps = {
+  projectId: string;
 };
 
-export default function ProjectUpdate({ projectId }: ProjectId) {
+export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
+  const [projects, setProjects] =
+    useRecoilState<ProjectSchema[]>(projectsListState);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
   const [img, setImg] = useState<any>();
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
+  const [isUpdated, setIsUpdated] = useState<boolean>(false);
 
   const updateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await projectService.update(projectId, project);
     setIsInputDisabled(true);
+    setIsUpdated(true);
   };
 
-  const editProjectButton = () => {
-    if (isInputDisabled) {
-      setIsInputDisabled(false);
-    } else {
-      clientGetSingleProject(projectId, setProject);
-      setIsInputDisabled(true);
-    }
+  const deleteProject = async () => {
+    await projectService.delete(projectId);
+    setProjects((prev: ProjectSchema[]) => {
+      return prev.filter((project: ProjectSchema) => project.id !== projectId);
+    });
+    setProject(initProjectData);
   };
 
   const uploadImage = async () => {
-    const newUrl = await clientUploadImage(img, `projects/${projectId}`);
+    const newUrl = await clientUpload(img, `projects/${projectId}`);
     setProject({ ...project, imageLink: newUrl });
     setIsUploaded(true);
-  };
-
-  const formatDate = (date: Timestamp | undefined): string | undefined => {
-    if (date) {
-      const dateFormatted = new Date(date.seconds * 1000).toLocaleString([], {
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      return dateFormatted;
-    }
   };
 
   useEffect(() => {
@@ -67,72 +63,39 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
 
   return (
     <>
-      <div className='flex flex-col'>
-        <small className='text-secondary'>
-          Updated At: {formatDate(project.updatedAt)}
-        </small>
-        <small className='text-secondary'>
-          Created At: {formatDate(project.createdAt)}
-        </small>
-      </div>
+      <Dates updatedAt={project.updatedAt} createdAt={project.createdAt} />
       <div className='my-8 flex flex-row gap-x-3'>
-        <Button variant='secondary' onClick={() => editProjectButton()}>
+        <Button
+          variant='secondary'
+          onClick={() =>
+            clientEditButton(
+              isInputDisabled,
+              setIsInputDisabled,
+              projectId,
+              setProject
+            )
+          }
+        >
           {isInputDisabled ? 'Edit' : 'Undo'}
         </Button>
-        <Button type='submit' disabled={isInputDisabled} form='form'>
-          Update
-        </Button>
         <Button
-          variant='outline'
-          size={'icon'}
-          className='ml-auto w-[50px]'
-          asChild
-        ></Button>
+          onClick={() => deleteProject()}
+          variant={'destructive'}
+          className='ml-auto'
+        >
+          Delete
+        </Button>
       </div>
       <div className='flex flex-col gap-y-3 mb-5'>
-        <div>
-          {project.imageLink ? (
-            <Image
-              src={project.imageLink}
-              alt='profile'
-              width='0'
-              height='0'
-              sizes='100vw'
-              style={{ width: '100%', height: 'auto' }}
-              className='rounded-lg'
-            />
-          ) : (
-            <ImageMissing />
-          )}
-        </div>
-        <Label>Upload an image</Label>
-        <div>
-          <Input
-            placeholder='Choose image'
-            accept='image/png,image/jpeg'
-            type='file'
-            onChange={(e) => {
-              setImg(e.target.files && e.target.files[0]);
-            }}
-            disabled={isInputDisabled}
-          />
-        </div>
-        <div>
-          <Button
-            onClick={() => uploadImage()}
-            disabled={isInputDisabled}
-            variant={'secondary'}
-          >
-            Upload File
-          </Button>
-        </div>
-        <div>
-          {isUploaded ? (
-            <small className='text-emerald-500'>Uploaded Succesfully</small>
-          ) : (
-            <small className='text-amber-300'>Not uploaded</small>
-          )}
-        </div>
+        <FileDisplay fileUrl={project.imageLink} />
+        <Upload
+          label={'Upload an image'}
+          isInputDisabled={isInputDisabled}
+          uploadFunction={uploadImage}
+          setFile={(e: any) => setImg(e.target.files && e.target.files[0])}
+          fileAccepted={'image/png,image/jpeg'}
+        />
+        <FunctionFeedback hasBeenSuccessful={isUploaded} />
       </div>
       <ProjectForm
         isDisabled={isInputDisabled}
@@ -140,22 +103,8 @@ export default function ProjectUpdate({ projectId }: ProjectId) {
         submitFunction={updateProject}
         project={project}
       />
-      <Button
-        type='submit'
-        className='mt-3 w-full'
-        disabled={isInputDisabled}
-        form='form'
-      >
-        Update
-      </Button>
+      <SubmitButton title={'Update'} isInputDisabled={isInputDisabled} />
+      <FunctionFeedback hasBeenSuccessful={isUpdated} />
     </>
   );
 }
-
-const ImageMissing = (): ReactElement => {
-  return (
-    <div className='h-[300px] border rounded-lg justify-center items-center flex mb-2'>
-      <h1 className='text-lg'>Image missing</h1>
-    </div>
-  );
-};

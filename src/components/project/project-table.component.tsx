@@ -6,12 +6,8 @@ import {
 } from '@/components/ui/accordion';
 import { projectsListState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
-import { Trash } from 'lucide-react';
 import { useRecoilState } from 'recoil';
-import CustomModalDialog from '../custom-modal-dialog.component';
-import { Button } from '../ui/button';
 import ProjectUpdate from './project-update.component';
-import DeleteModal from './projects-delete.component';
 
 export default function ProjectTable() {
   const [projects, setProjects] =
@@ -44,17 +40,3 @@ export default function ProjectTable() {
     </Accordion>
   );
 }
-
-const DeleteModalDialog = ({ projectId }: { projectId: string }) => {
-  return (
-    <CustomModalDialog
-      dialogTrigger={
-        <Button variant='ghost' size='icon'>
-          <Trash className='h-4 w-4' color='tomato' />
-        </Button>
-      }
-    >
-      <DeleteModal projectId={projectId} />
-    </CustomModalDialog>
-  );
-};

@@ -21,6 +21,14 @@ import SubmitButton from '../submit-button.component';
 import { Button } from '../ui/button';
 import Upload from '../upload.component';
 import ProjectForm from './project-form.component';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTrigger,
+} from '../ui/sheet';
+import { X } from 'lucide-react';
 
 type ProjectUpdateProps = {
   projectId: string;
@@ -33,13 +41,13 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
   const [img, setImg] = useState<any>();
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
-  const [isUpdated, setIsUpdated] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const updateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await projectService.update(projectId, project);
     setIsInputDisabled(true);
-    setIsUpdated(true);
+    closeSheet();
   };
 
   const deleteProject = async () => {
@@ -47,7 +55,7 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
     setProjects((prev: ProjectSchema[]) => {
       return prev.filter((project: ProjectSchema) => project.id !== projectId);
     });
-    setProject(initProjectData);
+    closeSheet();
   };
 
   const uploadImage = async () => {
@@ -56,55 +64,93 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
     setIsUploaded(true);
   };
 
-  useEffect(() => {
-    setImg(project.imageLink);
+  const initializeProject = () => {
+    setOpen(true);
     clientGetSingleProject(projectId, setProject);
-  }, [project.imageLink, projectId, setProject]);
+    setImg(project.imageLink);
+  };
+
+  const closeSheet = () => {
+    setOpen(false);
+    setProject(initProjectData);
+  };
 
   return (
     <>
-      <Dates updatedAt={project.updatedAt} createdAt={project.createdAt} />
-      <div className='my-8 flex flex-row gap-x-3'>
-        <Button
-          variant='secondary'
-          onClick={() =>
-            clientEditButton(
-              isInputDisabled,
-              setIsInputDisabled,
-              projectId,
-              setProject
-            )
-          }
-        >
-          {isInputDisabled ? 'Edit' : 'Undo'}
+      <Sheet open={open} onOpenChange={setOpen}>
+        <Button onClick={() => initializeProject()} variant={'ghost'}>
+          Edit
         </Button>
-        <Button
-          onClick={() => deleteProject()}
-          variant={'destructive'}
-          className='ml-auto'
+        <SheetContent
+          onInteractOutside={(e) => e.preventDefault()}
+          className='flex flex-col'
         >
-          Delete
-        </Button>
-      </div>
-      <div className='flex flex-col gap-y-3 mb-5'>
-        <FileDisplay fileUrl={project.imageLink} />
-        <Upload
-          label={'Upload an image'}
-          isInputDisabled={isInputDisabled}
-          uploadFunction={uploadImage}
-          setFile={(e: any) => setImg(e.target.files && e.target.files[0])}
-          fileAccepted={'image/png,image/jpeg'}
-        />
-        <FunctionFeedback hasBeenSuccessful={isUploaded} />
-      </div>
-      <ProjectForm
-        isDisabled={isInputDisabled}
-        projectSetter={setProject}
-        submitFunction={updateProject}
-        project={project}
-      />
-      <SubmitButton title={'Update'} isInputDisabled={isInputDisabled} />
-      <FunctionFeedback hasBeenSuccessful={isUpdated} />
+          <div className='flex flex-row items-center py-2 border-b'>
+            <div>
+              <h1>{project.title}</h1>
+            </div>
+            <Button
+              className='ml-auto'
+              onClick={() => closeSheet()}
+              size={'icon'}
+              variant={'ghost'}
+            >
+              <X className='w-5 h-5' />
+            </Button>
+          </div>
+          <div className='overflow-y-auto'>
+            <Dates
+              updatedAt={project.updatedAt}
+              createdAt={project.createdAt}
+            />
+            <div className='my-8 flex flex-row gap-x-3'>
+              <Button
+                variant='secondary'
+                onClick={() =>
+                  clientEditButton(
+                    isInputDisabled,
+                    setIsInputDisabled,
+                    projectId,
+                    setProject
+                  )
+                }
+              >
+                {isInputDisabled ? 'Edit' : 'Undo'}
+              </Button>
+              <Button
+                onClick={() => deleteProject()}
+                variant={'destructive'}
+                className='ml-auto'
+              >
+                Delete
+              </Button>
+            </div>
+            <div className='flex flex-col gap-y-3 mb-5'>
+              <FileDisplay fileUrl={project.imageLink} />
+              <Upload
+                label={'Upload an image'}
+                isInputDisabled={isInputDisabled}
+                uploadFunction={uploadImage}
+                setFile={(e: any) =>
+                  setImg(e.target.files && e.target.files[0])
+                }
+                fileAccepted={'image/png,image/jpeg'}
+              />
+              <FunctionFeedback hasBeenSuccessful={isUploaded} />
+            </div>
+            <ProjectForm
+              isDisabled={isInputDisabled}
+              projectSetter={setProject}
+              submitFunction={updateProject}
+              project={project}
+            />
+          </div>
+          <div>
+            <SubmitButton title={'Update'} isInputDisabled={isInputDisabled} />
+            {/* <FunctionFeedback hasBeenSuccessful={isUpdated} /> */}
+          </div>
+        </SheetContent>
+      </Sheet>
     </>
   );
 }

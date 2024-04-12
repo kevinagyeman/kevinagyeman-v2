@@ -10,43 +10,81 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import Divider from '@/components/ui/divider';
-import { ReactElement } from 'react';
-import { RecoilRoot } from 'recoil';
+import { informationDataState } from '@/store/information-store';
+import { projectsListState } from '@/store/projects-store';
+import { InformationSchema } from '@/types/information-schema';
+import { ProjectSchema } from '@/types/project-schema';
+import { clientGetInformation, clientGetProjects } from '@/utils/client-utils';
+import { ReactElement, useEffect } from 'react';
+import { RecoilRoot, useRecoilState } from 'recoil';
 
 export default function Dashboard(): ReactElement {
   return (
     <RecoilRoot>
       <Accordion type='single' className='w-full' collapsible>
-        <AccordionItem value='projects'>
-          <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
-            Projects
-          </AccordionTrigger>
-          <AccordionContent>
-            <Divider title={'Projects'} />
-            <ProjectAdd />
-            <ProjectsListAdmin />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value='information'>
-          <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
-            Information
-          </AccordionTrigger>
-          <AccordionContent>
-            <Divider title={'Information'} />
-            <InformationElement />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value='resume'>
-          <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
-            CV Resume
-          </AccordionTrigger>
-          <AccordionContent>
-            <Divider title={'My resume'} />
-            <ResumeCV />
-          </AccordionContent>
-        </AccordionItem>
+        <AccordionProjects />
+        <AccordionInformation />
+        <AccordionResumeCV />
       </Accordion>
     </RecoilRoot>
   );
 }
+
+const AccordionInformation = (): ReactElement => {
+  const [information, setInformation] =
+    useRecoilState<InformationSchema>(informationDataState);
+
+  useEffect(() => {
+    clientGetInformation(setInformation);
+  }, [setInformation]);
+
+  return (
+    <>
+      <AccordionItem value='information'>
+        <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
+          Information
+        </AccordionTrigger>
+        <AccordionContent>
+          <InformationElement />
+        </AccordionContent>
+      </AccordionItem>
+    </>
+  );
+};
+
+const AccordionProjects = (): ReactElement => {
+  const [projects, setProjects] =
+    useRecoilState<ProjectSchema[]>(projectsListState);
+
+  useEffect(() => {
+    clientGetProjects(setProjects, {
+      fieldPath: 'createdAt',
+      directionStr: 'desc',
+    });
+  }, [setProjects]);
+
+  return (
+    <AccordionItem value='projects'>
+      <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
+        Projects
+      </AccordionTrigger>
+      <AccordionContent>
+        <ProjectAdd />
+        <ProjectsListAdmin />
+      </AccordionContent>
+    </AccordionItem>
+  );
+};
+
+const AccordionResumeCV = (): ReactElement => {
+  return (
+    <AccordionItem value='resume'>
+      <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
+        CV Resume
+      </AccordionTrigger>
+      <AccordionContent>
+        <ResumeCV />
+      </AccordionContent>
+    </AccordionItem>
+  );
+};

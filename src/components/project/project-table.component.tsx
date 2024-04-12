@@ -1,9 +1,3 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { projectsListState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
 import { useRecoilState } from 'recoil';
@@ -14,29 +8,27 @@ export default function ProjectTable() {
     useRecoilState<ProjectSchema[]>(projectsListState);
 
   return (
-    <Accordion type='single' className='w-full' collapsible>
+    <div className='divide-y'>
       {projects?.map((project: ProjectSchema, index: number) => (
-        <AccordionItem value={project.id} key={project.id}>
-          <AccordionTrigger className='hover:no-underline'>
-            <div className='text-left'>
-              <div className='flex flex-col'>
-                <small className='text-secondary'>
-                  {project.isPublished ? (
-                    <span className='text-emerald-500'>Published</span>
-                  ) : (
-                    <span className='text-amber-300'>Draft</span>
-                  )}{' '}
-                  | {project.id}
-                </small>
-                <h1 className='text-lg'>{project.title}</h1>
-              </div>
+        <div key={index} className='flex flex-row items-center py-3'>
+          <div className='text-left'>
+            <div className='flex flex-col'>
+              <small className='text-secondary'>
+                {project.isPublished ? (
+                  <span className='text-emerald-500'>Published</span>
+                ) : (
+                  <span className='text-amber-300'>Draft</span>
+                )}{' '}
+                | {project.id}
+              </small>
+              <h1 className='text-lg'>{project.title}</h1>
             </div>
-          </AccordionTrigger>
-          <AccordionContent>
+          </div>
+          <div className='ml-auto'>
             <ProjectUpdate projectId={project.id} />
-          </AccordionContent>
-        </AccordionItem>
+          </div>
+        </div>
       ))}
-    </Accordion>
+    </div>
   );
 }

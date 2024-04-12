@@ -28,7 +28,8 @@ import {
   SheetHeader,
   SheetTrigger,
 } from '../ui/sheet';
-import { X } from 'lucide-react';
+import { Trash, X } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 type ProjectUpdateProps = {
   projectId: string;
@@ -50,29 +51,30 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
     closeSheet();
   };
 
+  const uploadImage = async () => {
+    const newUrl = await clientUpload(img, `projects/${projectId}`);
+    setProject({ ...project, imageLink: newUrl });
+    setIsUploaded(true);
+    return true;
+  };
+
+  const initializeProject = async () => {
+    await clientGetSingleProject(projectId, setProject);
+    setImg(project.imageLink);
+    setOpen(true);
+  };
+
+  const closeSheet = () => {
+    setOpen(false);
+    setProject(initProjectData);
+  };
+
   const deleteProject = async () => {
     await projectService.delete(projectId);
     setProjects((prev: ProjectSchema[]) => {
       return prev.filter((project: ProjectSchema) => project.id !== projectId);
     });
     closeSheet();
-  };
-
-  const uploadImage = async () => {
-    const newUrl = await clientUpload(img, `projects/${projectId}`);
-    setProject({ ...project, imageLink: newUrl });
-    setIsUploaded(true);
-  };
-
-  const initializeProject = () => {
-    setOpen(true);
-    clientGetSingleProject(projectId, setProject);
-    setImg(project.imageLink);
-  };
-
-  const closeSheet = () => {
-    setOpen(false);
-    setProject(initProjectData);
   };
 
   return (
@@ -87,23 +89,10 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
         >
           <div className='flex flex-row items-center py-2 border-b'>
             <div>
+              <small className='text-secondary'>{project.id}</small>
               <h1>{project.title}</h1>
             </div>
-            <Button
-              className='ml-auto'
-              onClick={() => closeSheet()}
-              size={'icon'}
-              variant={'ghost'}
-            >
-              <X className='w-5 h-5' />
-            </Button>
-          </div>
-          <div className='overflow-y-auto'>
-            <Dates
-              updatedAt={project.updatedAt}
-              createdAt={project.createdAt}
-            />
-            <div className='my-8 flex flex-row gap-x-3'>
+            <div className='ml-auto flex flex-row items-center'>
               <Button
                 variant='secondary'
                 onClick={() =>
@@ -117,14 +106,35 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
               >
                 {isInputDisabled ? 'Edit' : 'Undo'}
               </Button>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant='ghost' size={'icon'}>
+                    <Trash className='w-4 h-4' color='tomato' />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className='w-full'>
+                  <Button
+                    onClick={() => deleteProject()}
+                    variant={'destructive'}
+                  >
+                    Delete
+                  </Button>
+                </PopoverContent>
+              </Popover>
               <Button
-                onClick={() => deleteProject()}
-                variant={'destructive'}
-                className='ml-auto'
+                onClick={() => closeSheet()}
+                size={'icon'}
+                variant={'ghost'}
               >
-                Delete
+                <X className='w-5 h-5' />
               </Button>
             </div>
+          </div>
+          <div className='overflow-y-auto'>
+            <Dates
+              updatedAt={project.updatedAt}
+              createdAt={project.createdAt}
+            />
             <div className='flex flex-col gap-y-3 mb-5'>
               <FileDisplay fileUrl={project.imageLink} />
               <Upload

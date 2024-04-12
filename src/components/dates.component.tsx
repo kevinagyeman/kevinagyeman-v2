@@ -9,7 +9,7 @@ type DatesProps = {
 
 export default function Dates({ createdAt, updatedAt }: DatesProps) {
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col mb-4'>
       <small className='text-secondary'>
         Updated At: {clientFormatDate(updatedAt)}
       </small>

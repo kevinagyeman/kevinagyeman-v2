@@ -6,6 +6,8 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import Link from 'next/link';
+import FunctionFeedback from './function-feedback.component';
+import Upload from './upload.component';
 
 export default function ResumeCV() {
   const [doc, setDoc] = useState<any>(
@@ -31,29 +33,14 @@ export default function ResumeCV() {
         </Link>
       </Button>
       <div className='flex flex-col gap-y-3 mb-5 mt-5'>
-        <Label>Upload resume</Label>
-        <div>
-          <Input
-            placeholder='Choose image'
-            accept='.pdf'
-            type='file'
-            onChange={(e) => {
-              setDoc(e.target.files && e.target.files[0]);
-            }}
-          />
-        </div>
-        <div>
-          <Button onClick={() => uploadDoc()} variant={'secondary'}>
-            Upload File
-          </Button>
-        </div>
-        <div>
-          {isUploaded ? (
-            <small className='text-emerald-500'>Uploaded Succesfully</small>
-          ) : (
-            <small className='text-amber-300'>Not uploaded</small>
-          )}
-        </div>
+        <Upload
+          label={'Upload an resume'}
+          isInputDisabled={false}
+          uploadFunction={uploadDoc}
+          setFile={(e: any) => setDoc(e.target.files && e.target.files[0])}
+          fileAccepted={'image/png,image/jpeg'}
+        />
+        <FunctionFeedback hasBeenSuccessful={isUploaded} />
       </div>
     </>
   );

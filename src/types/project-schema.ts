@@ -1,4 +1,4 @@
-import { Timestamp } from "firebase/firestore";
+import { Timestamp } from 'firebase/firestore';
 
 export type ProjectSchema = {
   id: string;
@@ -11,4 +11,7 @@ export type ProjectSchema = {
   isPublished?: boolean;
   createdAt?: Timestamp;
   updatedAt?: Timestamp;
+  startDate?: Timestamp;
+  endDate?: Timestamp;
+  type?: 'Project' | 'Work';
 };

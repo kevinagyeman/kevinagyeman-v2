@@ -1,5 +1,10 @@
 'use client';
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { projectService } from '@/services/project.service';
 import {
   initProjectData,
@@ -12,24 +17,19 @@ import {
   clientGetSingleProject,
   clientUpload,
 } from '@/utils/client-utils';
-import React, { useEffect, useState } from 'react';
+import { Trash, X } from 'lucide-react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import Dates from '../dates.component';
 import FileDisplay from '../file-display.component';
 import FunctionFeedback from '../function-feedback.component';
 import SubmitButton from '../submit-button.component';
 import { Button } from '../ui/button';
+import { Sheet, SheetContent } from '../ui/sheet';
 import Upload from '../upload.component';
 import ProjectForm from './project-form.component';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTrigger,
-} from '../ui/sheet';
-import { Trash, X } from 'lucide-react';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import ProjectDelete from './project-delete.component';
+import DatePicker from '../date-picker.component';
 
 type ProjectUpdateProps = {
   projectId: string;
@@ -43,7 +43,6 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
   const [img, setImg] = useState<any>();
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
-
   const updateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await projectService.update(projectId, project);
@@ -67,14 +66,6 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
   const closeSheet = () => {
     setOpen(false);
     setProject(initProjectData);
-  };
-
-  const deleteProject = async () => {
-    await projectService.delete(projectId);
-    setProjects((prev: ProjectSchema[]) => {
-      return prev.filter((project: ProjectSchema) => project.id !== projectId);
-    });
-    closeSheet();
   };
 
   return (
@@ -106,21 +97,10 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
               >
                 {isInputDisabled ? 'Edit' : 'Undo'}
               </Button>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant='ghost' size={'icon'}>
-                    <Trash className='w-4 h-4' color='tomato' />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className='w-full'>
-                  <Button
-                    onClick={() => deleteProject()}
-                    variant={'destructive'}
-                  >
-                    Delete
-                  </Button>
-                </PopoverContent>
-              </Popover>
+              <ProjectDelete
+                closingFunction={closeSheet}
+                projectId={projectId}
+              />
               <Button
                 onClick={() => closeSheet()}
                 size={'icon'}
@@ -135,6 +115,7 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
               updatedAt={project.updatedAt}
               createdAt={project.createdAt}
             />
+            <DatePicker isInputDisabled={isInputDisabled} />
             <div className='flex flex-col gap-y-3 mb-5'>
               <FileDisplay fileUrl={project.imageLink} />
               <Upload

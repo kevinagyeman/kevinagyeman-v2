@@ -20,6 +20,11 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
     <>
       <BreadcrumbMenu pageName={project.title || ''} />
       <div className='flex flex-col space-y-8'>
+        {project.startDate && (
+          <span className='text-muted'>
+            {`${project.startDate}`} - {`${project.endDate}` || 'Present'}
+          </span>
+        )}
         <h2 className='text-3xl font-semibold'>{project.title}</h2>
         <p className='text-xl text-muted-foreground'>
           {project.shortDescription}

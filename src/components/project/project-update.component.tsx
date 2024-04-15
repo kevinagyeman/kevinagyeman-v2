@@ -64,6 +64,7 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
   };
 
   const closeSheet = () => {
+    setIsInputDisabled(true);
     setOpen(false);
     setProject(initProjectData);
   };
@@ -71,7 +72,11 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
   return (
     <>
       <Sheet open={open} onOpenChange={setOpen}>
-        <Button onClick={() => initializeProject()} variant={'ghost'}>
+        <Button
+          onClick={() => initializeProject()}
+          variant={'outline'}
+          size={'sm'}
+        >
           Edit
         </Button>
         <SheetContent

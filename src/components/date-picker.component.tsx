@@ -1,89 +1,63 @@
 'use client';
 
-import { addDays, format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import * as React from 'react';
-import { DateRange } from 'react-day-picker';
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
 import { projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
 import { Timestamp } from 'firebase/firestore';
-import { useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
 
 type DatePickerProps = {
-  className?: React.HTMLAttributes<HTMLDivElement>;
   isInputDisabled: boolean;
 };
 
-export default function DatePicker({
-  isInputDisabled,
-  className,
-}: DatePickerProps) {
+export default function DatePicker({ isInputDisabled }: DatePickerProps) {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: project.startDate?.toDate() || new Date(),
-    to: project.endDate?.toDate() || addDays(new Date(), 1),
-  });
 
-  const updateProjectDate = () => {
-    console.log('date', date);
-    console.log('startDate', project.startDate);
-    console.log('endDate', project.endDate);
+  const fromTimestampToISO8601 = (date: Timestamp): string => {
+    const x = date.toDate().toISOString().slice(0, 10);
+    const date2 = new Date(x).toISOString().slice(0, 10);
+    console.log(date2);
 
-    if (date?.from) {
-      setProject({ ...project, startDate: Timestamp.fromDate(date.from) });
-    }
-    if (date?.to) {
-      setProject({ ...project, endDate: Timestamp.fromDate(date.to) });
-    }
+    return date.toDate().toISOString().split('T')[0];
+  };
+
+  const fromISO8601ToTimestamp = (date: string): Timestamp => {
+    return Timestamp.fromDate(new Date(date));
   };
 
   return (
-    <div className={cn('grid gap-2 my-4', className)}>
-      <Popover onOpenChange={() => updateProjectDate()}>
-        <PopoverTrigger asChild disabled={isInputDisabled}>
-          <Button
-            id='date'
-            variant={'outline'}
-            className={cn(
-              'w-[300px] justify-start text-left font-normal',
-              !date && 'text-muted-foreground'
-            )}
-          >
-            <CalendarIcon className='mr-2 h-4 w-4' />
-            {date?.from ? (
-              date.to ? (
-                <>
-                  {format(date.from, 'LLL dd, y')} -{' '}
-                  {format(date.to, 'LLL dd, y')}
-                </>
-              ) : (
-                format(date.from, 'LLL dd, y')
-              )
-            ) : (
-              <span>Pick a date</span>
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className='w-auto p-0' align='start'>
-          <Calendar
-            initialFocus
-            mode='range'
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
-            numberOfMonths={2}
-          />
-        </PopoverContent>
-      </Popover>
+    <div className='flex flex-col gap-y-3 my-4'>
+      <div>
+        <Label>Start Date</Label>
+        <Input
+          type='date'
+          disabled={isInputDisabled}
+          value={
+            project.startDate ? fromTimestampToISO8601(project.startDate) : ''
+          }
+          onChange={(e) =>
+            setProject({
+              ...project,
+              startDate: fromISO8601ToTimestamp(e.target.value),
+            })
+          }
+        />
+      </div>
+      <div>
+        <Label>End Date</Label>
+        <Input
+          type='date'
+          disabled={isInputDisabled}
+          value={project.endDate ? fromTimestampToISO8601(project.endDate) : ''}
+          onChange={(e) =>
+            setProject({
+              ...project,
+              endDate: Timestamp.fromDate(new Date(e.target.value)),
+            })
+          }
+        />
+      </div>
     </div>
   );
 }

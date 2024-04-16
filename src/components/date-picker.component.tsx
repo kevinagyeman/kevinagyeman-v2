@@ -15,11 +15,16 @@ export default function DatePicker({ isInputDisabled }: DatePickerProps) {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
 
   const fromTimestampToISO8601 = (date: Timestamp): string => {
-    const x = date.toDate().toISOString().slice(0, 10);
-    const date2 = new Date(x).toISOString().slice(0, 10);
-    console.log(date2);
-
-    return date.toDate().toISOString().split('T')[0];
+    if (date) {
+      const day: string = date.toDate().getDate().toString().padStart(2, '0');
+      const month: string = (date.toDate().getMonth() + 1)
+        .toString()
+        .padStart(2, '0');
+      const year: string = date.toDate().getFullYear().toString();
+      return `${year}-${month}-${day}`;
+    } else {
+      return '0000-00-00';
+    }
   };
 
   const fromISO8601ToTimestamp = (date: string): Timestamp => {

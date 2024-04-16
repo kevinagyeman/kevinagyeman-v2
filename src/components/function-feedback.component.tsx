@@ -1,4 +1,4 @@
-import React from 'react';
+'use client';
 
 export default function FunctionFeedback({
   hasBeenSuccessful,
@@ -6,7 +6,7 @@ export default function FunctionFeedback({
   hasBeenSuccessful: boolean;
 }) {
   return (
-    <div className='mt-5'>
+    <div>
       {hasBeenSuccessful ? (
         <small className='text-emerald-500'>Successfull updated</small>
       ) : (

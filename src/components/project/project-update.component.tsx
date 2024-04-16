@@ -1,10 +1,5 @@
 'use client';
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { projectService } from '@/services/project.service';
 import {
   initProjectData,
@@ -17,7 +12,7 @@ import {
   clientGetSingleProject,
   clientUpload,
 } from '@/utils/client-utils';
-import { Trash, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import Dates from '../dates.component';
@@ -27,9 +22,8 @@ import SubmitButton from '../submit-button.component';
 import { Button } from '../ui/button';
 import { Sheet, SheetContent } from '../ui/sheet';
 import Upload from '../upload.component';
-import ProjectForm from './project-form.component';
 import ProjectDelete from './project-delete.component';
-import DatePicker from '../date-picker.component';
+import ProjectForm from './project-form.component';
 
 type ProjectUpdateProps = {
   projectId: string;
@@ -43,6 +37,7 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
   const [img, setImg] = useState<any>();
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
+
   const updateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await projectService.update(projectId, project);
@@ -120,7 +115,6 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
               updatedAt={project.updatedAt}
               createdAt={project.createdAt}
             />
-            <DatePicker isInputDisabled={isInputDisabled} />
             <div className='flex flex-col gap-y-3 mb-5'>
               <FileDisplay fileUrl={project.imageLink} />
               <Upload

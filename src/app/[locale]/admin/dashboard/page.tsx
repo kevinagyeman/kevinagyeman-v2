@@ -11,10 +11,8 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { informationDataState } from '@/store/information-store';
-import { projectsListState } from '@/store/projects-store';
 import { InformationSchema } from '@/types/information-schema';
-import { ProjectSchema } from '@/types/project-schema';
-import { clientGetInformation, clientGetProjects } from '@/utils/client-utils';
+import { clientGetInformation } from '@/utils/client-utils';
 import { ReactElement, useEffect } from 'react';
 import { RecoilRoot, useRecoilState } from 'recoil';
 
@@ -22,6 +20,7 @@ export default function Dashboard(): ReactElement {
   return (
     <RecoilRoot>
       <Accordion type='single' className='w-full' collapsible>
+        <AccordionWork />
         <AccordionProjects />
         <AccordionInformation />
         <AccordionResumeCV />
@@ -53,16 +52,6 @@ const AccordionInformation = (): ReactElement => {
 };
 
 const AccordionProjects = (): ReactElement => {
-  const [projects, setProjects] =
-    useRecoilState<ProjectSchema[]>(projectsListState);
-
-  useEffect(() => {
-    clientGetProjects(setProjects, {
-      fieldPath: 'createdAt',
-      directionStr: 'desc',
-    });
-  }, [setProjects]);
-
   return (
     <AccordionItem value='projects'>
       <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
@@ -70,7 +59,21 @@ const AccordionProjects = (): ReactElement => {
       </AccordionTrigger>
       <AccordionContent>
         <ProjectAdd />
-        <ProjectsListAdmin />
+        <ProjectsListAdmin type={'project'} />
+      </AccordionContent>
+    </AccordionItem>
+  );
+};
+
+const AccordionWork = (): ReactElement => {
+  return (
+    <AccordionItem value='works'>
+      <AccordionTrigger className='text-3xl hover:no-underline font-bold'>
+        Work Experience
+      </AccordionTrigger>
+      <AccordionContent>
+        <ProjectAdd />
+        <ProjectsListAdmin type={'work'} />
       </AccordionContent>
     </AccordionItem>
   );

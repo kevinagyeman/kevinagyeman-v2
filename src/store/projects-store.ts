@@ -1,4 +1,5 @@
 'use client';
+
 import { ProjectSchema } from '@/types/project-schema';
 import { atom } from 'recoil';
 
@@ -14,9 +15,9 @@ export const projectDataState = atom({
   default: projectData,
 });
 
-export const projectsList: ProjectSchema[] = [];
+export const initProjectsList: ProjectSchema[] = [];
 
 export const projectsListState = atom({
   key: 'projectsListState',
-  default: projectsList,
+  default: initProjectsList,
 });

@@ -48,11 +48,13 @@ export default function ProjectFilter({
                       fieldPath: 'createdAt',
                       directionStr: 'desc',
                     },
-                    {
-                      fieldPath: 'isPublished',
-                      opStr: '==',
-                      value: true,
-                    }
+                    [
+                      {
+                        fieldPath: 'isPublished',
+                        opStr: '==',
+                        value: true,
+                      },
+                    ]
                   )
                 }
               >
@@ -66,11 +68,13 @@ export default function ProjectFilter({
                       fieldPath: 'createdAt',
                       directionStr: 'desc',
                     },
-                    {
-                      fieldPath: 'isPublished',
-                      opStr: '==',
-                      value: false,
-                    }
+                    [
+                      {
+                        fieldPath: 'isPublished',
+                        opStr: '==',
+                        value: false,
+                      },
+                    ]
                   )
                 }
               >

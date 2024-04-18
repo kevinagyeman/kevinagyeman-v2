@@ -17,6 +17,10 @@
     "projects": {
       "title": "Projects",
       "description": "A list of some projects"
+    },
+    "work": {
+      "title": "Work",
+      "description": "A list of my experiences"
     }
   },
   "contact": {

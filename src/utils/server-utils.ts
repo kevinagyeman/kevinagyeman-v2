@@ -18,7 +18,7 @@ export const splitSkills = (
 
 export const getProjects = async (
   orderByValue: OrderBySchema,
-  whereValue?: WhereSchema
+  whereValue?: WhereSchema[]
 ) => {
   const data = await projectService.getAll(orderByValue, whereValue);
   if (data) {

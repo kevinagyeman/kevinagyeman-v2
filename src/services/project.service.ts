@@ -1,6 +1,7 @@
 import { OrderBySchema, WhereSchema } from '@/types/query-schema';
 import {
   DocumentData,
+  QueryFieldFilterConstraint,
   QuerySnapshot,
   addDoc,
   collection,
@@ -27,26 +28,21 @@ const mappedProjects = (data: QuerySnapshot<DocumentData, DocumentData>) => {
 };
 
 export const projectService = {
-  getAll: async (orderByValue: OrderBySchema, whereValue?: WhereSchema) => {
+  getAll: async (orderByValue: OrderBySchema, whereValue?: WhereSchema[]) => {
     try {
       const orderByQuery = orderBy(
         orderByValue.fieldPath,
         orderByValue.directionStr
       );
-      if (whereValue) {
-        const whereQuery = where(
-          whereValue.fieldPath,
-          whereValue.opStr,
-          whereValue.value
-        );
-        const data = await getDocs(
-          query(projectsCollection, whereQuery, orderByQuery)
-        );
-        return mappedProjects(data);
-      } else {
-        const data = await getDocs(query(projectsCollection, orderByQuery));
-        return mappedProjects(data);
-      }
+      const whereQueries = whereValue?.map((condition: WhereSchema) =>
+        where(condition.fieldPath, condition.opStr, condition.value)
+      );
+      const finalQuery = whereQueries
+        ? query(projectsCollection, ...whereQueries, orderByQuery)
+        : query(projectsCollection, orderByQuery);
+
+      const data = await getDocs(finalQuery);
+      return mappedProjects(data);
     } catch (error) {
       console.error(error);
     }

@@ -25,7 +25,7 @@ export const clientGetSingleProject = async (
 export const clientGetProjects = async (
   projectsSetter: SetterOrUpdater<ProjectSchema[]>,
   orderByValue: OrderBySchema,
-  whereValue?: WhereSchema
+  whereValue?: WhereSchema[]
 ) => {
   const data = await projectService.getAll(orderByValue, whereValue);
   if (data) {

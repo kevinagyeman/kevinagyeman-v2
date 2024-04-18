@@ -1,9 +1,9 @@
-import { FieldPath, OrderByDirection, WhereFilterOp } from "firebase/firestore";
+import { FieldPath, OrderByDirection, WhereFilterOp } from 'firebase/firestore';
 
 export type WhereSchema = {
   fieldPath: string | FieldPath;
   opStr: WhereFilterOp;
-  value: unknown;
+  value: string | boolean;
 };
 
 export type OrderBySchema = {

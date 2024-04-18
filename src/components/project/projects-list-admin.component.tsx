@@ -23,11 +23,13 @@ export default function ProjectsListAdmin({ type }: ProjectsListAdminProps) {
         fieldPath: 'createdAt',
         directionStr: 'desc',
       },
-      {
-        fieldPath: 'type',
-        opStr: '==',
-        value: type,
-      }
+      [
+        {
+          fieldPath: 'type',
+          opStr: '==',
+          value: type,
+        },
+      ]
     );
   }, [setProjects]);
 

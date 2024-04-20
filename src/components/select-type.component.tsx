@@ -21,11 +21,19 @@ export default function SelectType({
 }: SelectTypeProps): ReactElement {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
 
+  const projectsTypes = ['work', 'project', 'education'];
+
   const handleChange = (e: string) => {
-    if (e.valueOf() === 'project') {
-      setProject({ ...project, type: 'project' });
-    } else if (e.valueOf() === 'work') {
-      setProject({ ...project, type: 'work' });
+    switch (e.valueOf()) {
+      case 'project':
+        setProject({ ...project, type: 'project' });
+        break;
+      case 'work':
+        setProject({ ...project, type: 'work' });
+        break;
+      case 'education':
+        setProject({ ...project, type: 'education' });
+        break;
     }
   };
 
@@ -43,8 +51,11 @@ export default function SelectType({
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value='project'>Project</SelectItem>
-            <SelectItem value='work'>Work</SelectItem>
+            {projectsTypes.map((type: string, index: number) => (
+              <SelectItem value={type} key={index}>
+                {type}
+              </SelectItem>
+            ))}
           </SelectGroup>
         </SelectContent>
       </Select>

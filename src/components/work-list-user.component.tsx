@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import React from 'react';
 import DisplayDate from './display-date.component';
 import { Timestamp } from 'firebase/firestore';
+import { clientFormatDateUser } from '@/utils/client-utils';
 
 type WorkListUserProps = {
   worksList: ProjectSchema[];
@@ -32,7 +33,10 @@ flex-col space-y-3 rounded-lg border p-6'
               <ArrowUpRight />
             </div>
           </div>
-          {work.startDate && <DisplayDate startDate={work.startDate} />}
+          {/* <span className='text-muted  text-sm italic'>
+            {work.startDate && clientFormatDateUser(work.startDate)} -{' '}
+            {work.endDate && clientFormatDateUser(work.endDate)}
+          </span> */}
           <p className='line-clamp-2 text-muted-foreground'>
             {work.shortDescription}
           </p>

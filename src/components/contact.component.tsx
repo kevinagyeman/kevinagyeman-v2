@@ -31,13 +31,6 @@ export default function Contact({ information }: ContactProps) {
           </Button>
         </div>
       </div>
-      <div className='mt-5 flex'>
-        <Button variant={'outline'} size={'lg'} asChild className='ml-auto'>
-          <Link href='/'>
-            <ArrowLeft className='h-5 w-5' />
-          </Link>
-        </Button>
-      </div>
     </>
   );
 }

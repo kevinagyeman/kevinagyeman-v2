@@ -59,7 +59,7 @@ export const clientUpload = async (image: any, storagePath: string) => {
   }
 };
 
-export const clientFormatDate = (
+export const clientFormatDateDashboard = (
   date: Timestamp | undefined
 ): string | undefined => {
   if (date) {
@@ -69,6 +69,19 @@ export const clientFormatDate = (
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
+    });
+    return dateFormatted;
+  }
+};
+
+export const clientFormatDateUser = (
+  date: Timestamp | undefined
+): string | undefined => {
+  if (date) {
+    const dateFormatted = new Date(date.seconds * 1000).toLocaleString([], {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
     });
     return dateFormatted;
   }

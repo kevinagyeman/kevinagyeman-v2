@@ -24,6 +24,8 @@ import { Sheet, SheetContent } from '../ui/sheet';
 import Upload from '../upload.component';
 import ProjectDelete from './project-delete.component';
 import ProjectForm from './project-form.component';
+import ProjectSkills from '../skills-input';
+import SkillsInput from '../skills-input';
 
 type ProjectUpdateProps = {
   projectId: string;
@@ -111,6 +113,7 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
             </div>
           </div>
           <div className='overflow-y-auto'>
+            <SkillsInput isInputDisabled={isInputDisabled} />
             <Dates
               updatedAt={project.updatedAt}
               createdAt={project.createdAt}

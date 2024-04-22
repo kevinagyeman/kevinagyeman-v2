@@ -29,7 +29,6 @@ export default function ProjectForm({
       type: 'text',
       value: project.title || '',
       disabled: isDisabled,
-      hint: 'italianoENGinglese',
       required: true,
       onChange: (e) => {
         projectSetter({ ...project, title: e.target.value });
@@ -45,17 +44,17 @@ export default function ProjectForm({
         projectSetter({ ...project, link: e.target.value });
       },
     },
-    {
-      label: 'Skills',
-      type: 'textarea',
-      value: project.skills || '',
-      disabled: isDisabled,
-      required: true,
-      hint: "Separate every skill with ',' - (eg. Skill1, Skill2)",
-      onChange: (e) => {
-        projectSetter({ ...project, skills: e.target.value });
-      },
-    },
+    // {
+    //   label: 'Skills',
+    //   type: 'textarea',
+    //   value: project.skills || '',
+    //   disabled: isDisabled,
+    //   required: true,
+    //   hint: "Separate every skill with ',' - (eg. Skill1, Skill2)",
+    //   onChange: (e) => {
+    //     projectSetter({ ...project, skills: e.target.value });
+    //   },
+    // },
     {
       label: 'Short Description',
       type: 'textarea',

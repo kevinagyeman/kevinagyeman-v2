@@ -7,11 +7,11 @@ export type ProjectSchema = {
   description?: string;
   imageLink?: string;
   link?: string;
-  skills?: string;
+  skills?: string[];
   isPublished?: boolean;
   createdAt?: Timestamp;
   updatedAt?: Timestamp;
   startDate?: Timestamp;
   endDate?: Timestamp;
-  type?: 'project' | 'work' | 'education';
+  type?: 'project' | 'work' | 'education' | 'other';
 };

@@ -91,7 +91,8 @@ export const clientEditButton = (
   isInputDisabled: boolean,
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>,
   id: string,
-  setHook: SetterOrUpdater<ProjectSchema | InformationSchema>
+  // setHook: SetterOrUpdater<ProjectSchema | InformationSchema>
+  setHook: any
 ) => {
   if (isInputDisabled) {
     setIsInputDisabled(false);

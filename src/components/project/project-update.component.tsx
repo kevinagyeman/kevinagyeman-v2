@@ -35,7 +35,7 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
   const [projects, setProjects] =
     useRecoilState<ProjectSchema[]>(projectsListState);
-  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [img, setImg] = useState<any>();
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -86,19 +86,6 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
               <h1>{project.title}</h1>
             </div>
             <div className='ml-auto flex flex-row items-center'>
-              <Button
-                variant='secondary'
-                onClick={() =>
-                  clientEditButton(
-                    isInputDisabled,
-                    setIsInputDisabled,
-                    projectId,
-                    setProject
-                  )
-                }
-              >
-                {isInputDisabled ? 'Edit' : 'Undo'}
-              </Button>
               <ProjectDelete
                 closingFunction={closeSheet}
                 projectId={projectId}
@@ -113,7 +100,6 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
             </div>
           </div>
           <div className='overflow-y-auto'>
-            <SkillsInput isInputDisabled={isInputDisabled} />
             <Dates
               updatedAt={project.updatedAt}
               createdAt={project.createdAt}

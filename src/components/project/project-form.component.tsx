@@ -9,6 +9,7 @@ import { Switch } from '../ui/switch';
 import { Textarea } from '../ui/textarea';
 import DatePicker from '../date-picker.component';
 import SelectType from '../select-type.component';
+import SkillsInput from '../skills-input';
 
 type ProjectFormData = {
   project: ProjectSchema;
@@ -95,6 +96,7 @@ export default function ProjectForm({
         </div>
         <SelectType isInputDisabled={isDisabled} />
         <DatePicker isInputDisabled={isDisabled} />
+        <SkillsInput isInputDisabled={isDisabled} />
         {formFields.map((field: FormFieldSchema, index: number) => (
           <div className='my-6' key={index}>
             {field.type === 'text' ? (

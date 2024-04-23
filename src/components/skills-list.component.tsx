@@ -3,21 +3,23 @@ import { splitSkills } from '@/utils/server-utils';
 import { Badge } from './ui/badge';
 
 type SkillsListProps = {
-  string: string;
+  skills: string[];
   numberOfSkills?: number;
 };
 
 export default function SkillsList({
-  string,
+  skills,
   numberOfSkills,
 }: SkillsListProps) {
-  return (
-    <div className='flex flex-wrap gap-x-3 gap-y-3'>
-      {splitSkills(`${string}`, numberOfSkills).map((skill, index) => (
-        <Badge variant='secondary' key={index} className='font-normal'>
-          # {skill}
-        </Badge>
-      ))}
-    </div>
-  );
+  if (skills) {
+    return (
+      <div className='flex flex-wrap gap-x-3 gap-y-3'>
+        {skills.slice(0, numberOfSkills).map((skill, index) => (
+          <Badge variant='secondary' key={index} className='font-normal'>
+            # {skill}
+          </Badge>
+        ))}
+      </div>
+    );
+  }
 }

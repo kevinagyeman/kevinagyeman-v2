@@ -29,7 +29,7 @@ export default function Hero({ information }: HeroProps) {
         <p className='text-l line-clamp-3 text-muted-foreground lg:text-xl'>
           {information?.summary}
         </p>
-        <SkillsList string={`${information?.skills}`} numberOfSkills={4} />
+        {/* <SkillsList string={`${information?.skills}`} numberOfSkills={4} /> */}
         <div className='flex flex-wrap gap-3'>
           <div>
             <Button variant={'secondary'} size={'lg'} asChild>

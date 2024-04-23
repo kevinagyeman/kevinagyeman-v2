@@ -34,7 +34,7 @@ export default function InformationInfoAdmin() {
       </h4>
       <p>{information?.role}</p>
       <p className='text-muted-foreground'>{information?.summary}</p>
-      <SkillsList string={`${information?.skills}`} />
+      {/* <SkillsList string={`${information?.skills}`} /> */}
       {information && <p>{information.additionalInfo}</p>}
       <p className='text-sm text-muted-foreground'>{information?.email}</p>
     </div>

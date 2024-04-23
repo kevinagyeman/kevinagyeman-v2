@@ -29,7 +29,7 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
         <p className='text-xl text-muted-foreground'>
           {project.shortDescription}
         </p>
-        {project?.skills && <SkillsList string={`${project?.skills}`} />}
+        {project?.skills && <SkillsList skills={project?.skills} />}
         {project.imageLink && (
           <Image
             src={project.imageLink}

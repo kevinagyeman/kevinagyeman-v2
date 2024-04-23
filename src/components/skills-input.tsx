@@ -2,37 +2,37 @@ import { projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { Button } from './ui/button';
 import { TagInput } from './ui/tag-input';
+import { Label } from './ui/label';
 
 type SkillsInputProps = {
   isInputDisabled: boolean;
 };
 
 export default function SkillsInput({ isInputDisabled }: SkillsInputProps) {
-  const [tags, setTags] = React.useState<string[]>([]);
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
+  const [tags, setTags] = React.useState<string[]>(
+    project.skills ? project.skills : []
+  );
 
-  const test = () => {
-    console.log('tags', tags);
+  useEffect(() => {
     setProject({ ...project, skills: tags });
-    console.log('projects', project.skills);
-  };
+  }, [tags]);
 
   return (
     <>
-      <TagInput
-        draggable={true}
-        placeholder='Enter a topic'
-        tags={tags}
-        className='sm:min-w-[450px]'
-        setTags={(newTags) => {
-          setTags(newTags);
-        }}
-      />
-      <Button type='button' onClick={() => test()}>
-        Submit
-      </Button>
+      <Label>Skills project</Label>
+      <div className='mb-4 mt-2'>
+        <TagInput
+          draggable={true}
+          placeholder='Enter a topic'
+          tags={tags}
+          className='sm:min-w-[450px]'
+          setTags={(newTags) => {
+            setTags(newTags);
+          }}
+        />
+      </div>
     </>
   );
 }

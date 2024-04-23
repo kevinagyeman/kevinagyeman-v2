@@ -44,7 +44,7 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
           </h2>
         </div>
         <p className='text-xl text-muted-foreground'>{information?.summary}</p>
-        <SkillsList string={`${information?.skills}`} />
+        {/* <SkillsList skills={`${information?.skills}`} /> */}
         <p className='text-xl'>{information?.additionalInfo}</p>
 
         <div className='flex space-x-2'>

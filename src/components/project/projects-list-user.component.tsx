@@ -41,12 +41,13 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
               {project.shortDescription}
             </p>
             <div className='flex flex-wrap gap-x-3 gap-y-1'>
-              {splitSkills(`${project?.skills}`, 3).map((skill, index) => (
-                <p key={index} className='flex items-center gap-1'>
-                  <Check className='h-4 w-4' />
-                  {skill}
-                </p>
-              ))}
+              {project.skills &&
+                project.skills.map((skill, index) => (
+                  <p key={index} className='flex items-center gap-1'>
+                    <Check className='h-4 w-4' />
+                    {skill}
+                  </p>
+                ))}
             </div>
           </div>
         </Link>

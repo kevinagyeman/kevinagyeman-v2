@@ -7,6 +7,7 @@ export type ProjectSchema = {
   description?: string;
   imageLink?: string;
   link?: string;
+  links?: Link[];
   skills?: string[];
   isPublished?: boolean;
   createdAt?: Timestamp;
@@ -14,4 +15,9 @@ export type ProjectSchema = {
   startDate?: Timestamp;
   endDate?: Timestamp;
   type?: 'project' | 'work' | 'education' | 'other';
+};
+
+export type Link = {
+  label: string;
+  url: string;
 };

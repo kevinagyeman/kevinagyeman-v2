@@ -5,11 +5,7 @@ import { useRecoilState } from 'recoil';
 import { TagInput } from './ui/tag-input';
 import { Label } from './ui/label';
 
-type SkillsInputProps = {
-  isInputDisabled: boolean;
-};
-
-export default function SkillsInput({ isInputDisabled }: SkillsInputProps) {
+export default function SkillsInput() {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
   const [tags, setTags] = React.useState<string[]>(
     project.skills ? project.skills : []

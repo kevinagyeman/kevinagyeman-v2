@@ -64,14 +64,13 @@ export default function ProjectAdd(): ReactElement {
         </div>
         <div className='overflow-y-auto'>
           <ProjectForm
-            isDisabled={false}
             projectSetter={setProject}
             submitFunction={addProject}
             project={project}
           />
         </div>
         <div>
-          <SubmitButton title={'Create New'} isInputDisabled={false} />
+          <SubmitButton title={'Create New'} />
         </div>
       </SheetContent>
     </Sheet>

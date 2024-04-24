@@ -12,13 +12,7 @@ import {
   SelectValue,
 } from './ui/select';
 
-type SelectTypeProps = {
-  isInputDisabled: boolean;
-};
-
-export default function SelectType({
-  isInputDisabled,
-}: SelectTypeProps): ReactElement {
+export default function SelectType(): ReactElement {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
 
   const projectsTypes = ['work', 'project', 'education'];
@@ -43,7 +37,6 @@ export default function SelectType({
       <Select
         onValueChange={(e) => handleChange(e)}
         value={project.type}
-        disabled={isInputDisabled}
         required
       >
         <SelectTrigger>

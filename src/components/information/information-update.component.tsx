@@ -107,7 +107,7 @@ export default function InformationUpdate(): ReactElement {
           />
         </div>
         <div>
-          <SubmitButton title={'Update'} isInputDisabled={isInputDisabled} />
+          <SubmitButton title={'Update'} />
           {/* <FunctionFeedback hasBeenSuccessful={isUpdated} /> */}
         </div>
       </SheetContent>

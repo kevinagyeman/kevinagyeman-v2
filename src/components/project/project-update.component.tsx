@@ -118,15 +118,13 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
               <FunctionFeedback hasBeenSuccessful={isUploaded} />
             </div>
             <ProjectForm
-              isDisabled={isInputDisabled}
               projectSetter={setProject}
               submitFunction={updateProject}
               project={project}
             />
           </div>
           <div>
-            <SubmitButton title={'Update'} isInputDisabled={isInputDisabled} />
-            {/* <FunctionFeedback hasBeenSuccessful={isUpdated} /> */}
+            <SubmitButton title={'Update'} />
           </div>
         </SheetContent>
       </Sheet>

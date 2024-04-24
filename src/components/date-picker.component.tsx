@@ -8,11 +8,7 @@ import { useRecoilState } from 'recoil';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 
-type DatePickerProps = {
-  isInputDisabled: boolean;
-};
-
-export default function DatePicker({ isInputDisabled }: DatePickerProps) {
+export default function DatePicker() {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
 
   const fromISO8601ToTimestamp = (date: string): Timestamp => {
@@ -26,7 +22,6 @@ export default function DatePicker({ isInputDisabled }: DatePickerProps) {
         <div>
           <Input
             type='date'
-            disabled={isInputDisabled}
             onChange={(e) =>
               setProject({
                 ...project,
@@ -47,7 +42,6 @@ export default function DatePicker({ isInputDisabled }: DatePickerProps) {
           <div>
             <Input
               type='date'
-              disabled={isInputDisabled}
               onChange={(e) =>
                 setProject({
                   ...project,

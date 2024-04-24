@@ -10,17 +10,16 @@ import { Textarea } from '../ui/textarea';
 import DatePicker from '../date-picker.component';
 import SelectType from '../select-type.component';
 import SkillsInput from '../skills-input';
+import LinkInput from '../link-input.component';
 
 type ProjectFormData = {
   project: ProjectSchema;
-  isDisabled: boolean;
   projectSetter: React.Dispatch<React.SetStateAction<ProjectSchema>>;
   submitFunction(e: React.FormEvent<HTMLFormElement>): Promise<void>;
 };
 
 export default function ProjectForm({
   project,
-  isDisabled,
   projectSetter,
   submitFunction,
 }: ProjectFormData) {
@@ -29,7 +28,6 @@ export default function ProjectForm({
       label: 'Title',
       type: 'text',
       value: project.title || '',
-      disabled: isDisabled,
       required: true,
       onChange: (e) => {
         projectSetter({ ...project, title: e.target.value });
@@ -39,28 +37,15 @@ export default function ProjectForm({
       label: 'Link',
       type: 'text',
       value: project.link || '',
-      disabled: isDisabled,
       required: false,
       onChange: (e) => {
         projectSetter({ ...project, link: e.target.value });
       },
     },
-    // {
-    //   label: 'Skills',
-    //   type: 'textarea',
-    //   value: project.skills || '',
-    //   disabled: isDisabled,
-    //   required: true,
-    //   hint: "Separate every skill with ',' - (eg. Skill1, Skill2)",
-    //   onChange: (e) => {
-    //     projectSetter({ ...project, skills: e.target.value });
-    //   },
-    // },
     {
       label: 'Short Description',
       type: 'textarea',
       value: project.shortDescription || '',
-      disabled: isDisabled,
       required: true,
       onChange: (e) => {
         projectSetter({ ...project, shortDescription: e.target.value });
@@ -70,7 +55,6 @@ export default function ProjectForm({
       label: 'Description',
       type: 'textarea',
       value: project.description || '',
-      disabled: isDisabled,
       required: false,
       onChange: (e) => {
         projectSetter({ ...project, description: e.target.value });
@@ -88,15 +72,15 @@ export default function ProjectForm({
               projectSetter({ ...project, isPublished: e.valueOf() });
             }}
             checked={project?.isPublished}
-            disabled={isDisabled}
           />
           <Label htmlFor='status-mode'>
             {project?.isPublished ? 'Published' : 'Draft'}
           </Label>
         </div>
-        <SelectType isInputDisabled={isDisabled} />
-        <DatePicker isInputDisabled={isDisabled} />
-        <SkillsInput isInputDisabled={isDisabled} />
+        <SelectType />
+        <DatePicker />
+        <SkillsInput />
+        <LinkInput />
         {formFields.map((field: FormFieldSchema, index: number) => (
           <div className='my-6' key={index}>
             {field.type === 'text' ? (
@@ -112,7 +96,6 @@ export default function ProjectForm({
                   placeholder={field.label}
                   value={field.value}
                   onChange={field.onChange}
-                  disabled={field.disabled}
                 />
               </>
             ) : (
@@ -126,7 +109,6 @@ export default function ProjectForm({
                   placeholder={field.label}
                   value={field.value}
                   onChange={field.onChange}
-                  disabled={field.disabled}
                   rows={14}
                 ></Textarea>
               </>

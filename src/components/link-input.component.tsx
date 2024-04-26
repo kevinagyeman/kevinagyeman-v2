@@ -80,6 +80,11 @@ export default function LinkInput() {
               });
             }}
             variant={'secondary'}
+            disabled={
+              project?.links?.find((item: Link) => item.url === '')
+                ? true
+                : false
+            }
           >
             Add New Link
           </Button>

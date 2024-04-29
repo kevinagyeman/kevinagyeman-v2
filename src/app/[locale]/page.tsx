@@ -17,11 +17,11 @@ export default async function Index() {
         opStr: '==',
         value: true,
       },
-      // {
-      //   fieldPath: 'type',
-      //   opStr: '==',
-      //   value: 'project',
-      // },
+      {
+        fieldPath: 'type',
+        opStr: '==',
+        value: 'project',
+      },
     ]
   );
   const worksList: ProjectSchema[] | undefined = await getProjects(
@@ -48,12 +48,12 @@ export default async function Index() {
       {information ? (
         <Hero information={JSON.parse(JSON.stringify(information))} />
       ) : null}
+      {worksList ? (
+        <WorkListUser worksList={JSON.parse(JSON.stringify(worksList))} />
+      ) : null}
       {projectsList ? (
         <ProjectsListUser projects={JSON.parse(JSON.stringify(projectsList))} />
       ) : null}
-      {/* {worksList ? (
-        <WorkListUser worksList={JSON.parse(JSON.stringify(worksList))} />
-      ) : null} */}
     </>
   );
 }

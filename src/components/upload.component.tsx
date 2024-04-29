@@ -2,10 +2,13 @@ import React from 'react';
 import { Label } from './ui/label';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import FileDisplay from './file-display.component';
+import { projectDataState } from '@/store/projects-store';
+import { ProjectSchema } from '@/types/project-schema';
+import { useRecoilState } from 'recoil';
 
 type UploadProps = {
   label: string;
-  isInputDisabled: boolean;
   uploadFunction: () => void;
   setFile: any;
   fileAccepted: string;
@@ -13,11 +16,12 @@ type UploadProps = {
 
 export default function Upload({
   label,
-  isInputDisabled,
   uploadFunction,
   setFile,
   fileAccepted,
 }: UploadProps) {
+  const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
+
   return (
     <>
       <Label>{label}</Label>
@@ -27,15 +31,10 @@ export default function Upload({
           accept={fileAccepted}
           type='file'
           onChange={setFile}
-          disabled={isInputDisabled}
         />
       </div>
       <div>
-        <Button
-          onClick={() => uploadFunction()}
-          disabled={isInputDisabled}
-          variant={'secondary'}
-        >
+        <Button onClick={() => uploadFunction()} variant={'secondary'}>
           Upload File
         </Button>
       </div>

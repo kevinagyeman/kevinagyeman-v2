@@ -63,11 +63,7 @@ export default function ProjectAdd(): ReactElement {
           </Button>
         </div>
         <div className='overflow-y-auto'>
-          <ProjectForm
-            projectSetter={setProject}
-            submitFunction={addProject}
-            project={project}
-          />
+          <ProjectForm submitFunction={addProject} />
         </div>
         <div>
           <SubmitButton title={'Create New'} />

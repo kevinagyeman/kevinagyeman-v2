@@ -5,6 +5,7 @@ import { ArrowUpRight, Check } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '../../../navigation';
 import { ProjectSchema } from '../../types/project-schema';
+import SkillsList from '../skills-list.component';
 
 type ProjectsListUserProps = {
   projects: ProjectSchema[];
@@ -40,15 +41,13 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
             <p className='line-clamp-2 text-muted-foreground'>
               {project.shortDescription}
             </p>
-            <div className='flex flex-wrap gap-x-3 gap-y-1'>
-              {project.skills &&
-                project.skills.map((skill, index) => (
-                  <p key={index} className='flex items-center gap-1'>
-                    <Check className='h-4 w-4' />
-                    {skill}
-                  </p>
-                ))}
-            </div>
+            {project?.skills && (
+              <SkillsList
+                skills={project?.skills}
+                numberOfSkills={3}
+                type='homepage'
+              />
+            )}
           </div>
         </Link>
       ))}

@@ -2,12 +2,13 @@
 
 import { Button } from '@/components/ui/button';
 import { InformationSchema } from '@/types/information-schema';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '../../../navigation';
-import SkillsList from '../skills-list.component';
 import BreadcrumbMenu from '../breadcrumb-menu.component';
+import SkillsList from '../skills-list.component';
+import LinksList from '../LinksList.component';
 
 type InformationInfoProps = {
   information: InformationSchema;
@@ -44,7 +45,9 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
           </h2>
         </div>
         <p className='text-xl text-muted-foreground'>{information?.summary}</p>
-        {/* <SkillsList skills={`${information?.skills}`} /> */}
+        {information?.skills && (
+          <SkillsList skills={information?.skills} type='detail' />
+        )}
         <p className='text-xl'>{information?.additionalInfo}</p>
 
         <div className='flex space-x-2'>
@@ -65,6 +68,7 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
             </Button>
           )}
         </div>
+        {information.links && <LinksList links={information.links} />}
       </div>
     </>
   );

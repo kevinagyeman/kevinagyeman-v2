@@ -1,4 +1,5 @@
 import { Timestamp } from 'firebase/firestore';
+import { Link } from './project-schema';
 
 export type InformationSchema = {
   id: string;
@@ -7,8 +8,9 @@ export type InformationSchema = {
   role?: string;
   summary?: string;
   profileImageLink?: string;
-  skills?: string;
+  skills?: string[];
   email?: string;
+  links?: Link[];
   additionalLink?: string;
   additionalInfo?: string;
   createdAt?: Timestamp;

@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Link } from '../../../navigation';
 import SkillsList from '../skills-list.component';
 import BreadcrumbMenu from '../breadcrumb-menu.component';
+import LinksList from '../LinksList.component';
 
 type ProjectInfoProps = {
   project: ProjectSchema;
@@ -20,16 +21,18 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
     <>
       <BreadcrumbMenu pageName={project.title || ''} />
       <div className='flex flex-col space-y-8'>
-        {project.startDate && (
+        {/* {project.startDate && (
           <span className='text-muted'>
             {`${project.startDate}`} - {`${project.endDate}` || 'Present'}
           </span>
-        )}
+        )} */}
         <h2 className='text-3xl font-semibold'>{project.title}</h2>
         <p className='text-xl text-muted-foreground'>
           {project.shortDescription}
         </p>
-        {project?.skills && <SkillsList skills={project?.skills} />}
+        {project?.skills && (
+          <SkillsList skills={project?.skills} type='detail' />
+        )}
         {project.imageLink && (
           <Image
             src={project.imageLink}
@@ -45,19 +48,7 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
           <p className='text-xl'>{project.description}</p>
         )}
         <div className='flex space-x-2'>
-          {project.link && (
-            <Button
-              variant={'secondary'}
-              className='w-full'
-              size={'lg'}
-              asChild
-            >
-              <Link href={project.link} target='_blank'>
-                {t('readMore')}
-                <ArrowUpRight className='ml-2 h-5 w-5' />
-              </Link>
-            </Button>
-          )}
+          {project.links && <LinksList links={project.links} />}
         </div>
       </div>
     </>

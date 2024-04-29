@@ -1,23 +1,27 @@
-import { projectDataState } from '@/store/projects-store';
-import { ProjectSchema } from '@/types/project-schema';
-import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { TagInput } from './ui/tag-input';
-import { Label } from './ui/label';
+'use client';
 
-export default function SkillsInput() {
-  const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
+import React, { useEffect } from 'react';
+import { Label } from './ui/label';
+import { TagInput } from './ui/tag-input';
+
+type SkillsInputProps = {
+  label: string;
+  setter: any;
+  data: any;
+};
+
+export default function SkillsInput({ label, setter, data }: SkillsInputProps) {
   const [tags, setTags] = React.useState<string[]>(
-    project.skills ? project.skills : []
+    data.skills ? data.skills : []
   );
 
   useEffect(() => {
-    setProject({ ...project, skills: tags });
+    setter({ ...data, skills: tags });
   }, [tags]);
 
   return (
     <>
-      <Label>Skills project</Label>
+      <Label>{label}</Label>
       <div className='mb-4 mt-2'>
         <TagInput
           draggable={true}

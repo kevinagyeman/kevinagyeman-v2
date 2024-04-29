@@ -19,6 +19,8 @@ import { Button } from '../ui/button';
 import { Sheet, SheetContent } from '../ui/sheet';
 import Upload from '../upload.component';
 import InformationForm from './information-form.component';
+import SkillsInput from '../skills-input';
+import LinkInput from '../link-input.component';
 
 export default function InformationUpdate(): ReactElement {
   const [information, setInformation] =
@@ -92,13 +94,18 @@ export default function InformationUpdate(): ReactElement {
             <FileDisplay fileUrl={information.profileImageLink} />
             <Upload
               label={'Upload an image'}
-              isInputDisabled={isInputDisabled}
               uploadFunction={uploadDoc}
               setFile={(e: any) => setImg(e.target.files && e.target.files[0])}
               fileAccepted={'image/png,image/jpeg'}
             />
             <FunctionFeedback hasBeenSuccessful={isUploaded} />
           </div>
+          <SkillsInput
+            data={information}
+            setter={setInformation}
+            label={'Information skills'}
+          />
+          <LinkInput data={information} setter={setInformation} />
           <InformationForm
             isDisabled={isInputDisabled}
             informationSetter={setInformation}

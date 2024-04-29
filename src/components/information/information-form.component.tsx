@@ -62,27 +62,6 @@ const InformationForm = ({
       },
     },
     {
-      label: 'Additional link',
-      type: 'text',
-      value: information.additionalLink || '',
-      disabled: isDisabled,
-      required: false,
-      onChange: (e) => {
-        informationSetter({ ...information, additionalLink: e.target.value });
-      },
-    },
-
-    {
-      label: 'Skills',
-      type: 'textarea',
-      value: information.skills || '',
-      disabled: isDisabled,
-      required: false,
-      onChange: (e) => {
-        informationSetter({ ...information, skills: e.target.value });
-      },
-    },
-    {
       label: 'Summary',
       type: 'textarea',
       value: information.summary || '',

@@ -35,7 +35,6 @@ export default function ResumeCV() {
       <div className='flex flex-col gap-y-3 mb-5 mt-5'>
         <Upload
           label={'Upload an resume'}
-          isInputDisabled={false}
           uploadFunction={uploadDoc}
           setFile={(e: any) => setDoc(e.target.files && e.target.files[0])}
           fileAccepted={'image/png,image/jpeg'}

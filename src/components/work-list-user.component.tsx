@@ -20,9 +20,11 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
   return (
     <>
       <h2 className='mb-2 scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0'>
-        {t('projects.title')}
+        Relevant work experience
       </h2>
-      <p className='text-muted-foreground'>{t('projects.description')}</p>
+      <p className='text-muted-foreground'>
+        A list of some relevant experiences
+      </p>
       {worksList?.map((project: ProjectSchema, index: number) => (
         <Link
           href={`/project/${project.id}`}

@@ -16,28 +16,30 @@ export default function DatePicker() {
   };
 
   return (
-    <div className='flex flex-col gap-y-3 my-4'>
-      <Label>Start Date:</Label>
-      <div className='flex flex-row items-center gap-x-3'>
-        <div>
-          <Input
-            type='date'
-            onChange={(e) =>
-              setProject({
-                ...project,
-                startDate: fromISO8601ToTimestamp(e.target.value),
-              })
-            }
-          />
+    <div className='flex flex-col gap-y-3'>
+      <div>
+        <Label>Start Date</Label>
+        <div className='flex flex-row items-center gap-x-3'>
+          <div>
+            <Input
+              type='date'
+              onChange={(e) =>
+                setProject({
+                  ...project,
+                  startDate: fromISO8601ToTimestamp(e.target.value),
+                })
+              }
+            />
+          </div>
+          <span>
+            {project.endDate
+              ? clientFormatDateUser(project.startDate)
+              : 'Not setted'}
+          </span>
         </div>
-        <span>
-          {project.endDate
-            ? clientFormatDateUser(project.startDate)
-            : 'Not setted'}
-        </span>
       </div>
       <div>
-        <Label>End Date:</Label>
+        <Label>End Date</Label>
         <div className='flex flex-row items-center gap-x-3'>
           <div>
             <Input

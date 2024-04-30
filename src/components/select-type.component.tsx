@@ -32,7 +32,7 @@ export default function SelectType(): ReactElement {
   };
 
   return (
-    <>
+    <div>
       <Label>Project Type</Label>
       <Select
         onValueChange={(e) => handleChange(e)}
@@ -52,6 +52,6 @@ export default function SelectType(): ReactElement {
           </SelectGroup>
         </SelectContent>
       </Select>
-    </>
+    </div>
   );
 }

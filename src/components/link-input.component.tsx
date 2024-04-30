@@ -1,26 +1,26 @@
-import { projectDataState } from '@/store/projects-store';
-import { InformationSchema } from '@/types/information-schema';
-import { Link, ProjectSchema } from '@/types/project-schema';
-import { Minus } from 'lucide-react';
+import { ProjectSchema } from '@/types/project-schema';
+import { Url } from '@/types/url-schema';
+import { Minus, Trash, X } from 'lucide-react';
 import React from 'react';
-import { SetterOrUpdater, useRecoilState } from 'recoil';
+import { SetterOrUpdater } from 'recoil';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import { InformationSchema } from '@/types/information-schema';
 
 type LinkInputProps = {
-  data: ProjectSchema;
-  setter: SetterOrUpdater<ProjectSchema>;
+  data: ProjectSchema | InformationSchema;
+  setter: SetterOrUpdater<ProjectSchema | InformationSchema>;
 };
 
 export default function LinkInput({ data, setter }: LinkInputProps) {
   const handleLabelChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    link: Link
-  ) => {
+    link: Url
+  ): void => {
     setter({
       ...data,
-      links: data?.links?.map((item: Link) =>
+      links: data?.links?.map((item: Url) =>
         item.label === link.label
           ? { ...item, label: event.target.value }
           : item
@@ -30,34 +30,32 @@ export default function LinkInput({ data, setter }: LinkInputProps) {
 
   const handleUrlChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    link: Link
-  ) => {
+    link: Url
+  ): void => {
     setter({
       ...data,
-      links: data?.links?.map((item: Link) =>
+      links: data?.links?.map((item: Url) =>
         item.url === link.url ? { ...item, url: event.target.value } : item
       ),
     });
   };
 
-  const addNewLink = () => {
+  const addNewLink = (): void => {
     setter({
       ...data,
       links: [...(data?.links || []), { label: '', url: '' }],
     });
   };
 
-  const removeLink = (link: Link) => {
+  const removeLink = (link: Url): void => {
     setter({
       ...data,
-      links: data?.links?.filter((item: Link) => item.url !== link.url),
+      links: data?.links?.filter((item: Url) => item.url !== link.url),
     });
   };
 
   const isButtonEnabled = (): boolean => {
-    const existsEmptyLink = !!data?.links?.find(
-      (item: Link) => item.url === ''
-    );
+    const existsEmptyLink = !!data?.links?.find((item: Url) => item.url === '');
     if (existsEmptyLink) {
       return true;
     } else {
@@ -66,22 +64,27 @@ export default function LinkInput({ data, setter }: LinkInputProps) {
   };
 
   return (
-    <>
+    <div className='flex flex-col gap-y-3'>
       <Label>Link Input</Label>
-      <div className='flex flex-col gap-3'>
-        {data.links?.map((link: Link, index: number) => (
-          <div key={index}>
-            <div className='flex flex-row gap-3 items-center p-4 bg-secondary rounded-lg mt-2'>
-              <div className='flex flex-col gap-y-2 flex-auto'>
-                <Label className='text-xs'>Label</Label>
-                <Input
-                  type='text'
-                  placeholder='Label link'
-                  value={link.label}
-                  onChange={(event) => handleLabelChange(event, link)}
-                  required
-                />
-                <Label className='text-xs'>Link</Label>
+      <div className='flex flex-col gap-y-3'>
+        {data.links?.map((link: Url, index: number) => (
+          <div
+            key={index}
+            className='p-3 bg-zinc-900 rounded-lg flex flex-col gap-y-1'
+          >
+            <div>
+              <Label className='text-xs'>Label</Label>
+              <Input
+                type='text'
+                placeholder='Label'
+                value={link.label}
+                onChange={(event) => handleLabelChange(event, link)}
+                required
+              />
+            </div>
+            <div>
+              <Label className='text-xs'>Link</Label>
+              <div className='flex gap-x-2'>
                 <Input
                   type='text'
                   placeholder='Link'
@@ -89,29 +92,31 @@ export default function LinkInput({ data, setter }: LinkInputProps) {
                   onChange={(event) => handleUrlChange(event, link)}
                   required
                 />
+                <div>
+                  <Button
+                    size='icon'
+                    type='button'
+                    variant={'outline'}
+                    onClick={() => removeLink(link)}
+                  >
+                    <X className='h-4 w-4' />
+                  </Button>
+                </div>
               </div>
-              <Button
-                size='icon'
-                className='rounded-full'
-                type='button'
-                onClick={() => removeLink(link)}
-              >
-                <Minus className='h-4 w-4' />
-              </Button>
             </div>
           </div>
         ))}
-        <div>
-          <Button
-            type='button'
-            onClick={() => addNewLink()}
-            variant={'secondary'}
-            disabled={isButtonEnabled()}
-          >
-            Add New Link
-          </Button>
-        </div>
       </div>
-    </>
+      <div>
+        <Button
+          type='button'
+          onClick={() => addNewLink()}
+          variant={'secondary'}
+          disabled={isButtonEnabled()}
+        >
+          Add New Link
+        </Button>
+      </div>
+    </div>
   );
 }

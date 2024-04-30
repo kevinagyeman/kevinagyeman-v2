@@ -1,4 +1,5 @@
 import { Timestamp } from 'firebase/firestore';
+import { Url } from './url-schema';
 
 export type ProjectSchema = {
   id: string;
@@ -6,8 +7,7 @@ export type ProjectSchema = {
   shortDescription?: string;
   description?: string;
   imageLink?: string;
-  link?: string;
-  links?: Link[];
+  links?: Url[];
   skills?: string[];
   isPublished?: boolean;
   createdAt?: Timestamp;
@@ -15,9 +15,4 @@ export type ProjectSchema = {
   startDate?: Timestamp;
   endDate?: Timestamp;
   type?: 'project' | 'work' | 'education' | 'other';
-};
-
-export type Link = {
-  label: string;
-  url: string;
 };

@@ -20,19 +20,18 @@ export default function SkillsInput({ label, setter, data }: SkillsInputProps) {
   }, [tags]);
 
   return (
-    <>
+    <div className='flex flex-col gap-y-3'>
       <Label>{label}</Label>
-      <div className='mb-4 mt-2'>
+      <div>
         <TagInput
           draggable={true}
           placeholder='Enter a topic'
           tags={tags}
-          className='sm:min-w-[450px]'
           setTags={(newTags) => {
             setTags(newTags);
           }}
         />
       </div>
-    </>
+    </div>
   );
 }

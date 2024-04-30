@@ -38,32 +38,40 @@ export default function ProjectForm({ submitFunction }: ProjectFormData) {
     <form
       onSubmit={(event) => submitFunction(event)}
       id='form'
-      className='flex flex-col gap-y-3'
+      className='grid lg:grid-cols-4 gap-5'
     >
-      <Dates updatedAt={project.updatedAt} createdAt={project.createdAt} />
-      <ProjectSwitch />
-      <FileDisplay fileUrl={project.imageLink} />
-      <Upload
-        label={'Upload an image'}
-        uploadFunction={uploadImage}
-        setFile={(event: any) =>
-          setProject({
-            ...project,
-            imageLink: event.target.files && event.target.files[0],
-          })
-        }
-        fileAccepted={'image/png,image/jpeg'}
-      />
-      <FunctionFeedback hasBeenSuccessful={isUploaded} />
-      <SelectType />
-      <DatePicker />
-      <LinkInput data={project} setter={setProject} />
-      <SkillsInput
-        data={project}
-        setter={setProject}
-        label={'Project skills'}
-      />
-      <BasicInputs />
+      <div className='flex flex-col gap-y-10'>
+        <Dates updatedAt={project.updatedAt} createdAt={project.createdAt} />
+        <ProjectSwitch />
+        <SelectType />
+        <DatePicker />
+        <SkillsInput
+          data={project}
+          setter={setProject}
+          label={'Project skills'}
+        />
+      </div>
+      <div className='flex flex-col gap-y-10'>
+        <LinkInput data={project} setter={setProject} />
+      </div>
+      <div className='flex flex-col gap-y-10'>
+        <BasicInputs />
+      </div>
+      <div className='flex flex-col gap-y-10'>
+        <FileDisplay fileUrl={project.imageLink} />
+        <Upload
+          label={'Upload an image'}
+          uploadFunction={uploadImage}
+          setFile={(event: any) =>
+            setProject({
+              ...project,
+              imageLink: event.target.files && event.target.files[0],
+            })
+          }
+          fileAccepted={'image/png,image/jpeg'}
+        />
+        <FunctionFeedback hasBeenSuccessful={isUploaded} />
+      </div>
     </form>
   );
 }

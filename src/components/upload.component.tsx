@@ -1,11 +1,6 @@
-import React from 'react';
-import { Label } from './ui/label';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import FileDisplay from './file-display.component';
-import { projectDataState } from '@/store/projects-store';
-import { ProjectSchema } from '@/types/project-schema';
-import { useRecoilState } from 'recoil';
+import { Label } from './ui/label';
 
 type UploadProps = {
   label: string;
@@ -20,8 +15,6 @@ export default function Upload({
   setFile,
   fileAccepted,
 }: UploadProps) {
-  const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
-
   return (
     <>
       <Label>{label}</Label>

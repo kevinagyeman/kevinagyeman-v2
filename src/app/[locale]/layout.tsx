@@ -82,7 +82,7 @@ export default function RootLayout({ children, params: { locale } }: any) {
               disableTransitionOnChange
             >
               <Navbar />
-              <div className='container max-w-lg'>
+              <div className='container'>
                 {children}
                 <Analytics />
                 <SpeedInsights />

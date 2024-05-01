@@ -7,12 +7,14 @@ type SkillsListProps = {
   skills: string[];
   numberOfSkills?: number;
   type: 'homepage' | 'detail';
+  centered?: boolean;
 };
 
 export default function SkillsList({
   skills,
   numberOfSkills,
   type,
+  centered,
 }: SkillsListProps) {
   if (skills) {
     if (type === 'detail') {
@@ -27,7 +29,13 @@ export default function SkillsList({
       );
     } else if (type === 'homepage') {
       return (
-        <div className='flex flex-wrap gap-x-3 gap-y-1'>
+        <div
+          className={
+            centered
+              ? 'justify-center flex flex-wrap gap-x-3 gap-y-1'
+              : 'flex flex-wrap gap-x-3 gap-y-1'
+          }
+        >
           {skills.slice(0, numberOfSkills).map((skill, index) => (
             <p key={index} className='flex items-center gap-1'>
               <Check className='h-4 w-4' />

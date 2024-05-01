@@ -2,17 +2,38 @@
 
 import { projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
-import { clientFormatDateUser } from '@/utils/client-utils';
+import {
+  clientFormatDateAdmin,
+  clientFormatDateUser,
+} from '@/utils/client-utils';
 import { Timestamp } from 'firebase/firestore';
 import { useRecoilState } from 'recoil';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import { Button } from './ui/button';
+import { X } from 'lucide-react';
+import { Checkbox } from './ui/checkbox';
+import { FormEvent, useState } from 'react';
+import { CheckedState } from '@radix-ui/react-checkbox';
 
 export default function DatePicker() {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
+  const [isEndDateVisible, setIsEndDateVisible] = useState<boolean>(
+    !!!project.isPresentDate
+  );
 
   const fromISO8601ToTimestamp = (date: string): Timestamp => {
     return Timestamp.fromDate(new Date(date + 'T20:00:00Z'));
+  };
+
+  const handleCheckBoxvalueChange = (e: CheckedState) => {
+    if (e.valueOf()) {
+      setProject({ ...project, isPresentDate: true });
+      setIsEndDateVisible(false);
+    } else {
+      setProject({ ...project, isPresentDate: false });
+      setIsEndDateVisible(true);
+    }
   };
 
   return (
@@ -20,7 +41,7 @@ export default function DatePicker() {
       <div>
         <Label>Start Date</Label>
         <div className='flex flex-row items-center gap-x-3'>
-          <div>
+          <div className='flex gap-x-2'>
             <Input
               type='date'
               onChange={(e) =>
@@ -30,56 +51,80 @@ export default function DatePicker() {
                 })
               }
             />
+            <div>
+              <Button
+                size='icon'
+                type='button'
+                variant={'outline'}
+                onClick={() =>
+                  setProject({
+                    ...project,
+                    startDate: undefined,
+                  })
+                }
+              >
+                <X className='h-4 w-4' />
+              </Button>
+            </div>
           </div>
           <span>
-            {project.endDate
-              ? clientFormatDateUser(project.startDate)
+            {project.startDate
+              ? clientFormatDateAdmin(project.startDate)
               : 'Not setted'}
           </span>
         </div>
       </div>
-      <div>
-        <Label>End Date</Label>
-        <div className='flex flex-row items-center gap-x-3'>
-          <div>
-            <Input
-              type='date'
-              onChange={(e) =>
-                setProject({
-                  ...project,
-                  endDate: fromISO8601ToTimestamp(e.target.value),
-                })
-              }
-            />
+      {isEndDateVisible && (
+        <div>
+          <Label>End Date</Label>
+          <div className='flex flex-row items-center gap-x-3'>
+            <div className='flex gap-x-2'>
+              <Input
+                type='date'
+                onChange={(e) =>
+                  setProject({
+                    ...project,
+                    endDate: fromISO8601ToTimestamp(e.target.value),
+                  })
+                }
+              />
+              <div>
+                <Button
+                  size='icon'
+                  type='button'
+                  variant={'outline'}
+                  onClick={() =>
+                    setProject({
+                      ...project,
+                      endDate: undefined,
+                    })
+                  }
+                >
+                  <X className='h-4 w-4' />
+                </Button>
+              </div>
+            </div>
+            <span>
+              {project.endDate
+                ? clientFormatDateAdmin(project.endDate)
+                : 'Not setted'}
+            </span>
           </div>
-          <span>
-            {project.endDate
-              ? clientFormatDateUser(project.endDate)
-              : 'Present'}
-          </span>
         </div>
+      )}
+      <div className='flex items-center space-x-2'>
+        <Checkbox
+          id='isPresentDate'
+          onCheckedChange={(e) => handleCheckBoxvalueChange(e)}
+          checked={project.isPresentDate}
+        />
+        <label
+          htmlFor='isPresentDate'
+          className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+        >
+          Present
+        </label>
       </div>
-      {/* <div>
-        <div className='flex items-center space-x-2'>
-          <Checkbox
-            id='dates'
-            disabled={isInputDisabled}
-            checked={project.endDate ? false : true}
-            onChange={() =>
-              setProject({
-                ...project,
-                endDate: undefined,
-              })
-            }
-          />
-          <label
-            htmlFor='dates'
-            className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-          >
-            Present
-          </label>
-        </div>
-      </div> */}
     </div>
   );
 }

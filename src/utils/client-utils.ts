@@ -74,7 +74,7 @@ export const clientFormatDateDashboard = (
   }
 };
 
-export const clientFormatDateUser = (
+export const clientFormatDateAdmin = (
   date: Timestamp | undefined
 ): string | undefined => {
   if (date) {
@@ -82,6 +82,18 @@ export const clientFormatDateUser = (
       year: 'numeric',
       month: 'long',
       day: '2-digit',
+    });
+    return dateFormatted;
+  }
+};
+
+export const clientFormatDateUser = (
+  date: Timestamp | undefined
+): string | undefined => {
+  if (date) {
+    const dateFormatted = new Date(date.seconds * 1000).toLocaleString([], {
+      year: 'numeric',
+      month: 'long',
     });
     return dateFormatted;
   }

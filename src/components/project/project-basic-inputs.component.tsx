@@ -21,6 +21,15 @@ export default function BasicInputs() {
       },
     },
     {
+      label: 'Company',
+      type: 'text',
+      value: project.company || '',
+      required: false,
+      onChange: (e) => {
+        setProject({ ...project, company: e.target.value });
+      },
+    },
+    {
       label: 'Short Description',
       type: 'textarea',
       value: project.shortDescription || '',

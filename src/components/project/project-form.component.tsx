@@ -58,19 +58,21 @@ export default function ProjectForm({ submitFunction }: ProjectFormData) {
         <BasicInputs />
       </div>
       <div className='flex flex-col gap-y-10'>
-        <FileDisplay fileUrl={project.imageLink} />
-        <Upload
-          label={'Upload an image'}
-          uploadFunction={uploadImage}
-          setFile={(event: any) =>
-            setProject({
-              ...project,
-              imageLink: event.target.files && event.target.files[0],
-            })
-          }
-          fileAccepted={'image/png,image/jpeg'}
-        />
-        <FunctionFeedback hasBeenSuccessful={isUploaded} />
+        <div>
+          <FileDisplay fileUrl={project.imageLink} />
+          <Upload
+            label={'Upload an image'}
+            uploadFunction={uploadImage}
+            setFile={(event: any) =>
+              setProject({
+                ...project,
+                imageLink: event.target.files && event.target.files[0],
+              })
+            }
+            fileAccepted={'image/png,image/jpeg'}
+          />
+          <FunctionFeedback hasBeenSuccessful={isUploaded} />
+        </div>
       </div>
     </form>
   );

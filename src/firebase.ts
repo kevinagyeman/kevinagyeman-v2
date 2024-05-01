@@ -1,9 +1,19 @@
-import { getApp, getApps, initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+import {
+  FirebaseApp,
+  FirebaseOptions,
+  getApp,
+  getApps,
+  initializeApp,
+} from 'firebase/app';
+import { Auth, getAuth } from 'firebase/auth';
+import {
+  Firestore,
+  getFirestore,
+  initializeFirestore,
+} from 'firebase/firestore';
+import { FirebaseStorage, getStorage } from 'firebase/storage';
 
-const firebaseConfig = {
+const firebaseConfig: FirebaseOptions = {
   apiKey: 'AIzaSyBB3-oIhRJGYZz1fLfyh0qWBiGfLlvGYCk',
   authDomain: 'kevinagyeman-db.firebaseapp.com',
   projectId: 'kevinagyeman-db',
@@ -13,9 +23,14 @@ const firebaseConfig = {
   measurementId: 'G-THFVBS56D2',
 };
 
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-const db = getFirestore();
-const auth = getAuth();
-const storage = getStorage(app);
+const app: FirebaseApp = getApps().length
+  ? getApp()
+  : initializeApp(firebaseConfig);
+initializeFirestore(app, {
+  ignoreUndefinedProperties: true,
+});
+const db: Firestore = getFirestore(app);
+const auth: Auth = getAuth(app);
+const storage: FirebaseStorage = getStorage(app);
 
 export { app, auth, db, storage };

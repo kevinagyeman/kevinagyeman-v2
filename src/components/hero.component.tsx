@@ -17,16 +17,16 @@ export default function Hero({ information }: HeroProps) {
 
   if (information?.id) {
     return (
-      <div className='my-14 flex flex-col space-y-5'>
+      <div className='gap-y-5 flex flex-col text-center max-w-4xl py-14 m-auto'>
         <div>
           <code className='relative rounded bg-muted px-[0.4rem] py-[0.2rem] font-mono text-sm'>
             {information?.role}
           </code>
         </div>
-        <h1 className='text-4xl font-extrabold lg:text-5xl'>
+        <h1 className='text-4xl font-extrabold lg:text-7xl'>
           {information?.name} {information?.surname}
         </h1>
-        <p className='text-l line-clamp-3 text-muted-foreground lg:text-xl'>
+        <p className='text-l line-clamp-2 text-muted-foreground lg:text-xl font-light'>
           {information?.summary}
         </p>
         {information?.skills && (
@@ -34,9 +34,10 @@ export default function Hero({ information }: HeroProps) {
             skills={information?.skills}
             numberOfSkills={4}
             type='homepage'
+            centered={true}
           />
         )}
-        <div className='flex flex-wrap gap-3'>
+        <div className='flex flex-wrap gap-3  justify-center'>
           <div>
             <Button variant={'secondary'} size={'lg'} asChild>
               <Link href='/contact' rel='canonical' prefetch={true}>

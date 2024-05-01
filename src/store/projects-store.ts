@@ -6,6 +6,7 @@ import { atom } from 'recoil';
 const projectData: ProjectSchema = {
   id: '',
   isPublished: false,
+  isPresentDate: false,
 };
 
 export const initProjectData: ProjectSchema = projectData;

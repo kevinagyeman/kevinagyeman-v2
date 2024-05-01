@@ -14,5 +14,7 @@ export type ProjectSchema = {
   updatedAt?: Timestamp;
   startDate?: Timestamp;
   endDate?: Timestamp;
+  isPresentDate?: boolean;
   type?: 'project' | 'work' | 'education' | 'other';
+  company?: string;
 };

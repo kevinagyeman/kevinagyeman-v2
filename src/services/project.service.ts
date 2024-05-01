@@ -1,11 +1,15 @@
 import { OrderBySchema, WhereSchema } from '@/types/query-schema';
 import {
   DocumentData,
+  FieldValue,
+  FirestoreSettings,
   QueryFieldFilterConstraint,
   QuerySnapshot,
+  Timestamp,
   addDoc,
   collection,
   deleteDoc,
+  deleteField,
   doc,
   getDoc,
   getDocs,
@@ -19,12 +23,23 @@ import { ProjectSchema } from '../types/project-schema';
 
 const projectsCollection = collection(db, '/projects');
 
+const setting: FirestoreSettings = {};
+setting.ignoreUndefinedProperties = true;
+
 const mappedProjects = (data: QuerySnapshot<DocumentData, DocumentData>) => {
   const result: ProjectSchema[] = data.docs.map((doc) => ({
     ...doc.data(),
     id: doc.id,
   }));
   return result;
+};
+
+const deleteUndefinedField = (value: any) => {
+  if (value !== undefined && value !== null) {
+    return value;
+  } else {
+    return deleteField();
+  }
 };
 
 export const projectService = {
@@ -72,8 +87,11 @@ export const projectService = {
   update: async (projectId: string, project: ProjectSchema) => {
     try {
       const data = doc(projectsCollection, projectId);
+
       await updateDoc(data, {
         ...project,
+        startDate: deleteUndefinedField(project.startDate),
+        endDate: deleteUndefinedField(project.endDate),
         updatedAt: new Date(),
       });
     } catch (error) {

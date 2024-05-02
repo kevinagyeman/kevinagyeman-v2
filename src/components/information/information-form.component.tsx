@@ -1,121 +1,72 @@
 'use client';
 
-import { FormFieldSchema } from '@/types/form-field-schema';
+import { informationDataState } from '@/store/information-store';
 import { InformationSchema } from '@/types/information-schema';
-import React from 'react';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { Textarea } from '../ui/textarea';
+import { clientUpload } from '@/utils/client-utils';
+import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import FileDisplay from '../file-display.component';
+import LinkInput from '../link-input.component';
+import InformationBasicInputs from './information-basic-inputs.component';
+
+import Dates from '../dates.component';
+import FunctionFeedback from '../function-feedback.component';
+import SkillsInput from '../skills-input';
+import Upload from '../upload.component';
 
 type InformationFormData = {
-  information: InformationSchema;
-  isDisabled: boolean;
-  informationSetter: React.Dispatch<React.SetStateAction<InformationSchema>>;
   submitFunction(e: React.FormEvent<HTMLFormElement>): Promise<void>;
 };
 
-const InformationForm = ({
-  information,
-  isDisabled,
-  informationSetter,
-  submitFunction,
-}: InformationFormData) => {
-  const formFields: FormFieldSchema[] = [
-    {
-      label: 'Name',
-      type: 'text',
-      value: information.name || '',
-      disabled: isDisabled,
-      required: false,
-      onChange: (e) => {
-        informationSetter({ ...information, name: e.target.value });
-      },
-    },
-    {
-      label: 'Surname',
-      type: 'text',
-      value: information.surname || '',
-      disabled: isDisabled,
-      required: false,
-      onChange: (e) => {
-        informationSetter({ ...information, surname: e.target.value });
-      },
-    },
-    {
-      label: 'Email',
-      type: 'text',
-      value: information.email || '',
-      disabled: isDisabled,
-      required: false,
-      onChange: (e) => {
-        informationSetter({ ...information, email: e.target.value });
-      },
-    },
-    {
-      label: 'Role',
-      type: 'text',
-      value: information.role || '',
-      disabled: isDisabled,
-      required: false,
-      onChange: (e) => {
-        informationSetter({ ...information, role: e.target.value });
-      },
-    },
-    {
-      label: 'Summary',
-      type: 'textarea',
-      value: information.summary || '',
-      disabled: isDisabled,
-      required: false,
-      onChange: (e) => {
-        informationSetter({ ...information, summary: e.target.value });
-      },
-    },
-    {
-      label: 'Additional Information',
-      type: 'textarea',
-      value: information.additionalInfo || '',
-      disabled: isDisabled,
-      required: false,
-      onChange: (e) => {
-        informationSetter({ ...information, additionalInfo: e.target.value });
-      },
-    },
-  ];
+const InformationForm = ({ submitFunction }: InformationFormData) => {
+  const [information, setInformation] =
+    useRecoilState<InformationSchema>(informationDataState);
+  const [isUploaded, setIsUploaded] = useState<boolean>(false);
+  const [img, setImg] = useState<any>();
+
+  const uploadDoc = async () => {
+    const newUrl = await clientUpload(img, `information/profile`);
+    setInformation({ ...information, profileImageLink: newUrl });
+    setIsUploaded(true);
+  };
 
   return (
     <>
-      <form onSubmit={(e) => submitFunction(e)} id='form'>
-        {formFields.map((field: FormFieldSchema, index: number) => (
-          <div className='my-5' key={index}>
-            {field.type === 'text' ? (
-              <>
-                <Label>{field.label}</Label>
-                <Input
-                  className='mt-1'
-                  required={field.required}
-                  type={field.type}
-                  placeholder={field.label}
-                  value={field.value}
-                  onChange={field.onChange}
-                  disabled={field.disabled}
-                />
-              </>
-            ) : (
-              <>
-                <Label>{field.label}</Label>
-                <Textarea
-                  className='mt-1'
-                  placeholder={field.label}
-                  value={field?.value}
-                  onChange={field.onChange}
-                  disabled={field.disabled}
-                  rows={14}
-                ></Textarea>
-              </>
-            )}
+      <form
+        onSubmit={(event) => submitFunction(event)}
+        id='form'
+        className='grid lg:grid-cols-4 gap-5'
+      >
+        <div className='flex flex-col gap-y-10'>
+          <Dates
+            updatedAt={information.updatedAt}
+            createdAt={information.createdAt}
+          />
+
+          <SkillsInput
+            data={information}
+            setter={setInformation}
+            label={'Information skills'}
+          />
+        </div>
+        <div className='flex flex-col gap-y-10'>
+          <LinkInput data={information} setter={setInformation} />
+        </div>
+        <div className='flex flex-col gap-y-10'>
+          <InformationBasicInputs />
+        </div>
+        <div className='flex flex-col gap-y-10'>
+          <div>
+            <FileDisplay fileUrl={information.profileImageLink} />
+            <Upload
+              label={'Upload an image'}
+              uploadFunction={uploadDoc}
+              setFile={(e: any) => setImg(e.target.files && e.target.files[0])}
+              fileAccepted={'image/png,image/jpeg'}
+            />
+            <FunctionFeedback hasBeenSuccessful={isUploaded} />
           </div>
-        ))}
+        </div>
       </form>
     </>
   );

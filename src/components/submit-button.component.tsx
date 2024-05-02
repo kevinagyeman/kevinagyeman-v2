@@ -8,7 +8,7 @@ type SubmitButtonProps = {
 export default function SubmitButton({ title }: SubmitButtonProps) {
   return (
     <>
-      <Button type='submit' className='mt-3 w-full' form='form'>
+      <Button type='submit' className='w-full' form='form'>
         {title}
       </Button>
     </>

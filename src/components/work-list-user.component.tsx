@@ -22,11 +22,10 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
       <p className='text-muted-foreground'>
         A list of some relevant experiences
       </p>
-      <div className='lg:grid lg:grid-cols-3 gap-6 py-3'>
+      <div className='lg:grid lg:grid-cols-3 gap-6 py-3 flex flex-col'>
         {worksList?.map((project: ProjectSchema, index: number) => (
           <div key={index} className='flex flex-col gap-y-1 border-l-4 p-6'>
             <h3 className='truncate text-2xl font-semibold'>{project.title}</h3>
-
             {project.company && (
               <p className='line-clamp-1 text-muted-foreground text-sm italic'>
                 {project.company} •{' '}

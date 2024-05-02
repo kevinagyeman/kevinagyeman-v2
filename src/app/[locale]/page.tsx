@@ -48,11 +48,11 @@ export default async function Index() {
       {information ? (
         <Hero information={JSON.parse(JSON.stringify(information))} />
       ) : null}
-      {worksList ? (
-        <WorkListUser worksList={JSON.parse(JSON.stringify(worksList))} />
-      ) : null}
       {projectsList ? (
         <ProjectsListUser projects={JSON.parse(JSON.stringify(projectsList))} />
+      ) : null}
+      {worksList ? (
+        <WorkListUser worksList={JSON.parse(JSON.stringify(worksList))} />
       ) : null}
     </>
   );

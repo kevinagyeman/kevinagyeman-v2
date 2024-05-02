@@ -57,10 +57,7 @@ export default function ProjectUpdate({ projectId }: ProjectUpdateProps) {
               <h1>{project.title}</h1>
             </div>
             <div className='ml-auto flex flex-row items-center'>
-              <ProjectDelete
-                closingFunction={closeSheet}
-                projectId={projectId}
-              />
+              <ProjectDelete projectId={projectId} />
               <Button
                 onClick={() => closeSheet()}
                 size={'icon'}

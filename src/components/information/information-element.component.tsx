@@ -11,9 +11,14 @@ import InformationUpdate from './information-update.component';
 import InformationInfoAdmin from './information-admin.component';
 
 export default function InformationElement() {
+  const [information, setInformation] =
+    useRecoilState<InformationSchema>(informationDataState);
+
+  useEffect(() => {
+    clientGetInformation(setInformation);
+  }, [setInformation]);
   return (
     <>
-      <InformationUpdate />
       <InformationInfoAdmin />
     </>
   );

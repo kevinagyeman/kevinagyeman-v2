@@ -22,7 +22,14 @@ export default function Navbar() {
     { name: `${t('about')}`, href: '/about' },
     { name: `${t('contacts')}`, href: '/contact' },
     ...(isAdminLogged
-      ? [{ name: `${t('dashboard')}`, href: '/admin/dashboard' }]
+      ? [
+          { name: `${t('dashboard')}`, href: '/admin/dashboard' },
+          { name: `Add new project`, href: '/admin/dashboard/project-add' },
+          {
+            name: `Edit information`,
+            href: '/admin/dashboard/information-edit',
+          },
+        ]
       : []),
   ];
 

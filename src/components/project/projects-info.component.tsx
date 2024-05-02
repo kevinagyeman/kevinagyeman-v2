@@ -6,6 +6,10 @@ import Image from 'next/image';
 import LinksList from '../LinksList.component';
 import BreadcrumbMenu from '../breadcrumb-menu.component';
 import SkillsList from '../skills-list.component';
+import { clientFormatDateUser } from '@/utils/client-utils';
+import { Button } from '../ui/button';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 type ProjectInfoProps = {
   project: ProjectSchema;
@@ -13,6 +17,8 @@ type ProjectInfoProps = {
 
 export default function ProjectsInfo({ project }: ProjectInfoProps) {
   const t = useTranslations('project');
+  const { data: session, status } = useSession();
+  const isAdminLogged = status === 'authenticated';
 
   return (
     <>
@@ -35,15 +41,18 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
           )}
         </div>
         <div className='flex flex-col space-y-8 lg:w-3/5'>
-          {/* {project.startDate && (
-          <span className='text-muted'>
-            {`${project.startDate}`} - {`${project.endDate}` || 'Present'}
-          </span>
-        )} */}
           <h2 className='text-5xl font-semibold'>{project.title}</h2>
-          {project.company && (
-            <p className='text-xl text-muted-foreground'>{project.company}</p>
-          )}
+          <p className='line-clamp-1 text-muted-foreground text-sm italic'>
+            {project.company} •{' '}
+            {project.startDate && (
+              <>
+                {clientFormatDateUser(project.startDate)} -{' '}
+                {project.isPresentDate
+                  ? 'Present'
+                  : clientFormatDateUser(project.endDate)}
+              </>
+            )}
+          </p>
           <p className='text-xl text-muted-foreground  font-extralight'>
             {project.shortDescription}
           </p>
@@ -54,6 +63,13 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
           <div className='flex space-x-2'>
             {project.links && <LinksList links={project.links} />}
           </div>
+          {isAdminLogged && (
+            <Button asChild size={'lg'}>
+              <Link href={'/admin/dashboard/project-edit?id=' + project.id}>
+                Edit as admin
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </>

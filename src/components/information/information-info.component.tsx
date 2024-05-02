@@ -9,6 +9,7 @@ import { Link } from '../../../navigation';
 import BreadcrumbMenu from '../breadcrumb-menu.component';
 import SkillsList from '../skills-list.component';
 import LinksList from '../LinksList.component';
+import { useSession } from 'next-auth/react';
 
 type InformationInfoProps = {
   information: InformationSchema;
@@ -16,6 +17,8 @@ type InformationInfoProps = {
 
 const InformationInfo = ({ information }: InformationInfoProps) => {
   const t = useTranslations('index');
+  const { data: session, status } = useSession();
+  const isAdminLogged = status === 'authenticated';
 
   return (
     <>
@@ -75,6 +78,13 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
             )}
           </div>
           {information.links && <LinksList links={information.links} />}
+          {isAdminLogged && (
+            <Button asChild size={'lg'}>
+              <Link href={'/admin/dashboard/information-edit'}>
+                Edit as admin
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </>

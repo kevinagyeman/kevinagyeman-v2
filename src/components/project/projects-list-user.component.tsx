@@ -19,7 +19,7 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
         {t('projects.title')}
       </h2>
       <p className='text-muted-foreground'>{t('projects.description')}</p>
-      <div className='lg:grid lg:grid-cols-3 gap-3 py-3'>
+      <div className='lg:grid lg:grid-cols-3 gap-3 py-3 flex flex-col'>
         {projects?.map((project: ProjectSchema, index: number) => (
           <Link
             href={`/project/${project.id}`}

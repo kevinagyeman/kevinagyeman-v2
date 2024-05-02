@@ -2,6 +2,8 @@ import { projectsListState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
 import { useRecoilState } from 'recoil';
 import ProjectUpdate from './project-update.component';
+import Link from 'next/link';
+import { Button } from '../ui/button';
 
 export default function ProjectTable() {
   const [projects, setProjects] =
@@ -25,7 +27,11 @@ export default function ProjectTable() {
             </div>
           </div>
           <div className='ml-auto'>
-            <ProjectUpdate projectId={project.id} />
+            <Button asChild variant={'outline'}>
+              <Link href={`/admin/dashboard/project-edit?id=${project.id}`}>
+                Edit
+              </Link>
+            </Button>
           </div>
         </div>
       ))}

@@ -11,13 +11,9 @@ import { projectsListState } from '@/store/projects-store';
 
 type ProjectDeleteProps = {
   projectId: string;
-  closingFunction: () => void;
 };
 
-export default function ProjectDelete({
-  projectId,
-  closingFunction,
-}: ProjectDeleteProps) {
+export default function ProjectDelete({ projectId }: ProjectDeleteProps) {
   const [projects, setProjects] =
     useRecoilState<ProjectSchema[]>(projectsListState);
 
@@ -26,7 +22,6 @@ export default function ProjectDelete({
     setProjects((prev: ProjectSchema[]) => {
       return prev.filter((project: ProjectSchema) => project.id !== projectId);
     });
-    closingFunction();
   };
 
   return (

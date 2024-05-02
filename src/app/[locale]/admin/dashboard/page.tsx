@@ -14,9 +14,6 @@ export default function Dashboard(): ReactElement {
           <InformationElement />
         </div>
         <div>
-          <ProjectsListAdmin type={'project'} />
-        </div>
-        <div>
           <ProjectsListAdmin type={'work'} />
         </div>
         <div>

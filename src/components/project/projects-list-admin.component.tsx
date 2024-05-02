@@ -8,7 +8,7 @@ import { useRecoilState } from 'recoil';
 import ProjectTable from './project-table.component';
 
 type ProjectsListAdminProps = {
-  type: 'project' | 'work';
+  type?: 'project' | 'work';
 };
 
 export default function ProjectsListAdmin({ type }: ProjectsListAdminProps) {
@@ -17,20 +17,10 @@ export default function ProjectsListAdmin({ type }: ProjectsListAdminProps) {
 
   useEffect(() => {
     setProjects([]);
-    clientGetProjects(
-      setProjects,
-      {
-        fieldPath: 'createdAt',
-        directionStr: 'desc',
-      },
-      [
-        {
-          fieldPath: 'type',
-          opStr: '==',
-          value: type,
-        },
-      ]
-    );
+    clientGetProjects(setProjects, {
+      fieldPath: 'createdAt',
+      directionStr: 'desc',
+    });
   }, [setProjects]);
 
   return (

@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import ProjectUpdate from './project-update.component';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import { Badge } from '../ui/badge';
 
 export default function ProjectTable() {
   const [projects, setProjects] =
@@ -15,7 +16,7 @@ export default function ProjectTable() {
         <div key={index} className='flex flex-row items-center py-3'>
           <div className='text-left'>
             <div className='flex flex-col'>
-              <small className='text-secondary'>
+              <small className='text-muted-foreground text-xs'>
                 {project.isPublished ? (
                   <span className='text-emerald-500'>Published</span>
                 ) : (

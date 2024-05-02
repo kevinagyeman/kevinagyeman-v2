@@ -8,6 +8,7 @@ import { projectService } from '@/services/project.service';
 import { ProjectSchema } from '@/types/project-schema';
 import { useRecoilState } from 'recoil';
 import { projectsListState } from '@/store/projects-store';
+import { useRouter } from 'next/navigation';
 
 type ProjectDeleteProps = {
   projectId: string;
@@ -16,12 +17,14 @@ type ProjectDeleteProps = {
 export default function ProjectDelete({ projectId }: ProjectDeleteProps) {
   const [projects, setProjects] =
     useRecoilState<ProjectSchema[]>(projectsListState);
+  const router = useRouter();
 
   const deleteProject = async () => {
     await projectService.delete(projectId);
     setProjects((prev: ProjectSchema[]) => {
       return prev.filter((project: ProjectSchema) => project.id !== projectId);
     });
+    router.push('/admin/dashboard');
   };
 
   return (

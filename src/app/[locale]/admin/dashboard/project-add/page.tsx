@@ -13,6 +13,7 @@ import { ProjectSchema } from '@/types/project-schema';
 import { clientGetProjects } from '@/utils/client-utils';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { RecoilRoot, useRecoilState } from 'recoil';
 
@@ -25,21 +26,14 @@ export default function ProjectAdd() {
 }
 
 const AddProject = () => {
-  const [projects, setProjects] =
-    useRecoilState<ProjectSchema[]>(projectsListState);
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
-  const [open, setOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   const addProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await projectService.create(project);
-
-    clientGetProjects(setProjects, {
-      fieldPath: 'createdAt',
-      directionStr: 'desc',
-    });
+    router.push('/admin/dashboard');
     setProject(initProjectData);
-    setOpen(false);
   };
 
   return (
@@ -62,7 +56,7 @@ const AddProject = () => {
           <ProjectForm submitFunction={addProject} />
         </div>
         <div className='sticky bottom-0 py-5 dark:bg-zinc-950 bg-white border-t'>
-          <small className='text-foreground'>{project.title}</small>
+          <small className='text-muted-foreground'>{project.title}</small>
           <div className='flex gap-x-2 items-center'>
             <div className='grow'>
               <SubmitButton title={'Update'} />

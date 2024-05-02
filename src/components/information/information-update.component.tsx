@@ -6,6 +6,7 @@ import { InformationSchema } from '@/types/information-schema';
 import { clientGetInformation } from '@/utils/client-utils';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { ReactElement, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import SubmitButton from '../submit-button.component';
@@ -15,10 +16,12 @@ import InformationForm from './information-form.component';
 export default function InformationUpdate(): ReactElement {
   const [information, setInformation] =
     useRecoilState<InformationSchema>(informationDataState);
+  const router = useRouter();
 
   const updateInformation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await informationService.update(information);
+    router.push('/admin/dashboard');
   };
 
   useEffect(() => {
@@ -39,7 +42,7 @@ export default function InformationUpdate(): ReactElement {
           <InformationForm submitFunction={updateInformation} />
         </div>
         <div className='sticky bottom-0 py-5 dark:bg-zinc-950 bg-white border-t'>
-          <small className='text-foreground'>{information.name}</small>
+          <small className='text-muted-foreground'>{information.name}</small>
           <div className='flex gap-x-2 items-center'>
             <div className='grow'>
               <SubmitButton title={'Update'} />

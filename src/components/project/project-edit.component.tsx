@@ -1,19 +1,19 @@
 'use client';
 
 import { projectService } from '@/services/project.service';
-import { initProjectData, projectDataState } from '@/store/projects-store';
+import { projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
 import { clientGetSingleProject } from '@/utils/client-utils';
-import { ArrowLeft, X } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
-import { RecoilRoot, useRecoilState } from 'recoil';
+import { ArrowLeft } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { useParams, useSearchParams } from 'next/navigation';
-import { Button } from '@/components/ui/button';
+import ProjectDelete from '@/components/project/project-delete.component';
 import ProjectForm from '@/components/project/project-form.component';
 import SubmitButton from '@/components/submit-button.component';
-import ProjectDelete from '@/components/project/project-delete.component';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type ProjectEditProps = {
   projectId: string;
@@ -21,10 +21,12 @@ type ProjectEditProps = {
 
 export default function ProjectEdit({ projectId }: ProjectEditProps) {
   const [project, setProject] = useRecoilState<ProjectSchema>(projectDataState);
+  const router = useRouter();
 
   const updateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await projectService.update(projectId, project);
+    router.push('/admin/dashboard');
   };
 
   const initializeProject = async () => {
@@ -55,7 +57,7 @@ export default function ProjectEdit({ projectId }: ProjectEditProps) {
         <ProjectForm submitFunction={updateProject} />
       </div>
       <div className='sticky bottom-0 py-5 dark:bg-zinc-950 bg-white border-t'>
-        <small className='text-foreground'>{project.title}</small>
+        <small className='text-muted-foreground'>{project.title}</small>
         <div className='flex gap-x-2 items-center'>
           <div className='grow'>
             <SubmitButton title={'Update'} />

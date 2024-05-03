@@ -17,7 +17,8 @@ export default function FileDisplay({ fileUrl }: FileDisplayProps) {
           width='0'
           height='0'
           sizes='100vw'
-          className='w-full aspect-video h-auto object-cover rounded-lg border-white border'
+          className='w-full h-auto object-cover rounded-lg'
+          style={{ aspectRatio: '4/3' }}
         />
       ) : (
         <ImageMissing />

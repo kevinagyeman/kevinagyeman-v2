@@ -24,7 +24,7 @@ export default function Upload({
   return (
     <form onSubmit={(event) => uploadFunction(event)}>
       <div className='flex flex-col gap-y-2'>
-        {imageSrc && <FileDisplay fileUrl={imageSrc} />}
+        {/* {imageSrc && <FileDisplay fileUrl={imageSrc} />} */}
         <Label>{label}</Label>
         <div>
           <Input

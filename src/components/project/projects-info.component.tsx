@@ -29,12 +29,12 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
           {project.imageLink && (
             <Image
               src={project.imageLink}
-              className='w-full rounded-lg'
               alt={`${project.title} image`}
               width='0'
               height='0'
               sizes='100vw'
-              style={{ width: '100%', height: 'auto' }}
+              className='w-full h-auto object-cover rounded-lg'
+              style={{ aspectRatio: '4/3' }}
             />
           )}
           {project?.skills && (

@@ -84,8 +84,8 @@ export default function RootLayout({ children, params: { locale } }: any) {
               <Navbar />
               <div className='container'>
                 {children}
-                <Analytics />
-                <SpeedInsights />
+                <Analytics debug={false} />
+                <SpeedInsights debug={false} />
                 <Footer />
               </div>
             </ThemeProvider>

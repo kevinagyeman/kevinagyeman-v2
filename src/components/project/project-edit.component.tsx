@@ -41,7 +41,7 @@ export default function ProjectEdit({ projectId }: ProjectEditProps) {
     <div className='flex flex-col gap-5'>
       <div className='flex flex-row items-center'>
         <div>
-          <small className='text-secondary'>{project.id}</small>
+          <small className='text-muted-foreground'>{project.id}</small>
           <h1 className='text-xl'>{project.title}</h1>
         </div>
         <div className='ml-auto flex flex-row items-center gap-3'>
@@ -62,7 +62,6 @@ export default function ProjectEdit({ projectId }: ProjectEditProps) {
           <div className='grow'>
             <SubmitButton title={'Update'} />
           </div>
-
           <div>
             <Button asChild size={'icon'} variant={'secondary'}>
               <Link href={'/admin/dashboard'}>

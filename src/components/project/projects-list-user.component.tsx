@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '../../../navigation';
 import { ProjectSchema } from '../../types/project-schema';
 import SkillsList from '../skills-list.component';
+import DisplayCompanyDate from '../display-company-date.component';
 
 type ProjectsListUserProps = {
   projects: ProjectSchema[];
@@ -39,6 +40,14 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
                   <ArrowUpRight />
                 </div>
               </div>
+              {/* <div>
+                <DisplayCompanyDate
+                  startDate={project.startDate}
+                  endDate={project.endDate}
+                  company={project.company}
+                  isPresentDate={project.isPresentDate}
+                />
+              </div> */}
               <p className='line-clamp-2 text-muted-foreground'>
                 {project.shortDescription}
               </p>

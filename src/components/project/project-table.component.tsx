@@ -1,10 +1,8 @@
 import { projectsListState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
-import { useRecoilState } from 'recoil';
-import ProjectUpdate from './project-update.component';
 import Link from 'next/link';
+import { useRecoilState } from 'recoil';
 import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
 
 export default function ProjectTable() {
   const [projects, setProjects] =

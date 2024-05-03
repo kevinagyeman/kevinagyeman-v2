@@ -10,10 +10,10 @@ type DatesProps = {
 export default function Dates({ createdAt, updatedAt }: DatesProps) {
   return (
     <div className='flex flex-col'>
-      <small className='text-secondary'>
+      <small className='text-muted-foreground'>
         Updated At: {clientFormatDateDashboard(updatedAt)}
       </small>
-      <small className='text-secondary'>
+      <small className='text-muted-foreground'>
         Created At: {clientFormatDateDashboard(createdAt)}
       </small>
     </div>

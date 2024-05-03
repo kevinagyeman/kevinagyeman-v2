@@ -1,11 +1,11 @@
 'use client';
 
 import { ProjectSchema } from '@/types/project-schema';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import DisplayCompanyDate from './display-company-date.component';
 import SkillsList from './skills-list.component';
-import { clientFormatDateUser } from '@/utils/client-utils';
 import { Button } from './ui/button';
 
 type WorkListUserProps = {
@@ -26,19 +26,14 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
         {worksList?.map((project: ProjectSchema, index: number) => (
           <div key={index} className='flex flex-col gap-y-1 border-l-4 p-6'>
             <h3 className='truncate text-2xl font-semibold'>{project.title}</h3>
-            {project.company && (
-              <p className='line-clamp-1 text-muted-foreground text-sm italic'>
-                {project.company} •{' '}
-                {project.startDate && (
-                  <>
-                    {clientFormatDateUser(project.startDate)} -{' '}
-                    {project.isPresentDate
-                      ? 'Present'
-                      : clientFormatDateUser(project.endDate)}
-                  </>
-                )}
-              </p>
-            )}
+            <div>
+              <DisplayCompanyDate
+                startDate={project.startDate}
+                endDate={project.endDate}
+                company={project.company}
+                isPresentDate={project.isPresentDate}
+              />
+            </div>
             <p className='line-clamp-1 text-muted-foreground'>
               {project.shortDescription}
             </p>

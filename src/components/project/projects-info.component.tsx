@@ -10,6 +10,7 @@ import { clientFormatDateUser } from '@/utils/client-utils';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import DisplayCompanyDate from '../display-company-date.component';
 
 type ProjectInfoProps = {
   project: ProjectSchema;
@@ -19,6 +20,8 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
   const t = useTranslations('project');
   const { data: session, status } = useSession();
   const isAdminLogged = status === 'authenticated';
+
+  console.log(project);
 
   return (
     <>
@@ -42,17 +45,12 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
         </div>
         <div className='flex flex-col space-y-8 lg:w-3/5'>
           <h2 className='text-5xl font-semibold'>{project.title}</h2>
-          <p className='line-clamp-1 text-muted-foreground text-sm italic'>
-            {project.company} •{' '}
-            {project.startDate && (
-              <>
-                {clientFormatDateUser(project.startDate)} -{' '}
-                {project.isPresentDate
-                  ? 'Present'
-                  : clientFormatDateUser(project.endDate)}
-              </>
-            )}
-          </p>
+          <DisplayCompanyDate
+            startDate={project.startDate}
+            endDate={project.endDate}
+            company={project.company}
+            isPresentDate={project.isPresentDate}
+          />
           <p className='text-xl text-muted-foreground  font-extralight'>
             {project.shortDescription}
           </p>

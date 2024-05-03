@@ -20,14 +20,18 @@ export default function ProjectTable() {
                 ) : (
                   <span className='text-amber-300'>Draft</span>
                 )}{' '}
-                | {project.id}
+                | {project.id} |{' '}
+                <span className='text-cyan-300'>{project.type}</span>
               </small>
               <h1 className='text-lg'>{project.title}</h1>
             </div>
           </div>
           <div className='ml-auto'>
             <Button asChild variant={'outline'}>
-              <Link href={`/admin/dashboard/project-edit?id=${project.id}`}>
+              <Link
+                href={`/admin/dashboard/project-edit?id=${project.id}`}
+                prefetch={true}
+              >
                 Edit
               </Link>
             </Button>

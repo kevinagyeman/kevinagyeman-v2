@@ -1,24 +1,19 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { InformationSchema } from '@/types/information-schema';
+import { ProjectSchema } from '@/types/project-schema';
+import React, { SetStateAction, useEffect, useState } from 'react';
+import { SetterOrUpdater } from 'recoil';
 import { Label } from './ui/label';
 import { TagInput } from './ui/tag-input';
 
 type SkillsInputProps = {
   label: string;
-  setter: any;
-  data: any;
+  setter: SetterOrUpdater<InformationSchema | ProjectSchema>;
+  data: InformationSchema | ProjectSchema;
 };
 
 export default function SkillsInput({ label, setter, data }: SkillsInputProps) {
-  const [tags, setTags] = React.useState<string[]>(
-    data.skills ? data.skills : []
-  );
-
-  useEffect(() => {
-    setter({ ...data, skills: tags });
-  }, [tags]);
-
   return (
     <div className='flex flex-col gap-y-3'>
       <Label>{label}</Label>
@@ -26,9 +21,9 @@ export default function SkillsInput({ label, setter, data }: SkillsInputProps) {
         <TagInput
           draggable={true}
           placeholder='Enter a topic'
-          tags={tags}
-          setTags={(newTags) => {
-            setTags(newTags);
+          tags={data.skills ? data.skills : []}
+          setTags={(newTags: any) => {
+            setter({ ...data, skills: newTags });
           }}
         />
       </div>

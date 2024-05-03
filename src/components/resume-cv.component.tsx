@@ -1,12 +1,9 @@
 'use client';
 
 import { clientUpload } from '@/utils/client-utils';
+import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import Link from 'next/link';
-import FunctionFeedback from './function-feedback.component';
 import Upload from './upload.component';
 
 export default function ResumeCV() {
@@ -15,8 +12,9 @@ export default function ResumeCV() {
   );
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
 
-  const uploadDoc = async () => {
+  const uploadDoc = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
+      e.preventDefault();
       const newUrl = await clientUpload(doc, `resume/Resume_Kevin_Agyeman`);
       setDoc(newUrl);
       setIsUploaded(true);
@@ -34,12 +32,12 @@ export default function ResumeCV() {
       </Button>
       <div className='flex flex-col gap-y-3 mb-5 mt-5'>
         <Upload
-          label={'Upload an resume'}
+          label={'Upload an image'}
           uploadFunction={uploadDoc}
           setFile={(e: any) => setDoc(e.target.files && e.target.files[0])}
-          fileAccepted={'image/png,image/jpeg'}
+          isUploaded={isUploaded}
+          fileAccepted={'application/pdf'}
         />
-        <FunctionFeedback hasBeenSuccessful={isUploaded} />
       </div>
     </>
   );

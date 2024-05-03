@@ -1,3 +1,5 @@
+'use client';
+
 import React, { ReactElement } from 'react';
 import Image from 'next/image';
 
@@ -11,12 +13,11 @@ export default function FileDisplay({ fileUrl }: FileDisplayProps) {
       {fileUrl ? (
         <Image
           src={fileUrl}
-          alt='profile'
+          alt='file preview'
           width='0'
           height='0'
           sizes='100vw'
-          style={{ width: '100%', height: 'auto' }}
-          className='rounded-lg'
+          className='w-full aspect-video h-auto object-cover rounded-lg border-white border'
         />
       ) : (
         <ImageMissing />

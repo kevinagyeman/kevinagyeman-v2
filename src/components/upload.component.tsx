@@ -1,36 +1,47 @@
+import { UploadIcon } from 'lucide-react';
+import FileDisplay from './file-display.component';
+import FunctionFeedback from './function-feedback.component';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 
 type UploadProps = {
   label: string;
-  uploadFunction: () => void;
+  uploadFunction(event: React.FormEvent<HTMLFormElement>): Promise<void>;
   setFile: any;
   fileAccepted: string;
+  imageSrc?: string;
+  isUploaded: boolean;
 };
-
 export default function Upload({
   label,
   uploadFunction,
   setFile,
   fileAccepted,
+  isUploaded,
+  imageSrc,
 }: UploadProps) {
   return (
-    <>
-      <Label>{label}</Label>
-      <div>
-        <Input
-          placeholder='Choose image'
-          accept={fileAccepted}
-          type='file'
-          onChange={setFile}
-        />
+    <form onSubmit={(event) => uploadFunction(event)}>
+      <div className='flex flex-col gap-y-2'>
+        {imageSrc && <FileDisplay fileUrl={imageSrc} />}
+        <Label>{label}</Label>
+        <div>
+          <Input
+            placeholder='Choose file'
+            accept={fileAccepted}
+            type='file'
+            onChange={setFile}
+            required
+          />
+        </div>
+        <div>
+          <Button variant={'secondary'} type='submit'>
+            Upload File <UploadIcon className='w-4 h-4 ml-2' />
+          </Button>
+        </div>
+        <FunctionFeedback hasBeenSuccessful={isUploaded} />
       </div>
-      <div>
-        <Button onClick={() => uploadFunction()} variant={'secondary'}>
-          Upload File
-        </Button>
-      </div>
-    </>
+    </form>
   );
 }

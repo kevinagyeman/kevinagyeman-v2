@@ -70,7 +70,7 @@ export default function InformationBasicInputs() {
   return (
     <>
       {formFields.map((field: FormFieldSchema, index: number) => (
-        <div className='my-5' key={index}>
+        <div key={index}>
           {field.type === 'text' ? (
             <>
               <Label>{field.label}</Label>

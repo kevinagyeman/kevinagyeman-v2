@@ -9,12 +9,12 @@ import { RecoilRoot } from 'recoil';
 export default function Dashboard(): ReactElement {
   return (
     <RecoilRoot>
-      <div className='lg:grid lg:grid-cols-4 gap-5'>
+      <div className='lg:grid lg:grid-cols-3 gap-5'>
         <div>
           <InformationElement />
         </div>
         <div>
-          <ProjectsListAdmin type={'work'} />
+          <ProjectsListAdmin type={'project'} />
         </div>
         <div>
           <ResumeCV />

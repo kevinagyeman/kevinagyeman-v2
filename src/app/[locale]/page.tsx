@@ -8,7 +8,7 @@ import { getInformation, getProjects } from '@/utils/server-utils';
 export default async function Index() {
   const projectsList: ProjectSchema[] | undefined = await getProjects(
     {
-      fieldPath: 'startDate',
+      fieldPath: 'updatedAt',
       directionStr: 'asc',
     },
     [
@@ -49,11 +49,11 @@ export default async function Index() {
       {information ? (
         <Hero information={JSON.parse(JSON.stringify(information))} />
       ) : null}
-      {projectsList ? (
-        <ProjectsListUser projects={JSON.parse(JSON.stringify(projectsList))} />
-      ) : null}
       {worksList ? (
         <WorkListUser worksList={JSON.parse(JSON.stringify(worksList))} />
+      ) : null}
+      {projectsList ? (
+        <ProjectsListUser projects={JSON.parse(JSON.stringify(projectsList))} />
       ) : null}
     </>
   );

@@ -63,7 +63,6 @@ export default function DatePicker() {
         <div className='flex flex-row items-center gap-x-3'>
           <div className='flex gap-x-2'>
             <Input
-              required={!!project.endDate}
               type='date'
               onChange={(e) => {
                 setProject({

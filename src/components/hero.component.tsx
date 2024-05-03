@@ -26,7 +26,7 @@ export default function Hero({ information }: HeroProps) {
         <h1 className='text-4xl font-extrabold lg:text-7xl'>
           {information?.name} {information?.surname}
         </h1>
-        <p className='text-l line-clamp-2 text-muted-foreground lg:text-xl font-light'>
+        <p className='text-l line-clamp-3 text-muted-foreground lg:text-xl font-light'>
           {information?.summary}
         </p>
         {information?.skills && (
@@ -39,7 +39,7 @@ export default function Hero({ information }: HeroProps) {
         )}
         <div className='flex flex-wrap gap-3  justify-center'>
           <div>
-            <Button variant={'secondary'} size={'lg'} asChild>
+            <Button variant={'secondary'} asChild>
               <Link href='/contact' rel='canonical' prefetch={true}>
                 {t('hero.contact')}
                 <Send className='ml-2 h-4 w-4' />
@@ -47,7 +47,7 @@ export default function Hero({ information }: HeroProps) {
             </Button>
           </div>
           <div>
-            <Button variant={'outline'} size={'lg'} asChild>
+            <Button variant={'outline'} asChild>
               <Link href='/about' rel='canonical' prefetch={true}>
                 {t('hero.readMore')}
                 <ChevronRight className='ml-2 h-5 w-5' />
@@ -55,7 +55,7 @@ export default function Hero({ information }: HeroProps) {
             </Button>
           </div>
           <div>
-            <Button size={'lg'} variant={'outline'} asChild>
+            <Button variant={'outline'} asChild>
               <Link
                 href={
                   'https://firebasestorage.googleapis.com/v0/b/kevinagyeman-db.appspot.com/o/resume%2FResume_Kevin_Agyeman?alt=media&token=977dcaa5-4e80-46fa-9b4b-932cfd3630b5'

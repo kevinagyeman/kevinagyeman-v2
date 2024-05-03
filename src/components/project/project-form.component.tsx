@@ -3,6 +3,7 @@
 import { projectDataState } from '@/store/projects-store';
 import { ProjectSchema } from '@/types/project-schema';
 import { clientUpload } from '@/utils/client-utils';
+import Image from 'next/image';
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import DatePicker from '../date-picker.component';
@@ -13,7 +14,6 @@ import SkillsInput from '../skills-input';
 import Upload from '../upload.component';
 import BasicInputs from './project-basic-inputs.component';
 import ProjectSwitch from './project-switch.component';
-import { useRouter } from 'next/navigation';
 
 type ProjectFormData = {
   submitFunction(event: React.FormEvent<HTMLFormElement>): Promise<void>;
@@ -37,7 +37,7 @@ export default function ProjectForm({ submitFunction }: ProjectFormData) {
     <>
       <div className='max-w-xs my-10'>
         <Upload
-          label={'Upload an image'}
+          label={'Upload an image in 4:3'}
           uploadFunction={uploadImage}
           setFile={(event: any) =>
             setProject({

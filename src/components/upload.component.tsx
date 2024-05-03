@@ -1,9 +1,12 @@
+'use';
+
 import { UploadIcon } from 'lucide-react';
 import FileDisplay from './file-display.component';
 import FunctionFeedback from './function-feedback.component';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import { useState } from 'react';
 
 type UploadProps = {
   label: string;

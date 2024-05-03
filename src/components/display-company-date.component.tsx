@@ -33,7 +33,7 @@ export default function DisplayCompanyDate({
   } else if (company && startDate && endDate) {
     return (
       <p className='line-clamp-1 text-muted-foreground text-sm italic'>
-        {company} • {clientFormatDateUser(startDate)} to{' '}
+        {company} • from {clientFormatDateUser(startDate)} to{' '}
         {isPresentDate ? 'Present' : clientFormatDateUser(endDate)}
       </p>
     );
@@ -48,6 +48,12 @@ export default function DisplayCompanyDate({
       <p className='line-clamp-1 text-muted-foreground text-sm italic'>
         {clientFormatDateUser(startDate)} to{' '}
         {isPresentDate ? 'Present' : clientFormatDateUser(endDate)}
+      </p>
+    );
+  } else if (company && startDate && !endDate) {
+    return (
+      <p className='line-clamp-1 text-muted-foreground text-sm italic'>
+        {company} • from {clientFormatDateUser(startDate)}
       </p>
     );
   } else {

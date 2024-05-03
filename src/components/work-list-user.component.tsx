@@ -34,7 +34,7 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
                 isPresentDate={project.isPresentDate}
               />
             </div>
-            <p className='line-clamp-1 text-muted-foreground'>
+            <p className='line-clamp-2 text-muted-foreground'>
               {project.shortDescription}
             </p>
             {project?.skills && (

@@ -21,8 +21,6 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
   const { data: session, status } = useSession();
   const isAdminLogged = status === 'authenticated';
 
-  console.log(project);
-
   return (
     <>
       <BreadcrumbMenu pageName={project.title || ''} />

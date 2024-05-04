@@ -47,7 +47,7 @@ export default function ProjectForm({ submitFunction }: ProjectFormData) {
           }
           imageSrc={project.imageLink}
           isUploaded={isUploaded}
-          fileAccepted={'image/png,image/jpeg'}
+          fileAccepted={'image/png,image/jpeg,image/jpg'}
         />
       </div>
       <form

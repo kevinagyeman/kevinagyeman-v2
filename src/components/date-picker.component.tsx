@@ -33,7 +33,6 @@ export default function DatePicker() {
           ...project,
           endDate: undefined,
         });
-        console.log('startDate mus be greather than endDate');
       }
     }
   };

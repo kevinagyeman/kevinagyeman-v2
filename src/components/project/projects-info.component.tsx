@@ -5,12 +5,9 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import LinksList from '../LinksList.component';
 import BreadcrumbMenu from '../breadcrumb-menu.component';
-import SkillsList from '../skills-list.component';
-import { clientFormatDateUser } from '@/utils/client-utils';
-import { Button } from '../ui/button';
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 import DisplayCompanyDate from '../display-company-date.component';
+import EditAsAdmin from '../edit-as-admin.component';
+import SkillsList from '../skills-list.component';
 
 type ProjectInfoProps = {
   project: ProjectSchema;
@@ -18,14 +15,15 @@ type ProjectInfoProps = {
 
 export default function ProjectsInfo({ project }: ProjectInfoProps) {
   const t = useTranslations('project');
-  const { data: session, status } = useSession();
-  const isAdminLogged = status === 'authenticated';
 
   return (
     <>
       <BreadcrumbMenu pageName={project.title || ''} />
       <div className='lg:flex gap-28'>
         <div className='lg:w-2/5 flex-col flex gap-y-8'>
+          <EditAsAdmin
+            href={'/admin/dashboard/project-edit?id=' + project.id}
+          />
           {project.imageLink && (
             <Image
               src={project.imageLink}
@@ -42,7 +40,7 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
           )}
         </div>
         <div className='flex flex-col space-y-8 lg:w-3/5'>
-          <h2 className='text-5xl font-semibold'>{project.title}</h2>
+          <h2 className='text-5xl font-semibold mt-5'>{project.title}</h2>
           <DisplayCompanyDate
             startDate={project.startDate}
             endDate={project.endDate}
@@ -59,13 +57,6 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
           <div className='flex space-x-2'>
             {project.links && <LinksList links={project.links} />}
           </div>
-          {isAdminLogged && (
-            <Button asChild size={'lg'}>
-              <Link href={'/admin/dashboard/project-edit?id=' + project.id}>
-                Edit as admin
-              </Link>
-            </Button>
-          )}
         </div>
       </div>
     </>

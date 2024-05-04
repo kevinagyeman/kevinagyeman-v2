@@ -1,12 +1,13 @@
 'use client';
 
 import { InformationSchema } from '@/types/information-schema';
-import { ChevronRight, File, Send } from 'lucide-react';
+import { ChevronRight, File, Send, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import SkeletonLoader from './skeleton.component';
 import SkillsList from './skills-list.component';
 import { Button } from './ui/button';
+import EditAsAdmin from './edit-as-admin.component';
 
 type HeroProps = {
   information: InformationSchema;
@@ -50,7 +51,7 @@ export default function Hero({ information }: HeroProps) {
             <Button variant={'outline'} asChild>
               <Link href='/about' rel='canonical' prefetch={true}>
                 {t('hero.readMore')}
-                <ChevronRight className='ml-2 h-5 w-5' />
+                <User className='ml-2 h-5 w-5' />
               </Link>
             </Button>
           </div>
@@ -66,6 +67,7 @@ export default function Hero({ information }: HeroProps) {
                 <File className='ml-2 h-4 w-4' />
               </Link>
             </Button>
+            <EditAsAdmin href={'/admin/dashboard/information-edit'} />
           </div>
         </div>
       </div>

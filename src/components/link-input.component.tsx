@@ -1,6 +1,6 @@
 import { ProjectSchema } from '@/types/project-schema';
 import { Url } from '@/types/url-schema';
-import { Minus, Trash, X } from 'lucide-react';
+import { Minus, Plus, Trash, X } from 'lucide-react';
 import React from 'react';
 import { SetterOrUpdater } from 'recoil';
 import { Button } from './ui/button';
@@ -114,7 +114,7 @@ export default function LinkInput({ data, setter }: LinkInputProps) {
           variant={'secondary'}
           disabled={isButtonEnabled()}
         >
-          Add New Link
+          Add New Link <Plus className='w-4 h-4 ml-2' />
         </Button>
       </div>
     </div>

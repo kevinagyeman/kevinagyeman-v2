@@ -45,7 +45,7 @@ export default function InformationUpdate(): ReactElement {
           <small className='text-muted-foreground'>{information.name}</small>
           <div className='flex gap-x-2 items-center'>
             <div className='grow'>
-              <SubmitButton title={'Update'} />
+              <SubmitButton title={'Update information'} />
             </div>
             <div>
               <Button asChild size={'icon'} variant={'secondary'}>

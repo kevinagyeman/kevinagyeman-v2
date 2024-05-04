@@ -26,7 +26,7 @@ export default async function Index() {
   );
   const worksList: ProjectSchema[] | undefined = await getProjects(
     {
-      fieldPath: 'startDate',
+      fieldPath: 'updatedAt',
       directionStr: 'asc',
     },
     [

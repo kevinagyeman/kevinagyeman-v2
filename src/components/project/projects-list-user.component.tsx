@@ -7,6 +7,7 @@ import { Link } from '../../../navigation';
 import { ProjectSchema } from '../../types/project-schema';
 import SkillsList from '../skills-list.component';
 import { Button } from '../ui/button';
+import EditAsAdmin from '../edit-as-admin.component';
 
 type ProjectsListUserProps = {
   projects: ProjectSchema[];
@@ -22,10 +23,7 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
       <p className='text-muted-foreground'>{t('projects.description')}</p>
       <div className='lg:grid lg:grid-cols-3 gap-3 py-3 flex flex-col'>
         {projects?.map((project: ProjectSchema, index: number) => (
-          <div
-            key={index}
-            className='rounded-xl overflow-hidden border lg:transition lg:ease-in-out lg:hover:scale-110 lg:hover:bg-zinc-100 lg:dark:hover:bg-zinc-900'
-          >
+          <div key={index} className='rounded-xl overflow-hidden border '>
             <div>
               {project.imageLink && (
                 <Image
@@ -71,9 +69,13 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
                     rel='canonical'
                     prefetch={true}
                   >
-                    Read More <ArrowRight className='w-4 h-4 ml-2' />
+                    Read More
+                    <ArrowRight className='w-5 h-5 ml-2' />
                   </Link>
                 </Button>
+                <EditAsAdmin
+                  href={'/admin/dashboard/project-edit?id=' + project.id}
+                />
               </div>
             </div>
           </div>

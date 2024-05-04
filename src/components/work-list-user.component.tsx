@@ -1,9 +1,11 @@
 'use client';
 
 import { ProjectSchema } from '@/types/project-schema';
-import { ArrowRight, Briefcase, BriefcaseIcon, Code2 } from 'lucide-react';
+import Autoplay from 'embla-carousel-autoplay';
+import { ArrowRight, LucideBriefcase } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import React from 'react';
 import DisplayCompanyDate from './display-company-date.component';
 import SkillsList from './skills-list.component';
 import { Button } from './ui/button';
@@ -14,8 +16,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from './ui/carousel';
-import Autoplay from 'embla-carousel-autoplay';
-import React from 'react';
+import EditAsAdmin from './edit-as-admin.component';
 
 type WorkListUserProps = {
   worksList: ProjectSchema[];
@@ -27,7 +28,7 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
 
   return (
     <div className='py-5 max-w-5xl m-auto'>
-      <h2 className='scroll-m-20 lg:text-3xl text-xl font-semibold tracking-tight transition-colors first:mt-0'>
+      <h2 className='lg:text-3xl text-xl font-semibold'>
         Relevant work experience
       </h2>
       <p className='text-muted-foreground'>
@@ -54,7 +55,7 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
                     </h3>
                   </div>
                   <div className='ml-auto'>
-                    <Code2 />
+                    <LucideBriefcase />
                   </div>
                 </div>
                 <div>
@@ -85,6 +86,9 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
                       Read more <ArrowRight className='w-5 h-5 ml-2' />
                     </Link>
                   </Button>
+                  <EditAsAdmin
+                    href={'/admin/dashboard/project-edit?id=' + project.id}
+                  />
                 </div>
               </div>
             </CarouselItem>

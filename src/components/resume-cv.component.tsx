@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from './ui/button';
 import Upload from './upload.component';
+import { File } from 'lucide-react';
 
 export default function ResumeCV() {
   const [doc, setDoc] = useState<any>(
@@ -27,12 +28,12 @@ export default function ResumeCV() {
     <>
       <Button asChild>
         <Link href={doc} target='_blank'>
-          Doc Preview
+          Doc Preview <File className='h-4 w-4 ml-2' />
         </Link>
       </Button>
-      <div className='flex flex-col gap-y-3 mb-5 mt-5'>
+      <div className='flex flex-col gap-y-3 mt-5'>
         <Upload
-          label={'Upload an image'}
+          label={'Upload a file PDF'}
           uploadFunction={uploadDoc}
           setFile={(e: any) => setDoc(e.target.files && e.target.files[0])}
           isUploaded={isUploaded}

@@ -6,10 +6,10 @@ import { ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '../../../navigation';
+import LinksList from '../LinksList.component';
 import BreadcrumbMenu from '../breadcrumb-menu.component';
 import SkillsList from '../skills-list.component';
-import LinksList from '../LinksList.component';
-import { useSession } from 'next-auth/react';
+import EditAsAdmin from '../edit-as-admin.component';
 
 type InformationInfoProps = {
   information: InformationSchema;
@@ -17,14 +17,13 @@ type InformationInfoProps = {
 
 const InformationInfo = ({ information }: InformationInfoProps) => {
   const t = useTranslations('index');
-  const { data: session, status } = useSession();
-  const isAdminLogged = status === 'authenticated';
 
   return (
     <>
       <BreadcrumbMenu pageName={t('hero.readMore')} />
       <div className='lg:flex gap-28'>
-        <div className='lg:w-1/5 flex-col flex gap-y-8'>
+        <div className='lg:w-1/5 flex-col flex gap-y-5'>
+          <EditAsAdmin href='/admin/dashboard/information-edit' />
           {information?.profileImageLink && (
             <Image
               src={information.profileImageLink}
@@ -78,13 +77,6 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
             )}
           </div>
           {information.links && <LinksList links={information.links} />}
-          {isAdminLogged && (
-            <Button asChild size={'lg'}>
-              <Link href={'/admin/dashboard/information-edit'}>
-                Edit as admin
-              </Link>
-            </Button>
-          )}
         </div>
       </div>
     </>

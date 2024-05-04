@@ -59,7 +59,7 @@ const AddProject = () => {
           <small className='text-muted-foreground'>{project.title}</small>
           <div className='flex gap-x-2 items-center'>
             <div className='grow'>
-              <SubmitButton title={'Update'} />
+              <SubmitButton title={'Add new project'} />
             </div>
             <div>
               <Button asChild size={'icon'} variant={'secondary'}>

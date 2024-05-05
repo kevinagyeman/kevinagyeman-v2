@@ -38,7 +38,6 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
         className='my-5'
         opts={{
           align: 'start',
-          loop: true,
         }}
         plugins={[plugin.current]}
         onMouseEnter={plugin.current.stop}
@@ -96,10 +95,10 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
         </CarouselContent>
         <div className='flex gap-x-3 my-3'>
           <div>
-            <CarouselPrevious />
+            <CarouselPrevious variant={'secondary'} />
           </div>
           <div>
-            <CarouselNext />
+            <CarouselNext variant={'secondary'} />
           </div>
         </div>
       </Carousel>

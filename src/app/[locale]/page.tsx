@@ -8,8 +8,8 @@ import { getInformation, getProjects } from '@/utils/server-utils';
 export default async function Index() {
   const projectsList: ProjectSchema[] | undefined = await getProjects(
     {
-      fieldPath: 'updatedAt',
-      directionStr: 'asc',
+      fieldPath: 'startDate',
+      directionStr: 'desc',
     },
     [
       {
@@ -26,8 +26,8 @@ export default async function Index() {
   );
   const worksList: ProjectSchema[] | undefined = await getProjects(
     {
-      fieldPath: 'updatedAt',
-      directionStr: 'asc',
+      fieldPath: 'startDate',
+      directionStr: 'desc',
     },
     [
       {

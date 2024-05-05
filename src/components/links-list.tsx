@@ -12,13 +12,15 @@ type LinksListProps = {
 
 export default function LinksList({ links }: LinksListProps) {
   return (
-    <div className='flex flex-wrap gap-x-3 gap-y-1'>
+    <div className='flex flex-wrap gap-3'>
       {links.map((link: Url, index: number) => (
-        <Button key={index} asChild>
-          <Link href={link.url} target='_blank'>
-            {link.label} <ArrowUpRight className='ml-2 w-5 h-5' />
-          </Link>
-        </Button>
+        <div key={index}>
+          <Button asChild>
+            <Link href={link.url} target='_blank'>
+              {link.label} <ArrowUpRight className='ml-2 w-5 h-5' />
+            </Link>
+          </Button>
+        </div>
       ))}
     </div>
   );

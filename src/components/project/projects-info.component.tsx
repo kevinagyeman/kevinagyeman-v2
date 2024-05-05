@@ -19,8 +19,8 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
   return (
     <>
       <BreadcrumbMenu pageName={project.title || ''} />
-      <div className='lg:flex gap-28'>
-        <div className='lg:w-2/5 flex-col flex gap-y-8'>
+      <div className='lg:flex gap-10'>
+        <div className='lg:w-2/5 flex-col flex gap-y-8  pb-8'>
           <EditAsAdmin
             href={'/admin/dashboard/project-edit?id=' + project.id}
           />
@@ -35,12 +35,9 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
               style={{ aspectRatio: '4/3' }}
             />
           )}
-          {project?.skills && (
-            <SkillsList skills={project?.skills} type='detail' />
-          )}
         </div>
-        <div className='flex flex-col space-y-8 lg:w-3/5'>
-          <h2 className='text-5xl font-semibold mt-5'>{project.title}</h2>
+        <div className='flex flex-col space-y-8 lg:w-3/5 pb-8'>
+          <h2 className='text-5xl font-semibold'>{project.title}</h2>
           <DisplayCompanyDate
             startDate={project.startDate}
             endDate={project.endDate}
@@ -54,9 +51,12 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
           {project.description && (
             <p className='text-xl font-extralight'>{project.description}</p>
           )}
-          <div className='flex space-x-2'>
-            {project.links && <LinksList links={project.links} />}
-          </div>
+        </div>
+        <div className='lg:w-1/5 flex flex-col gap-y-10'>
+          {project.skills && (
+            <SkillsList skills={project.skills} type='detail' />
+          )}
+          {project.links && <LinksList links={project.links} />}
         </div>
       </div>
     </>

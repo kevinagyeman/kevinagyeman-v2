@@ -26,7 +26,7 @@ export default function ProjectEdit({ projectId }: ProjectEditProps) {
   const updateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await projectService.update(projectId, project);
-    router.push('/admin/dashboard');
+    router.back();
   };
 
   const initializeProject = async () => {

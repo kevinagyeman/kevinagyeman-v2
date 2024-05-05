@@ -11,7 +11,6 @@ export type InformationSchema = {
   skills?: string[];
   email?: string;
   links?: Url[];
-  additionalLink?: string;
   additionalInfo?: string;
   createdAt?: Timestamp;
   updatedAt?: Timestamp;

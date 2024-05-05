@@ -24,7 +24,7 @@ export default function ProjectDelete({ projectId }: ProjectDeleteProps) {
     setProjects((prev: ProjectSchema[]) => {
       return prev.filter((project: ProjectSchema) => project.id !== projectId);
     });
-    router.push('/admin/dashboard');
+    router.back();
   };
 
   return (

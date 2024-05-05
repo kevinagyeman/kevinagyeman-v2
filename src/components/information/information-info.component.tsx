@@ -22,7 +22,7 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
     <>
       <BreadcrumbMenu pageName={t('hero.readMore')} />
       <div className='lg:flex gap-10'>
-        <div className='lg:w-1/5 flex-col flex gap-y-5'>
+        <div className='lg:w-1/5 flex-col flex gap-y-5  pb-8'>
           <EditAsAdmin href='/admin/dashboard/information-edit' />
           {information?.profileImageLink && (
             <Image
@@ -35,11 +35,8 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
               style={{ width: 'auto', height: 'auto', maxWidth: '300px' }}
             />
           )}
-          {information?.skills && (
-            <SkillsList skills={information?.skills} type='detail' />
-          )}
         </div>
-        <div className='flex flex-col space-y-6 lg:w-4/5'>
+        <div className='flex flex-col space-y-6 lg:w-3/5  pb-8'>
           <h1 className='text-3xl font-semibold'>
             {information?.name} {information?.surname}
           </h1>
@@ -53,29 +50,14 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
           <p className='text-xl text-muted-foreground font-extralight'>
             {information?.summary}
           </p>
-
           <p className='text-xl font-extralight'>
             {information?.additionalInfo}
           </p>
-
-          <div className='flex space-x-2'>
-            {information?.additionalLink && (
-              <Button
-                variant={'secondary'}
-                className='w-full'
-                size={'lg'}
-                asChild
-              >
-                <Link
-                  href={information.additionalLink}
-                  target='_blank'
-                  rel='external'
-                >
-                  {t('readResume')} <ArrowUpRight className='ml-2 h-5 w-5' />
-                </Link>
-              </Button>
-            )}
-          </div>
+        </div>
+        <div className='lg:w-1/5 flex flex-col gap-y-10'>
+          {information.skills && (
+            <SkillsList skills={information.skills} type='detail' />
+          )}
           {information.links && <LinksList links={information.links} />}
         </div>
       </div>

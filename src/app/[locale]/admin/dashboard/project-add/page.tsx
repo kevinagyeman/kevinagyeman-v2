@@ -32,7 +32,7 @@ const AddProject = () => {
   const addProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await projectService.create(project);
-    router.push('/admin/dashboard');
+    router.back();
     setProject(initProjectData);
   };
 

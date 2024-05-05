@@ -21,7 +21,7 @@ export default function InformationUpdate(): ReactElement {
   const updateInformation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await informationService.update(information);
-    router.push('/admin/dashboard');
+    router.back();
   };
 
   useEffect(() => {

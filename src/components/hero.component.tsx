@@ -40,7 +40,7 @@ export default function Hero({ information }: HeroProps) {
         )}
         <div className='flex flex-wrap gap-3  justify-center'>
           <div>
-            <Button variant={'secondary'} asChild>
+            <Button asChild>
               <Link href='/contact' rel='canonical' prefetch={true}>
                 {t('hero.contact')}
                 <Send className='ml-2 h-4 w-4' />
@@ -48,7 +48,7 @@ export default function Hero({ information }: HeroProps) {
             </Button>
           </div>
           <div>
-            <Button variant={'outline'} asChild>
+            <Button variant={'secondary'} asChild>
               <Link href='/about' rel='canonical' prefetch={true}>
                 {t('hero.readMore')}
                 <User className='ml-2 h-5 w-5' />
@@ -56,7 +56,7 @@ export default function Hero({ information }: HeroProps) {
             </Button>
           </div>
           <div>
-            <Button variant={'outline'} asChild>
+            <Button variant={'secondary'} asChild>
               <Link
                 href={
                   'https://firebasestorage.googleapis.com/v0/b/kevinagyeman-db.appspot.com/o/resume%2FResume_Kevin_Agyeman?alt=media&token=977dcaa5-4e80-46fa-9b4b-932cfd3630b5'

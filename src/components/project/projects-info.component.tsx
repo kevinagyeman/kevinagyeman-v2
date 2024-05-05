@@ -3,7 +3,7 @@
 import { ProjectSchema } from '@/types/project-schema';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import LinksList from '../LinksList.component';
+import LinksList from '../links-list';
 import BreadcrumbMenu from '../breadcrumb-menu.component';
 import DisplayCompanyDate from '../display-company-date.component';
 import EditAsAdmin from '../edit-as-admin.component';

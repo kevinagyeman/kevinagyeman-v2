@@ -17,6 +17,7 @@ import {
   CarouselPrevious,
 } from './ui/carousel';
 import EditAsAdmin from './edit-as-admin.component';
+import TitleSection from './title-section';
 
 type WorkListUserProps = {
   worksList: ProjectSchema[];
@@ -28,20 +29,20 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
 
   return (
     <div className='py-5 max-w-5xl m-auto'>
-      <h2 className='lg:text-3xl text-xl font-semibold'>
-        Relevant work experience
-      </h2>
-      <p className='text-muted-foreground'>
-        A list of some relevant experiences
-      </p>
+      <div className='px-4'>
+        <TitleSection
+          title={'Relevant work experience'}
+          subtitle={' A list of some relevant experiences'}
+        />
+      </div>
       <Carousel
-        className='my-5'
         opts={{
           align: 'start',
         }}
         plugins={[plugin.current]}
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
+        className='pl-4'
       >
         <CarouselContent className='w-full'>
           {worksList?.map((project: ProjectSchema, index: number) => (
@@ -49,7 +50,7 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
               <div className='flex flex-col gap-y-1 border rounded-xl p-6'>
                 <div className='flex'>
                   <div>
-                    <h3 className='truncate text-2xl font-semibold'>
+                    <h3 className='text-2xl font-semibold line-clamp-1'>
                       {project.title}
                     </h3>
                   </div>
@@ -76,13 +77,13 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
                   />
                 )}
                 <div className='mt-2'>
-                  <Button asChild variant={'secondary'} size={'sm'}>
+                  <Button asChild>
                     <Link
                       href={`/project/${project.id}`}
                       rel='canonical'
                       prefetch={true}
                     >
-                      Read more <ArrowRight className='w-5 h-5 ml-2' />
+                      Read more <ArrowRight className='w-5 h-5 ml-1' />
                     </Link>
                   </Button>
                   <EditAsAdmin

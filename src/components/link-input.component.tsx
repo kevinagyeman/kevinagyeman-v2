@@ -70,7 +70,7 @@ export default function LinkInput({ data, setter }: LinkInputProps) {
         {data.links?.map((link: Url, index: number) => (
           <div
             key={index}
-            className='p-3 bg-zinc-100 dark:bg-zinc-900 rounded-lg flex flex-col gap-y-1'
+            className='p-3 bg-muted-foreground/5 rounded-lg flex flex-col gap-y-1'
           >
             <div>
               <Label className='text-xs'>Label</Label>

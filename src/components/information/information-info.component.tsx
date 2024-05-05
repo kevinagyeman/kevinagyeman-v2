@@ -6,7 +6,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '../../../navigation';
-import LinksList from '../LinksList.component';
+import LinksList from '../links-list';
 import BreadcrumbMenu from '../breadcrumb-menu.component';
 import SkillsList from '../skills-list.component';
 import EditAsAdmin from '../edit-as-admin.component';

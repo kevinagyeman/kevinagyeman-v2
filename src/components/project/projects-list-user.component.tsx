@@ -8,6 +8,7 @@ import { ProjectSchema } from '../../types/project-schema';
 import SkillsList from '../skills-list.component';
 import { Button } from '../ui/button';
 import EditAsAdmin from '../edit-as-admin.component';
+import TitleSection from '../title-section';
 
 type ProjectsListUserProps = {
   projects: ProjectSchema[];
@@ -17,11 +18,11 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
 
   return (
     <div className='py-5 max-w-5xl m-auto'>
-      <h2 className='mb-2 scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0'>
-        {t('projects.title')}
-      </h2>
-      <p className='text-muted-foreground'>{t('projects.description')}</p>
-      <div className='lg:grid lg:grid-cols-3 gap-3 py-3 flex flex-col'>
+      <TitleSection
+        title={t('projects.title')}
+        subtitle={t('projects.description')}
+      />
+      <div className='lg:grid lg:grid-cols-3 gap-3 flex flex-col'>
         {projects?.map((project: ProjectSchema, index: number) => (
           <div key={index} className='rounded-xl overflow-hidden border '>
             <div>
@@ -32,7 +33,7 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
                   width='0'
                   height='0'
                   sizes='100vw'
-                  className='w-full h-auto object-cover rounded-lg'
+                  className='w-full h-auto object-cover'
                   style={{ aspectRatio: '4/3' }}
                 />
               )}
@@ -44,14 +45,6 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
               <h3 className='truncate text-2xl font-semibold'>
                 {project.title}
               </h3>
-              {/* <div>
-                <DisplayCompanyDate
-                  startDate={project.startDate}
-                  endDate={project.endDate}
-                  company={project.company}
-                  isPresentDate={project.isPresentDate}
-                />
-              </div> */}
               <p className='line-clamp-2 text-muted-foreground'>
                 {project.shortDescription}
               </p>
@@ -63,14 +56,14 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
                 />
               )}
               <div>
-                <Button asChild variant={'secondary'}>
+                <Button asChild>
                   <Link
                     href={`/project/${project.id}`}
                     rel='canonical'
                     prefetch={true}
                   >
                     Read More
-                    <ArrowRight className='w-5 h-5 ml-2' />
+                    <ArrowRight className='w-5 h-5 ml-1' />
                   </Link>
                 </Button>
                 <EditAsAdmin

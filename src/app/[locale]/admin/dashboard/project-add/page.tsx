@@ -55,7 +55,7 @@ const AddProject = () => {
         <div>
           <ProjectForm submitFunction={addProject} />
         </div>
-        <div className='sticky bottom-0 py-5 dark:bg-zinc-950 bg-white border-t'>
+        <div className='sticky bottom-0 py-5 bg-background border-t'>
           <small className='text-muted-foreground'>{project.title}</small>
           <div className='flex gap-x-2 items-center'>
             <div className='grow'>

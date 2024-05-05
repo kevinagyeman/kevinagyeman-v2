@@ -5,7 +5,7 @@ import { InformationSchema } from '@/types/information-schema';
 import { getInformation } from '@/utils/server-utils';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata, ResolvingMetadata, Viewport } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { Inter } from 'next/font/google';
 import '../globals.css';
@@ -25,6 +25,12 @@ const jsonLd = {
 type Props = {
   params: { id: string; locale: string };
   searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export const viewport: Viewport = {
+  initialScale: 1,
+  width: 'device-width',
+  maximumScale: 1,
 };
 
 export async function generateMetadata(
@@ -82,7 +88,7 @@ export default function RootLayout({ children, params: { locale } }: any) {
               disableTransitionOnChange
             >
               <Navbar />
-              <div className='container'>
+              <div className='container mt-5'>
                 {children}
                 <Analytics debug={false} />
                 <SpeedInsights debug={false} />

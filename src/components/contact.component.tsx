@@ -8,38 +8,13 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useState } from 'react';
 import BreadcrumbMenu from './breadcrumb-menu.component';
+import TitleSection from './title-section';
 
 type ContactProps = {
   information: InformationSchema;
 };
 
 export default function Contact({ information }: ContactProps) {
-  const t = useTranslations('contact');
-
-  return (
-    <>
-      <BreadcrumbMenu pageName={t('title')} />
-      <div className='mt-5'>
-        <h2 className='mb-2 text-3xl font-semibold'>{t('title')}</h2>
-        <p className='text-muted-foreground'>{t('description')}</p>
-        <div className='mt-5 flex space-x-2'>
-          <InputEmail information={information} />
-          <Button variant='secondary' className='shrink-0' asChild>
-            <Link href={`mailto:${information?.email}`}>
-              <Send className='h-4 w-4' />
-            </Link>
-          </Button>
-        </div>
-      </div>
-    </>
-  );
-}
-
-type InputEmailProps = {
-  information: InformationSchema;
-};
-
-const InputEmail = ({ information }: InputEmailProps) => {
   const t = useTranslations('contact');
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
@@ -53,17 +28,28 @@ const InputEmail = ({ information }: InputEmailProps) => {
 
   return (
     <>
-      <Input
-        value={!isCopied ? information?.email : t('alertEmailCopied')}
-        readOnly
-      />
-      <Button
-        variant='secondary'
-        className='shrink-0'
-        onClick={() => copyText()}
-      >
-        <Copy className='h-4 w-4' />
-      </Button>
+      <BreadcrumbMenu pageName={t('title')} />
+      <TitleSection title={t('title')} subtitle={t('description')} />
+      <div className='gap-x-2 flex max-w-sm'>
+        <div className='grow'>
+          <Input
+            value={!isCopied ? information?.email : t('alertEmailCopied')}
+            readOnly
+          />
+        </div>
+        <div className='flex-none'>
+          <Button variant='secondary' size={'icon'} onClick={() => copyText()}>
+            <Copy className='h-4 w-4' />
+          </Button>
+        </div>
+        <div className='flex-none'>
+          <Button size={'icon'} asChild>
+            <Link href={`mailto:${information?.email}`}>
+              <Send className='h-4 w-4' />
+            </Link>
+          </Button>
+        </div>
+      </div>
     </>
   );
-};
+}

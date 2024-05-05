@@ -36,7 +36,7 @@ export default function Navbar() {
   return (
     <Disclosure
       as='nav'
-      className='sticky top-0 z-50 mb-5 border-b bg-white/80 backdrop-blur-sm dark:bg-zinc-950/80'
+      className='sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm'
     >
       {({ open }: any) => (
         <>
@@ -60,7 +60,7 @@ export default function Navbar() {
                     <Logo />
                   </Link>
                 </div>
-                <div className='hidden sm:ml-6 sm:block'>
+                <div className='hidden sm:ml-6 sm:block w-full'>
                   <div className='flex space-x-4'>
                     {navigation.map((item) => (
                       <Button asChild variant={'ghost'} key={item.name}>
@@ -88,7 +88,7 @@ export default function Navbar() {
                   href={item.href}
                   key={index}
                   className={
-                    'text-light hover:text-light block rounded-md px-3 py-2 text-base font-medium hover:bg-zinc-800'
+                    'text-light hover:text-light block rounded-md px-3 py-2 text-base font-medium'
                   }
                 >
                   <Disclosure.Button>{item.name}</Disclosure.Button>

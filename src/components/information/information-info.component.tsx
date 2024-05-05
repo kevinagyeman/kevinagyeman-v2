@@ -21,7 +21,7 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
   return (
     <>
       <BreadcrumbMenu pageName={t('hero.readMore')} />
-      <div className='lg:flex gap-28'>
+      <div className='lg:flex gap-10'>
         <div className='lg:w-1/5 flex-col flex gap-y-5'>
           <EditAsAdmin href='/admin/dashboard/information-edit' />
           {information?.profileImageLink && (

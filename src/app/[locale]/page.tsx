@@ -50,10 +50,16 @@ export default async function Index() {
         <Hero information={JSON.parse(JSON.stringify(information))} />
       ) : null}
       {worksList ? (
-        <WorkListUser worksList={JSON.parse(JSON.stringify(worksList))} />
+        <div className='py-5 max-w-5xl m-auto'>
+          <WorkListUser worksList={JSON.parse(JSON.stringify(worksList))} />
+        </div>
       ) : null}
       {projectsList ? (
-        <ProjectsListUser projects={JSON.parse(JSON.stringify(projectsList))} />
+        <div className='py-5 max-w-5xl m-auto'>
+          <ProjectsListUser
+            projects={JSON.parse(JSON.stringify(projectsList))}
+          />
+        </div>
       ) : null}
     </>
   );

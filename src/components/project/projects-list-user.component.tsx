@@ -17,7 +17,7 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
   const t = useTranslations('index');
 
   return (
-    <div className='py-5 max-w-5xl m-auto'>
+    <>
       <TitleSection
         title={t('projects.title')}
         subtitle={t('projects.description')}
@@ -74,6 +74,6 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }

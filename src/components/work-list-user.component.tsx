@@ -28,13 +28,11 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
   const plugin = React.useRef(Autoplay({ delay: 2000 }));
 
   return (
-    <div className='py-5 max-w-5xl m-auto'>
-      <div className='px-4'>
-        <TitleSection
-          title={'Relevant work experience'}
-          subtitle={' A list of some relevant experiences'}
-        />
-      </div>
+    <>
+      <TitleSection
+        title={'Relevant work experience'}
+        subtitle={' A list of some relevant experiences'}
+      />
       <Carousel
         opts={{
           align: 'start',
@@ -42,7 +40,6 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
         plugins={[plugin.current]}
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
-        className='pl-4'
       >
         <CarouselContent className='w-full'>
           {worksList?.map((project: ProjectSchema, index: number) => (
@@ -103,6 +100,6 @@ export default function WorkListUser({ worksList }: WorkListUserProps) {
           </div>
         </div>
       </Carousel>
-    </div>
+    </>
   );
 }

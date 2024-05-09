@@ -8,6 +8,8 @@ import BreadcrumbMenu from '../breadcrumb-menu.component';
 import DisplayCompanyDate from '../display-company-date.component';
 import EditAsAdmin from '../edit-as-admin.component';
 import SkillsList from '../skills-list.component';
+import ShortDescription from '../short-description.component';
+import Description from '../description.component';
 
 type ProjectInfoProps = {
   project: ProjectSchema;
@@ -44,19 +46,12 @@ export default function ProjectsInfo({ project }: ProjectInfoProps) {
             company={project.company}
             isPresentDate={project.isPresentDate}
           />
-          <p className='text-xl text-muted-foreground  font-extralight'>
-            {project.shortDescription}
-          </p>
-
-          {project.description && (
-            <p className='text-xl font-extralight'>{project.description}</p>
-          )}
+          <ShortDescription string={project.shortDescription} />
+          <Description string={project.description} />
         </div>
         <div className='lg:w-1/5 flex flex-col gap-y-10'>
-          {project.skills && (
-            <SkillsList skills={project.skills} type='detail' />
-          )}
-          {project.links && <LinksList links={project.links} />}
+          <SkillsList skills={project.skills} type='detail' />
+          <LinksList links={project.links} />
         </div>
       </div>
     </>

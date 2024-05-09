@@ -10,6 +10,8 @@ import LinksList from '../links-list';
 import BreadcrumbMenu from '../breadcrumb-menu.component';
 import SkillsList from '../skills-list.component';
 import EditAsAdmin from '../edit-as-admin.component';
+import ShortDescription from '../short-description.component';
+import Description from '../description.component';
 
 type InformationInfoProps = {
   information: InformationSchema;
@@ -47,18 +49,12 @@ const InformationInfo = ({ information }: InformationInfoProps) => {
               </code>
             </h2>
           </div>
-          <p className='text-xl text-muted-foreground font-extralight'>
-            {information?.summary}
-          </p>
-          <p className='text-xl font-extralight'>
-            {information?.additionalInfo}
-          </p>
+          <ShortDescription string={information?.summary} />
+          <Description string={information?.additionalInfo} />
         </div>
         <div className='lg:w-1/5 flex flex-col gap-y-10'>
-          {information.skills && (
-            <SkillsList skills={information.skills} type='detail' />
-          )}
-          {information.links && <LinksList links={information.links} />}
+          <SkillsList skills={information.skills} type='detail' />
+          <LinksList links={information.links} />
         </div>
       </div>
     </>

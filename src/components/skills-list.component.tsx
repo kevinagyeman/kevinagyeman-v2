@@ -4,7 +4,7 @@ import { Badge } from './ui/badge';
 import { Check } from 'lucide-react';
 
 type SkillsListProps = {
-  skills: string[];
+  skills?: string[];
   numberOfSkills?: number;
   type: 'homepage' | 'detail';
   centered?: boolean;

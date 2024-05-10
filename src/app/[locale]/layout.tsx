@@ -87,11 +87,13 @@ export default function RootLayout({ children, params: { locale } }: any) {
               enableSystem
               disableTransitionOnChange
             >
-              <Navbar />
-              <div className='container mt-5'>
-                {children}
-                <Analytics debug={false} />
-                <SpeedInsights debug={false} />
+              <div className='flex h-screen flex-col'>
+                <Navbar />
+                <div className='container flex-1 py-5'>
+                  {children}
+                  <Analytics debug={false} />
+                  <SpeedInsights debug={false} />
+                </div>
                 <Footer />
               </div>
             </ThemeProvider>

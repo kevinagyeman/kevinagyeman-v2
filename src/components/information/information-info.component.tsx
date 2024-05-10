@@ -1,17 +1,14 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { InformationSchema } from '@/types/information-schema';
-import { ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { Link } from '../../../navigation';
-import LinksList from '../links-list';
 import BreadcrumbMenu from '../breadcrumb-menu.component';
-import SkillsList from '../skills-list.component';
-import EditAsAdmin from '../edit-as-admin.component';
-import ShortDescription from '../short-description.component';
 import Description from '../description.component';
+import EditAsAdmin from '../edit-as-admin.component';
+import LinksList from '../links-list';
+import ShortDescription from '../short-description.component';
+import SkillsList from '../skills-list.component';
 
 type InformationInfoProps = {
   information: InformationSchema;

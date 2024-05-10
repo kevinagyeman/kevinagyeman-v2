@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer>
-      <div className='mt-5 flex h-24 items-center justify-between gap-4'>
+      <div className='container flex h-24 items-center justify-between gap-4'>
         <div className='flex gap-2'>
           <Button variant='ghost' size='icon' className='rounded-full' asChild>
             <Link

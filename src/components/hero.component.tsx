@@ -1,7 +1,7 @@
 'use client';
 
 import { InformationSchema } from '@/types/information-schema';
-import { ChevronRight, File, Send, User } from 'lucide-react';
+import { ChevronRight, File, Github, Linkedin, Send, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import SkeletonLoader from './skeleton.component';
@@ -68,6 +68,38 @@ export default function Hero({ information }: HeroProps) {
               </Link>
             </Button>
             <EditAsAdmin href={'/admin/dashboard/information-edit'} />
+          </div>
+          <div>
+            <Button
+              variant='outline'
+              size='icon'
+              className='rounded-full'
+              asChild
+            >
+              <Link
+                href='https://github.com/kevinagyeman'
+                target='_blank'
+                aria-label='GitHub'
+              >
+                <Github className='h-4 w-4' />
+              </Link>
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant='outline'
+              size='icon'
+              className='rounded-full'
+              asChild
+            >
+              <Link
+                href='https://www.linkedin.com/in/kevinagyeman/'
+                target='_blank'
+                aria-label='Linkedin'
+              >
+                <Linkedin className='h-4 w-4' />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

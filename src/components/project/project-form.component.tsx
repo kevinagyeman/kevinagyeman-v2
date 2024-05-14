@@ -37,7 +37,7 @@ export default function ProjectForm({ submitFunction }: ProjectFormData) {
     <>
       <div className='max-w-xs my-10'>
         <Upload
-          label={'Upload an image in 4:3'}
+          label={'Upload an image in 16:9'}
           uploadFunction={uploadImage}
           setFile={(event: any) =>
             setProject({

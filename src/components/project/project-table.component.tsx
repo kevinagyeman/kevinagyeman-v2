@@ -23,12 +23,12 @@ export default function ProjectTable() {
                 height='0'
                 sizes='100vw'
                 className='w-[100px] h-auto object-cover rounded-lg'
-                style={{ aspectRatio: '4/3' }}
+                style={{ aspectRatio: '16/9' }}
               />
             ) : (
               <div
                 className='w-[100px] border rounded-lg justify-center items-center flex'
-                style={{ aspectRatio: '4/3' }}
+                style={{ aspectRatio: '16/9' }}
               >
                 <span className='text-xs'>Image missing</span>
               </div>

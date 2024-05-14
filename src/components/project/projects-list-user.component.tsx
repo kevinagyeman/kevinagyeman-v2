@@ -34,7 +34,7 @@ export default function ProjectsListUser({ projects }: ProjectsListUserProps) {
                   height='0'
                   sizes='100vw'
                   className='w-full h-auto object-cover'
-                  style={{ aspectRatio: '4/3' }}
+                  style={{ aspectRatio: '16/9' }}
                 />
               )}
             </div>

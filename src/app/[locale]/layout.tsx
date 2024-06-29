@@ -18,7 +18,7 @@ const jsonLd = {
   '@type': 'Person',
   name: 'Kevin Agyeman',
   image:
-    'https://firebasestorage.googleapis.com/v0/b/kevinagyeman-db.appspot.com/o/cover-site.png?alt=media&token=be8cef1a-0754-42ed-83c6-479c19cbefee',
+    'https://firebasestorage.googleapis.com/v0/b/kevinagyeman-db.appspot.com/o/website-preview-cover.png?alt=media&token=2a47d546-bae6-452b-a56d-1c9740adacc5',
   description: 'Web Developer',
 };
 
@@ -53,12 +53,12 @@ export async function generateMetadata(
       siteName: 'Kevin Agyeman',
       images: [
         {
-          url: `https://firebasestorage.googleapis.com/v0/b/kevinagyeman-db.appspot.com/o/cover-site.png?alt=media&token=be8cef1a-0754-42ed-83c6-479c19cbefee`,
+          url: `https://firebasestorage.googleapis.com/v0/b/kevinagyeman-db.appspot.com/o/website-preview-cover.png?alt=media&token=2a47d546-bae6-452b-a56d-1c9740adacc5`,
           width: 800,
           height: 600,
         },
         {
-          url: `https://firebasestorage.googleapis.com/v0/b/kevinagyeman-db.appspot.com/o/cover-site.png?alt=media&token=be8cef1a-0754-42ed-83c6-479c19cbefee`,
+          url: `https://firebasestorage.googleapis.com/v0/b/kevinagyeman-db.appspot.com/o/website-preview-cover.png?alt=media&token=2a47d546-bae6-452b-a56d-1c9740adacc5`,
           width: 1800,
           height: 1600,
         },
